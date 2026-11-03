@@ -31,80 +31,67 @@ MUSIC_GAIN = 0.2  # background music level before ducking (about 6 dB under the 
 
 # Intro / outro scenes: (id, section, badge, minimum seconds, [(kind, text)]).
 # Lines play back to back (LINE_GAP apart); a scene lasts until its last line ends plus TAIL, or its minimum.
+# Narration drafted by Muse Spark (spark-script.mjs → spark-script.json), edited for speech and accuracy.
 INTRO = [
     ("title", "Title", "", 2.2, []),
-    ("hero", "", "", 5.5, [("hero", "I can’t read this screen. Help me."), ("narr", "Millions of us say this to machines every day.")]),
-    ("brand", "", "", 3.2, [("narr", "AccessPoint. Point your phone. Hear the next step.")]),
-    ("problem", "Problem", "", 9, [
-        ("narr", "The world went self-service just as it started to age."),
-        ("narr", "One in six people will be over sixty by 2030."),
-        ("narr", "But a chatbot pointed at a machine can do real harm."),
-        ("narr", "Wrong buttons. PINs on camera. Steps skipped."),
+    ("hero", "", "", 5.5, [("hero", "I can’t read this screen. Help me."), ("narr", "Many people feel this, every day.")]),
+    ("brand", "", "", 3.2, [("narr", "AccessPoint. Stuck at a machine? Send a photo.")]),
+    ("problem", "Problem", "", 8, [
+        ("narr", "Machines replaced the counters, just as the world grew older."),
+        ("narr", "And a chatbot that guesses can press the wrong button."),
     ]),
-    ("approach", "Approach", "", 6.2, [("narr", "So the model suggests, and the camera confirms."), ("narr", "Every step is checked. Your PIN is never seen.")]),
-    ("arch", "Architecture", "Live pipeline in progress", 11, [
-        ("narr", "SAM 3.1 finds the screen, buttons and slots."),
-        ("narr", "Muse Spark reads the screen and plans one step."),
-        ("narr", "Muse Voice hears you, in twenty-five languages."),
-        ("narr", "Code checks each step, and pauses the camera for PINs."),
+    ("arch", "How it works", "All four Meta models tested live", 11, [
+        ("narr", "Muse Spark reads the photo and plans one step."),
+        ("narr", "SAM 3.1 outlines every button precisely."),
+        ("narr", "Muse Voice hears you in twenty-five languages."),
+        ("narr", "And code points only where both models agree."),
     ]),
-    ("guard", "Guardrails", "Working now, or designed for the live pipeline", 10, [
-        ("narr", "Every model gets one job, and hard limits."),
-        ("narr", "SAM never sees your PIN."),
-        ("narr", "Spark only suggests. Screen text can’t give it orders."),
-        ("narr", "Voice is muted for PINs. Code maps words to buttons."),
+    ("guard", "Guardrails", "Enforced in code, tested", 6, [
+        ("narr", "It never needs your PIN, and never guesses."),
+        ("narr", "It stops wrong totals. You press every button."),
     ]),
 ]
 OUTRO = [
-    ("langs", "Languages", "", 4.5, [("narr", "Twenty-five languages, and the mixes people really speak.")]),
-    ("results", "Results", "", 5, [("narr", "We measured it. Zero guesses on ambiguous answers.")]),
-    ("close", "Responsible AI", "", 5, [("narr", "Independence by design. Built on Meta’s models.")]),
+    ("scen", "Every scenario", "Scenario mode, demo kiosks we built", 5, [("narr", "Eight scenarios, six machines, any of twenty-five languages.")]),
+    ("results", "Results", "Real Meta models, 3 Nov 2026", 5.2, [("narr", "We tested it on the real models.")]),
+    ("close", "Responsible AI", "", 5.5, [("narr", "Independence by design. Try it in your browser.")]),
 ]
 LINE_GAP = 0.3
-TAIL = {"arch": 1.2, "guard": 1.0, "results": 1.4, "close": 1.4}  # extra hold after the last line (default 0.5)
+TAIL = {"arch": 1.4, "guard": 1.0, "results": 1.9, "close": 2.0}  # extra hold after the last line (default 0.5)
 
 # Demo scenes. Beats run in order; "tap" and "say" are the only things that change the screen.
 #   ("narr", text) | ("app", exact spoken line, translation or None) | ("tap", testID, panel status)
 #   ("say", chip testID, speaker, words, panel status)   -> opens the mic, taps a suggested phrase
 # Panel status: (phase, tone, icon, title, subtitle)
 DEMOS = [
-    dict(id="atm", section="Demo", count="Demo 1 of 3", title="Cash, without asking a stranger",
-         quote="Mrs Tan, 78, lives alone. Her bank branch closed.",
-         prep=("start/atm", "Point your phone at the ATM.", []),
+    dict(id="airport", section="The app", count="App demo 1 of 2", title="First flight, from a sticker",
+         quote="Amara is flying alone for the first time.",
+         prep=("start/airport", "Point your phone at the check-in kiosk.", []),
          status=(0, "normal", "QR", "Opened from the sticker", "One screen, one button"),
-         beats=[("narr", "Mrs Tan, seventy-eight, scans the sticker on the ATM. One button."),
-                ("tap", "start-button", (0, "normal", "CARD", "Card slot found", "Bottom left, highlighted for her")),
-                ("narr", "It finds the card slot for her."),
-                ("tap", "action-Card is in", (2, "normal", "ASK", "Asking, not guessing", "The screen asks: savings or current?")),
-                ("app", "The screen asks: savings, or current account?", None),
-                ("tap", "action-Savings", (3, "paused", "LOCK", "PIN mode", "Camera off. Nothing sent.")),
-                ("app", "Type your PIN now. My camera is off, so I can’t see it. The five has a raised dot.", None)]),
-    dict(id="checkout", section="Demo", count="Demo 2 of 3", title="In her own language",
-         quote="Siti, a helper in Singapore, at self-checkout. Steps in Bahasa Indonesia.",
-         prep=("guide/checkout", "Arahkan barcode ke kaca pemindai.", []),
-         status=(3, "normal", "GLOBE", "English screen, Bahasa steps", "Scanner glass found"),
-         beats=[("narr", "Siti works in Singapore. She hears every step in Bahasa."),
-                ("app", "Arahkan barcode ke kaca pemindai. Tunggu bunyi bip.", "Hold the barcode over the scanner glass. Wait for the beep."),
-                ("tap", "action-Sudah bip", (1, "normal", "ASK", "Explaining the machine", "“Unexpected item in bagging area”")),
-                ("app", "Ada barang tak dikenal di area kantong. Angkat barang terakhir, lalu taruh lagi.", "Unknown item in the bagging area. Lift the last item, then put it back.")]),
-    dict(id="airport", section="Demo", count="Demo 3 of 3", title="First flight, by voice",
-         quote="Amara, flying alone for the first time.",
-         prep=("guide/airport", "Put your passport on the glass, photo page down.", []),
-         status=(3, "normal", "CARD", "Passport reader found", "Photo page down, on the glass"),
-         beats=[("narr", "Amara is flying alone for the first time."),
+         beats=[("narr", "Amara scans the sticker on the kiosk. One button."),
+                ("tap", "start-button", (3, "normal", "CARD", "Passport reader found", "Photo page down, on the glass")),
+                ("app", "Put your passport on the glass below the screen, photo page down.", None),
                 ("tap", "action-It’s on the glass", (2, "normal", "ASK", "Asking, not guessing", "“Is that you?”")),
                 ("app", "It found Amara Okafor, flying to Singapore. Is that you?", None),
                 ("say", "say-0", "Amara", "Yes, that’s me.", (2, "normal", "MIC", "She answers by voice", "Code maps “yes” to the right button")),
                 ("app", "Would you like a window seat, or an aisle seat?", None),
                 ("say", "say-0", "Amara", "Window.", (4, "normal", "PRINT", "Confirmed, not assumed", "Boarding pass printing")),
                 ("app", "Your boarding pass is printing on the right. Gate C twenty two.", None)]),
-    dict(id="mismatch", section="Safety", count="Safety 1 of 2", title="That’s not what you asked",
-         quote="She asked for cash. The screen wants S$ 1,000 sent.",
-         prep=("guide/mismatch", "This screen wants to send S$ 1,000.", []),
-         status=(2, "stop", "STOP", "Stopped", "Points her to Cancel, not Confirm"),
-         beats=[("app", "Stop. This screen wants to send a thousand dollars. You asked for cash. Press Cancel, on the left.", None),
-                ("tap", "action-I pressed Cancel", (4, "normal", "CHECK", "Nothing was sent", "Cancel confirmed by camera")),
-                ("app", "Cancelled. Nothing was sent. If someone asked you to do this, it may be a scam.", None)]),
+    dict(id="ticket", section="The app", count="App demo 2 of 2", title="Finding the slot, without sight", scene=0.01,
+         quote="Daniel is blind. He’s buying a train ticket.",
+         prep=("guide/ticket", "Ticket to the airport, S$ 4.20.", ["action-Guide me"]),
+         status=(3, "normal", "HAND", "Guiding his hand", "Card slot: down, a little left"),
+         beats=[("narr", "Daniel is blind. AccessPoint guides his hand to the slot."),
+                ("app", "Move down, and a little to the left.", None),
+                ("tap", "action-I moved", (3, "normal", "CHECK", "Right on the slot", "Seen by the camera")),
+                ("app", "Stop. The slot is right under your fingers. Push the card in.", None)]),
+    dict(id="mismatch", section="Safety", count="Safety 1 of 2", title="That total looks wrong",
+         quote="One carton of milk. The screen wants S$ 42.",
+         prep=("guide/mismatch", ".*for one milk.*", []),
+         status=(2, "stop", "STOP", "Stopped", "Points him to Cancel, not Pay"),
+         beats=[("app", "Stop. This screen wants forty-two dollars for one milk. The milk is four dollars twenty. Don’t pay. Press Cancel, on the left.", None),
+                ("tap", "action-I pressed Cancel", (4, "normal", "CHECK", "Nothing was paid", "Cancel confirmed by camera")),
+                ("app", "Cancelled. Nothing was paid. A staff member is coming to fix the total.", None)]),
     dict(id="glare", section="Safety", count="Safety 2 of 2", title="Not sure, so not guessing",
          quote="Glare hides the screen.",
          prep=("guide/glare", "I can’t see the buttons clearly.", []),
@@ -112,6 +99,36 @@ DEMOS = [
          beats=[("app", "I can’t see the buttons clearly. Tilt the phone up a little.", None),
                 ("tap", "action-Try again", (2, "normal", "ASK", "Now it can read", "Asks again: window or aisle?")),
                 ("app", "Now I can see. Window seat, or aisle seat?", None)]),
+]
+
+# Chat scenes replay real replies captured from the bot (capture-chats.mjs: bot/src/converse.js, real Meta models).
+#   show: message indices visible at the start · events: (time, message index) · voice: (time, message index, max seconds)
+#   lines: (time, narrator text) · see: (time, message index) opens the marked photo
+CHATS = [
+    dict(id="amara", platform="telegram", count="Chat 1 of 3", title="Telegram, live",
+         quote="Amara sends a photo of the seat screen.",
+         badge="Live on Telegram · real Muse Spark and SAM 3.1 replies · waiting time shortened",
+         status=("SPARK", "Muse Spark reads the photo", "Asks, never chooses for her"),
+         show=[2, 3], events=[(1.0, 4), (4.2, 5), (8.6, 6), (9.6, 7)], typing=[(1.5, 4.2), (8.9, 9.6)],
+         voice=[(10.1, 7, 4.5)], see=(12.4, 7), length=15.5,
+         lines=[(0.3, "No app needed. The same assistant works in chat."), (4.6, "Muse Spark asks: window or aisle? She taps Window.")],
+         beats=[(8.8, "TAP", "SAM 3.1 and Muse Spark agree", "“In the middle, on the left”"), (12.4, "EYE", "See where", "Her photo, with the button outlined")]),
+    dict(id="siti", platform="whatsapp", count="Chat 2 of 3", title="WhatsApp",
+         quote="Siti sends a photo of the self-checkout.",
+         badge="Preview · real replies from the same code · WhatsApp connects after Meta app review",
+         status=("GLOBE", "Reply in Bahasa Indonesia", "Text first, then a voice note"),
+         show=[2, 3], events=[(0.8, 4), (3.2, 5)], typing=[(1.2, 3.2)],
+         voice=[(4.0, 5, 5.5)], see=None, length=10.2,
+         lines=[(0.3, "On WhatsApp, Siti gets the step in Bahasa, as text and voice.")],
+         beats=[(3.6, "WAVE", "Spoken in her language", "Every reply arrives as a voice note too")]),
+    dict(id="lim", platform="messenger", count="Chat 3 of 3", title="Messenger",
+         quote="Mr Lim is buying one carton of milk.",
+         badge="Preview · real replies from the same code · Messenger connects after Meta app review",
+         status=("STOP", "A clear stop", "S$ 42.00 for one milk"),
+         show=[4, 5], events=[(0.8, 6), (3.2, 7)], typing=[(1.2, 3.2)],
+         voice=[(4.0, 7, 4.5)], see=None, length=12.6,
+         lines=[(0.3, "On Messenger, Mr Lim’s photo gets a clear stop."), (8.8, "Scan the sticker, the chat opens. Nothing to install.")],
+         beats=[(3.4, "STOP", "Stopped by code, not by luck", "Total doesn’t match the item")]),
 ]
 
 GAP = 0.3         # silence between consecutive spoken lines
@@ -197,8 +214,8 @@ def cmd_flows():
 
 
 # ---------------------------------------------------------------- timeline
-def screen_changes(path):
-    out = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(path), "-vf", "select='gt(scene,0.05)',showinfo", "-f", "null", "-"],
+def screen_changes(path, threshold=0.05):
+    out = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(path), "-vf", f"select='gt(scene,{threshold})',showinfo", "-f", "null", "-"],
                          capture_output=True, text=True).stderr
     times, merged, prev = [float(t) for t in re.findall(r"pts_time:([0-9.]+)", out)], [], None
     for t in times:
@@ -234,7 +251,7 @@ def cmd_timeline():
     for d in DEMOS:
         raw, cfr = DEMO / "clips/raw" / f"{d['id']}.mp4", DEMO / "clips/cfr" / f"{d['id']}.mp4"
         run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(raw), "-vf", "fps=30", "-c:v", "libx264", "-preset", "veryfast", "-crf", "14", "-pix_fmt", "yuv420p", "-an", str(cfr)])
-        changes = screen_changes(cfr)
+        changes = screen_changes(cfr, d.get("scene", 0.05))
         n_taps = sum(1 if b[0] == "tap" else 2 for b in d["beats"] if b[0] in ("tap", "say"))
         if len(changes) < n_taps:
             sys.exit(f"{d['id']}: expected {n_taps} screen changes, found {len(changes)} ({changes}). Re-record this clip.")
@@ -289,6 +306,27 @@ def cmd_timeline():
         t += scene_len
 
     demo_span = (scenes[f"demo-{DEMOS[0]['id']}"]["start"], t)
+
+    chats = []
+    for c in CHATS:
+        msgs = json.loads((HERE / "assets/chat" / f"{c['id']}.json").read_text())
+        for at, text in c["lines"]:
+            a = tts(text, NARRATOR)
+            captions.append(dict(start=round(t + at, 3), end=round(t + at + duration(a) + 0.2, 3), kind="narr", text=text))
+            audio.append((t + at, a, "voice"))
+        voices = []
+        for at, idx, max_s in c["voice"]:
+            src = HERE / "assets/chat" / msgs[idx]["voice"]
+            clip = HERE / "audio" / f"chat-{c['id']}-{idx}.mp3"
+            dur = min(duration(src), max_s)
+            run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(src), "-t", f"{dur:.2f}", "-af", f"afade=t=out:st={max(dur - 0.6, 0):.2f}:d=0.6", str(clip)])
+            audio.append((t + at, clip, "app"))
+            voices.append(dict(at=at, idx=idx, dur=round(duration(src), 1)))
+        scenes[f"chat-{c['id']}"] = dict(start=round(t, 3), end=round(t + c["length"], 3), section="No app needed", badge=c["badge"])
+        chats.append(dict(start=round(t, 3), end=round(t + c["length"], 3), platform=c["platform"], count=c["count"], title=c["title"], quote=c["quote"],
+                          status=c["status"], beats=c["beats"], msgs=msgs, show=c["show"], events=c["events"], typing=c["typing"], voices=voices, see=c["see"]))
+        print(f"  chat-{c['id']:6s} {c['length']:5.1f}s")
+        t += c["length"]
     add_static(OUTRO)
     total = round(t, 3)
     print(f"total {total:.1f}s (limit {LIMIT}s)")
@@ -299,7 +337,7 @@ def cmd_timeline():
     arch_end = scenes["arch"]["end"] - scenes["arch"]["start"]
     arch_nodes = [m[0], m[1], m[2], m[3], m[3] + 1.4, arch_end - 1.4]
     timeline = dict(duration=total, scenes=scenes, captions=captions, demos=demos, clips=clip_slots,
-                    demoSpan=demo_span, archNodes=arch_nodes)
+                    demoSpan=demo_span, archNodes=arch_nodes, chats=chats)
     (HERE / "timeline.js").write_text("// Generated by build.py. Do not edit by hand.\nwindow.TIMELINE = " + json.dumps(timeline, ensure_ascii=False, indent=1) + ";\n")
     (HERE / "timeline.json").write_text(json.dumps(timeline, ensure_ascii=False))
 
@@ -345,8 +383,11 @@ def cmd_compose():
     inputs += ["-loop", "1", "-i", "assets/phone-frame@2x.png"]
     filt.append(f"[{prev}][{n}:v]overlay={FRAME['x']}:{FRAME['y']}:enable='between(t,{a},{b})'[vout]")
     run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *inputs, "-filter_complex", ";".join(filt), "-map", "[vout]", "-map", "1:a",
-         "-t", str(tl["duration"]), "-r", str(FPS), "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-profile:v", "high", "-level", "5.1",
-         "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "256k", "-movflags", "+faststart", str(DEMO / "accesspoint-demo.mp4")], cwd=HERE)
+         "-t", str(tl["duration"]), "-r", str(FPS), "-c:v", "libx264", "-preset", "slow", "-crf", "8", "-profile:v", "high", "-level", "5.2",
+         # YouTube's upload guide: 4K30 SDR at 35 to 45 Mbps, closed GOP of half the frame rate, 2 B-frames, BT.709 tags
+         "-minrate", "35M", "-maxrate", "60M", "-bufsize", "120M", "-x264-params", "keyint=15:min-keyint=15:bframes=2:open-gop=0:colorprim=bt709:transfer=bt709:colormatrix=bt709",
+         "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv",
+         "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "384k", "-ar", "48000", "-movflags", "+faststart", str(DEMO / "accesspoint-demo.mp4")], cwd=HERE)
     print(f"wrote {DEMO / 'accesspoint-demo.mp4'} ({tl['duration']:.1f}s, 3840x2160)")
 
 

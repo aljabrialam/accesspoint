@@ -1,0 +1,10 @@
+appId: host.exp.Exponent
+---
+- runFlow: ../../mobile/.maestro/subflows/close-open-guide.yaml
+- openLink: exp://127.0.0.1:8081/--/guide/ticket
+- extendedWaitUntil:
+    visible: "Ticket to the airport, S$ 4.20."
+    timeout: 20000
+- waitForAnimationToEnd
+- tapOn: { id: "action-Guide me" }
+- waitForAnimationToEnd

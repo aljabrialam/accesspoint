@@ -26,15 +26,17 @@ export function seePage(id, l, mark) {
 <div class="label">${esc(L.press(label))}</div><p class="note">${esc(L.seeNote)}</p>`, { title: L.seeTitle, lang: l });
 }
 
-export const HOME = () => html(`<h1>A patient guide for any machine.</h1>
-<p>Send AccessPoint a photo of an ATM, ticket machine or kiosk screen on Messenger or WhatsApp. It tells you the one next step, in your language, and stops you when something looks wrong.</p>
+export const HOME = () => html(`<h1>Stuck at a machine? Send a photo. Get the next step.</h1>
+<p>AccessPoint helps people who struggle with self-service machines (ATMs, ticket machines, check-in kiosks, self-checkouts) get through them safely: send a photo of the screen on Messenger or WhatsApp, and get the next step in your own language.</p>
+<p>For older people, blind and low-vision people, and migrants and travellers. It never presses, pays or types for you, and never needs your PIN.</p>
+<p><a href="/try"><b>Try it in your browser</b></a> (same code as the Messenger and WhatsApp bot).</p>
 <p>Built for the Meta Global AI Developer Hackathon with Muse Spark, SAM 3.1 and Muse Voice Transcribe.</p>
 <p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/data-deletion">Data deletion</a></p>`, { cache: "public, max-age=3600" });
 
 export const PRIVACY = () => html(`<h1>Privacy policy</h1><p>Last updated: 3 November 2026</p>
 <p>AccessPoint helps people use public machines from a photo of the screen, on Messenger and WhatsApp.</p>
 <h2>What we receive</h2><p>Your messages, photos and voice notes, and the ID Meta gives your chat with us. We don't receive your name, phone contacts or location. On WhatsApp, Meta shares your phone number with us to reply; we don't store it anywhere else.</p>
-<h2>How we use it</h2><p>Photos are sent to Meta's Muse Spark and SAM 3.1 models to read the screen and find the button. Voice notes are converted to audio for Meta's Muse Voice Transcribe and then discarded. We use them only to reply to you.</p>
+<h2>How we use it</h2><p>Photos are sent to Meta's Muse Spark and SAM 3.1 models to read the screen and find the button. Voice notes are converted to audio for Meta's Muse Voice Transcribe and then discarded. To read our replies aloud, the reply text (not your photo or voice) is sent to Microsoft's text-to-speech service. We use all of this only to reply to you.</p>
 <h2>What we keep, and for how long</h2><p>Your language, the machine you're at, your goal and the last step, for up to 1 hour. A photo is kept for up to 10 minutes so you can open "See where" and answer the next question. Photos of PIN screens and unreadable photos are deleted straight away. Voice notes are never stored.</p>
 <h2>What we never do</h2><p>We never ask for your PIN or passwords, never sell or share your data, and never use it for advertising or training.</p>
 <h2>Deleting your data</h2><p>See <a href="/data-deletion">data deletion</a>.</p>`, { title: "Privacy · AccessPoint", cache: "public, max-age=3600" });

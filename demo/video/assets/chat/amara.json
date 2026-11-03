@@ -1,0 +1,82 @@
+[
+  {
+    "from": "user",
+    "text": "/start"
+  },
+  {
+    "from": "bot",
+    "text": "Choose a language · Pumili ng wika · Pilih bahasa · 选择语言 · Elige un idioma",
+    "choices": [
+      "English",
+      "Filipino",
+      "Bahasa Indonesia",
+      "Bahasa Melayu",
+      "中文",
+      "Español"
+    ],
+    "link": null,
+    "ms": 1
+  },
+  {
+    "from": "user",
+    "text": "English",
+    "tap": true
+  },
+  {
+    "from": "bot",
+    "text": "Hi, I'm AccessPoint. I help you use ticket machines, check-in kiosks, self-checkouts and other machines, one step at a time.\n\nI never need your PIN. Nothing you send is kept.\n\nWhat do you want to do? Type or send a voice note. Or just send a photo of the screen.",
+    "choices": [
+      "Help",
+      "Language"
+    ],
+    "link": null,
+    "voice": "amara-voice-1.mp3",
+    "ms": 5911
+  },
+  {
+    "from": "user",
+    "photo": "airport-seat.jpg"
+  },
+  {
+    "from": "bot",
+    "text": "This looks like an airport self check-in kiosk.\n\nThe screen says: The screen asks to Choose your seat for Flight SQ 943.\n\nWhich seat do you want: Window 14A, Aisle 14C, or Keep my seat?\n• Window 14A: Window seat 14A\n• Aisle 14C: Aisle seat 14C\n• Keep my seat: Keep current seat",
+    "choices": [
+      "Window 14A",
+      "Aisle 14C",
+      "Keep my seat",
+      "Repeat"
+    ],
+    "link": null,
+    "voice": "amara-voice-2.mp3",
+    "ms": 14703
+  },
+  {
+    "from": "user",
+    "text": "Window 14A",
+    "tap": true
+  },
+  {
+    "from": "bot",
+    "text": "Press \"Window 14A\". \"Window 14A\" is in the middle, on the left.",
+    "choices": [
+      "Done",
+      "Repeat"
+    ],
+    "link": "See where",
+    "voice": "amara-voice-3.mp3",
+    "ms": 2462,
+    "mark": {
+      "box": {
+        "x1": 240,
+        "y1": 387,
+        "x2": 586,
+        "y2": 480,
+        "w": 1200,
+        "h": 900,
+        "c": 0.8160918951034546
+      },
+      "label": "Window 14A",
+      "lang": "en"
+    }
+  }
+]

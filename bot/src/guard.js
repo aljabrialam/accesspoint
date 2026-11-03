@@ -3,12 +3,15 @@
 
 export const SCREEN_TYPES = ["choice", "amount", "confirm", "pin_entry", "insert", "take", "wait", "error", "done", "other", "unreadable"];
 export const RISKS = ["none", "pin_request", "transfer", "suspicious", "unclear"];
+export const MACHINE_KINDS = ["atm", "ticket", "clinic", "order", "checkout", "airport", "parking", "vending", "other", "unknown"];
 
 // Structured output schema (constrained decoding on Meta Model API).
 export const PLAN_SCHEMA = {
   type: "object",
   additionalProperties: false,
   properties: {
+    machine: { type: "string", enum: MACHINE_KINDS, description: "What kind of machine this is, from the photo: atm, ticket (transport tickets or top-up), clinic (hospital or clinic check-in), order (food ordering kiosk), checkout (self-checkout), airport (check-in or bag drop), parking, vending, other, or unknown." },
+    machine_name: { type: "string", description: "The machine in the person's language, as a short noun phrase that reads naturally after 'This looks like', e.g. 'an ATM', 'a train ticket machine'. Empty if unknown." },
     readable: { type: "boolean", description: "False if the screen text can't be read reliably (blur, glare, too far, cropped)." },
     screen_type: { type: "string", enum: SCREEN_TYPES },
     screen_says: { type: "string", description: "One short sentence: what the screen asks or shows, in the person's language. Quote button labels exactly as printed." },
@@ -20,8 +23,9 @@ export const PLAN_SCHEMA = {
         properties: {
           label: { type: "string", description: "Exactly as printed on the screen, in the screen's language." },
           meaning: { type: "string", description: "What it means, in the person's language, max 6 words." },
+          box: { type: "object", additionalProperties: false, description: "Approximate box around it in the photo, in thousandths of the photo width (x) and height (y), 0 to 1000. All 0 if not visible.", properties: { x1: { type: "integer" }, y1: { type: "integer" }, x2: { type: "integer" }, y2: { type: "integer" } }, required: ["x1", "y1", "x2", "y2"] },
         },
-        required: ["label", "meaning"],
+        required: ["label", "meaning", "box"],
       },
     },
     action: {
@@ -29,10 +33,11 @@ export const PLAN_SCHEMA = {
       properties: {
         kind: { type: "string", enum: ["press", "insert", "take", "wait", "ask_user", "none"] },
         target_label: { type: "string", description: "Label of the button or slot to use, exactly as printed. Empty if none." },
-        target_concept: { type: "string", description: "Short noun phrase naming that object for a segmentation model, 1 to 4 words, e.g. 'confirm button', 'card slot', 'green button'. Empty if none." },
+        target_concept: { type: "string", description: "What the object looks like, for a segmentation model that can't read text: 1 to 3 words, NO label text, e.g. 'button', 'green button', 'card reader', 'barcode scanner', 'ticket slot'. Empty if none." },
+        target_box: { type: "object", additionalProperties: false, description: "Approximate box around it in the photo, in thousandths of the photo width (x) and height (y), 0 to 1000. All 0 if not visible.", properties: { x1: { type: "integer" }, y1: { type: "integer" }, x2: { type: "integer" }, y2: { type: "integer" } }, required: ["x1", "y1", "x2", "y2"] },
         location_hint: { type: "string", description: "Where it is, in the person's language, e.g. 'bottom right of the screen'." },
       },
-      required: ["kind", "target_label", "target_concept", "location_hint"],
+      required: ["kind", "target_label", "target_concept", "target_box", "location_hint"],
     },
     instruction: { type: "string", description: "The ONE next step, in the person's language, max 2 short sentences, plain words for an older person. Never ask for or mention the PIN digits." },
     question: { type: "string", description: "If the person must choose, the question to ask them, in their language. Else empty." },
@@ -47,13 +52,13 @@ export const PLAN_SCHEMA = {
     progress: { type: "string", enum: ["first", "as_expected", "unchanged", "unexpected"], description: "Compared with the previous step, if any." },
     risk: { type: "string", enum: RISKS },
   },
-  required: ["readable", "screen_type", "screen_says", "options", "action", "instruction", "question", "money", "progress", "risk"],
+  required: ["machine", "machine_name", "readable", "screen_type", "screen_says", "options", "action", "instruction", "question", "money", "progress", "risk"],
 };
 
 export function planPrompt({ langName, machine, goal, prev }) {
   return [
-    `You are AccessPoint. You help an older, blind, low-vision or foreign person use a public machine (${machine || "unknown machine"}) from a photo of its screen.`,
-    `Write screen_says, meaning, instruction and question in ${langName}. Keep button labels exactly as printed.`,
+    `You are AccessPoint. You help an older, blind, low-vision or foreign person use a public machine from a photo they took of it. ${machine ? `They said it is ${machine}.` : "They didn't say what machine it is: identify it from the photo."}`,
+    `Write machine_name, screen_says, meaning, instruction and question in ${langName}. Keep button labels exactly as printed.`,
     `The person's goal: ${goal ? JSON.stringify(goal) : "not given yet"}.`,
     prev ? `Your previous instruction was: ${JSON.stringify(prev)}. Set progress by comparing this screen with what that step should have caused.` : "This is the first photo: progress = first.",
     "Rules:",
@@ -62,6 +67,7 @@ export function planPrompt({ langName, machine, goal, prev }) {
     "- If the screen asks for a PIN or password: screen_type = pin_entry, risk = pin_request. Never ask for digits.",
     "- If the screen would send money to another person or account, set money.is_transfer = true.",
     "- If something looks like a scam or a fake screen, risk = suspicious.",
+    "- If a total doesn't add up to the items or fare shown on screen, or is far more than what the person said they're buying, put that total in money.amount and set risk = suspicious.",
     "- If you can't read it reliably, readable = false and risk = unclear. Never guess labels.",
     "- No financial, medical or legal advice. Only explain what the screen says and how to use it.",
   ].join("\n");
@@ -119,4 +125,25 @@ export const SAM_MIN_CONFIDENCE = 0.5;
 export function bestBox(boxes) {
   const ok = boxes.filter((b) => b.c == null || b.c >= SAM_MIN_CONFIDENCE).sort((a, b) => (b.c ?? 0) - (a.c ?? 0));
   return ok[0] ?? null;
+}
+
+// SAM 3.1 segments by appearance and can't read labels, so it can't tell "Savings" from "Current".
+// Muse Spark reads the label and gives a rough box (thousandths of the photo). We point at a SAM box
+// only when the two agree: Spark's centre falls inside it, or they overlap enough. Otherwise: no pointer.
+export const AGREE_MIN_IOU = 0.3;
+export function agree(sparkBox, samBoxes) {
+  const sb = sparkBox;
+  if (!sb || !(sb.x2 > sb.x1 && sb.y2 > sb.y1)) return null;
+  let best = null;
+  for (const b of samBoxes.filter((x) => x.c == null || x.c >= SAM_MIN_CONFIDENCE)) {
+    const p = { x1: (sb.x1 / 1000) * b.w, y1: (sb.y1 / 1000) * b.h, x2: (sb.x2 / 1000) * b.w, y2: (sb.y2 / 1000) * b.h };
+    const cx = (p.x1 + p.x2) / 2, cy = (p.y1 + p.y2) / 2;
+    const ix = Math.max(0, Math.min(p.x2, b.x2) - Math.max(p.x1, b.x1)), iy = Math.max(0, Math.min(p.y2, b.y2) - Math.max(p.y1, b.y1));
+    const inter = ix * iy, union = (p.x2 - p.x1) * (p.y2 - p.y1) + (b.x2 - b.x1) * (b.y2 - b.y1) - inter;
+    const iou = union > 0 ? inter / union : 0;
+    const centred = cx >= b.x1 && cx <= b.x2 && cy >= b.y1 && cy <= b.y2;
+    const score = iou + (centred ? 1 : 0);
+    if ((centred || iou >= AGREE_MIN_IOU) && (!best || score > best.score)) best = { box: b, score };
+  }
+  return best?.box ?? null;
 }

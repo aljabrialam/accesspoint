@@ -1,6 +1,6 @@
 // Meta Model API clients (https://dev.meta.ai/docs). One key: MODEL_API_KEY, kept as a Worker secret.
 import { Buffer } from "node:buffer";
-import { PLAN_SCHEMA, bestBox, parseSamBoxes, planPrompt } from "./guard.js";
+import { PLAN_SCHEMA, SAM_MIN_CONFIDENCE, parseSamBoxes, planPrompt } from "./guard.js";
 
 const BASE = "https://api.meta.ai/v1";
 export const MODELS = { spark: "muse-spark-1.3", sam: "sam-3.1", voice: "muse-voice-transcribe-1.0", image: "muse-image-1.0" };
@@ -43,7 +43,7 @@ export async function planStep(env, { image, langName, machine, goal, prev }) {
   return JSON.parse(typeof text === "string" ? text : JSON.stringify(text));
 }
 
-// SAM 3.1: find the named control in the same photo. Returns the most confident box, or null.
+// SAM 3.1: every object in the photo matching a visual concept ("button", "card reader"). Confident boxes only.
 export async function locate(env, { image, concept }) {
   const phrase = String(concept ?? "").replace(/[^\p{L}\p{N} -]/gu, " ").trim().split(/\s+/).slice(0, 4).join(" ");
   if (!phrase) return null;
@@ -55,7 +55,7 @@ export async function locate(env, { image, concept }) {
     ] }],
     metadata: { include_confidence: "true" },
   });
-  return bestBox(parseSamBoxes(outputText(resp)));
+  return parseSamBoxes(outputText(resp)).filter((b) => b.c == null || b.c >= SAM_MIN_CONFIDENCE);
 }
 
 // Muse Voice Transcribe: 16 kHz mono WAV → text. Biased toward the words on screen.
@@ -80,6 +80,18 @@ export async function toWav(env, bytes, mime) {
     signal: AbortSignal.timeout(20000),
   });
   if (!res.ok) throw new Error(`audio ${res.status}`);
+  return new Uint8Array(await res.arrayBuffer());
+}
+
+// Spoken replies (Meta's models don't synthesise speech): Microsoft Edge neural voices via the Modal service.
+export async function speak(env, { text, lang, format }) {
+  const res = await fetch(env.AUDIO_URL.replace(/\/$/, "") + "/speak", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${env.AUDIO_TOKEN}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ text, lang, format }),
+    signal: AbortSignal.timeout(20000),
+  });
+  if (!res.ok) throw new Error(`speak ${res.status}`);
   return new Uint8Array(await res.arrayBuffer());
 }
 

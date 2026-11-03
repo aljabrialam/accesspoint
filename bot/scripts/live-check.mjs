@@ -15,11 +15,13 @@ const env = { MODEL_API_KEY: process.env.MODEL_API_KEY };
 const shots = join(root, "bot", "test", "fixtures");
 // Clean, hint-free machine screens rendered from test/fixtures/screens.html (tilted, with glare).
 const cases = [
-  ["atm-account.jpg", "an ATM", "withdraw S$100", "English", "choice"],
-  ["atm-transfer.jpg", "an ATM", "withdraw S$100", "English", "stop"],
-  ["atm-pin.jpg", "an ATM", "withdraw S$100", "English", "pin"],
-  ["checkout-scan.jpg", "a self-checkout", "pay for my groceries", "Indonesian", "step"],
-  ["airport-seat.jpg", "an airport check-in kiosk", "check in for my flight", "Tagalog", "choice"],
+  ["airport-passport.jpg", "", "check in for my flight", "English", "step"],
+  ["airport-seat.jpg", "", "check in for my flight", "English", "choice"],
+  ["ticket-trip.jpg", "", "go to Changi Airport", "English", "choice"],
+  ["checkout-overcharge.jpg", "", "buy one carton of milk", "English", "stop"],
+  ["kiosk-pin.jpg", "", "buy a train ticket", "English", "pin"],
+  ["clinic-jp.jpg", "", "check in for my appointment", "Tagalog", "choice"],
+  ["checkout-scan.jpg", "", "pay for my groceries", "Indonesian", "step"],
 ];
 let passed = 0;
 for (const [file, machine, goal, langName, expected] of cases) {

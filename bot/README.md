@@ -15,11 +15,13 @@ Guardrails live in `src/guard.js` and `src/converse.js` and are tested in `test/
 ## Run the tests
 
 ```
-cd bot && npm test          # 15 tests: guardrails + end-to-end webhooks with Meta APIs mocked
-npm run live-check          # real Muse Spark + SAM 3.1 on 5 clean machine screens (needs MODEL_API_KEY in ../.env)
+cd bot && npm test          # 20 tests: guardrails, Spark/SAM agreement, end-to-end webhooks (Messenger, WhatsApp, Telegram, /try) with Meta APIs mocked
+npm run live-check          # real Muse Spark + SAM 3.1 on 7 clean machine screens (needs MODEL_API_KEY in ../.env)
 ```
 
-## Set it up (about 45 minutes)
+## Set it up
+
+Step-by-step checklist with status: [SETUP.md](../SETUP.md). Summary:
 
 ### 1. Meta Model API key
 Put it in the project root `.env` as `MODEL_API_KEY=...` (never in chat), then run `npm run live-check`.

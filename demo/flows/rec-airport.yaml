@@ -2,7 +2,16 @@ appId: host.exp.Exponent
 ---
 - extendedWaitUntil:
     visible: "__pause__"
-    timeout: 3709
+    timeout: 4165
+    optional: true
+- tapOn: { id: "start-button" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 400
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 5356
     optional: true
 - tapOn: { id: "action-It’s on the glass" }
 - extendedWaitUntil:

@@ -1,8 +1,8 @@
 appId: host.exp.Exponent
 ---
 - runFlow: ../../mobile/.maestro/subflows/close-open-guide.yaml
-- openLink: exp://127.0.0.1:8081/--/guide/airport
+- openLink: exp://127.0.0.1:8081/--/start/airport
 - extendedWaitUntil:
-    visible: "Put your passport on the glass, photo page down."
+    visible: "Point your phone at the check-in kiosk."
     timeout: 20000
 - waitForAnimationToEnd

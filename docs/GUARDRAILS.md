@@ -15,7 +15,7 @@ The bot (`bot/`) now enforces these in code. They are tested end to end with moc
 | PIN screen: fixed message, photo deleted at once | `decide()` in `bot/src/guard.js`, `onPhoto()` in `bot/src/converse.js` |
 | Unreadable photo: no step, photo deleted | `decide()`, `onPhoto()` |
 | Transfer not asked for, different amount, suspicious screen: stop | `decide()` |
-| Muse Spark only suggests; SAM 3.1 must find the named control, or "check the label" | `onPhoto()`, `onOption()` |
+| Muse Spark reads the label and gives a rough box; SAM 3.1 outlines controls by appearance; code points only where they overlap, else "check the label" | `agree()` in `bot/src/guard.js`, `onPhoto()`, `onOption()` |
 | Screen text is data, not instructions | `planPrompt()` in `bot/src/guard.js` |
 | No PIN digits asked for; no financial, medical or legal advice | `planPrompt()` |
 | Answers mapped to options in code; ties are asked again | `matchOption()` |

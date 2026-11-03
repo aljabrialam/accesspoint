@@ -10,3 +10,9 @@ id = "e40298d1713b4d44b41007ed063bdec7"
 
 [observability]
 enabled = true
+
+# /try web console: at most 10 requests per minute per visitor (protects the model credits)
+[[ratelimits]]
+name = "TRY_LIMIT"
+namespace_id = "1001"
+simple = { limit = 10, period = 60 }

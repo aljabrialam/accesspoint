@@ -2,7 +2,7 @@ appId: host.exp.Exponent
 ---
 - extendedWaitUntil:
     visible: "__pause__"
-    timeout: 4731
+    timeout: 3465
     optional: true
 - extendedWaitUntil:
     visible: "__pause__"

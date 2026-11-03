@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { amountOf, bestBox, decide, matchOption, parseSamBoxes } from "../src/guard.js";
+import { agree, amountOf, bestBox, decide, matchOption, parseSamBoxes } from "../src/guard.js";
 import { machineFrom } from "../src/converse.js";
 import { S, position } from "../src/strings.js";
 
@@ -74,4 +74,18 @@ test("the sticker ref names the machine", () => {
   assert.equal(machineFrom("atm"), "atm");
   assert.equal(machineFrom("Hi AccessPoint #airport"), "airport");
   assert.equal(machineFrom("hello"), undefined);
+});
+
+test("SAM 3.1 boxes are used only where Muse Spark's box agrees (real Savings vs Current case)", () => {
+  // SAM 3.1's actual answer for "Savings button" on the ATM fixture: both buttons, the right one more confident.
+  const sam = [
+    { x1: 240, y1: 387, x2: 586, y2: 480, w: 1200, h: 900, c: 0.75 },
+    { x1: 614, y1: 387, x2: 983, y2: 484, w: 1200, h: 900, c: 0.77 },
+  ];
+  assert.equal(bestBox(sam).x1, 614, "SAM alone would point at Current");
+  const savings = { x1: 205, y1: 430, x2: 485, y2: 535 }; // Muse Spark's rough box, thousandths
+  assert.equal(agree(savings, sam).x1, 240, "agreement picks Savings");
+  assert.equal(agree({ x1: 50, y1: 50, x2: 120, y2: 100 }, sam), null, "no overlap → no pointer");
+  assert.equal(agree({ x1: 0, y1: 0, x2: 0, y2: 0 }, sam), null, "Spark gave no box → no pointer");
+  assert.equal(agree(savings, [{ ...sam[0], c: 0.3 }]), null, "low-confidence SAM box ignored");
 });

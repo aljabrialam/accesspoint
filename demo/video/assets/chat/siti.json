@@ -1,0 +1,51 @@
+[
+  {
+    "from": "user",
+    "text": "Hi AccessPoint #checkout"
+  },
+  {
+    "from": "bot",
+    "text": "Choose a language · Pumili ng wika · Pilih bahasa · 选择语言 · Elige un idioma",
+    "choices": [
+      "English",
+      "Filipino",
+      "Bahasa Indonesia",
+      "Bahasa Melayu",
+      "中文",
+      "Español"
+    ],
+    "link": null,
+    "ms": 0
+  },
+  {
+    "from": "user",
+    "text": "Bahasa Indonesia",
+    "tap": true
+  },
+  {
+    "from": "bot",
+    "text": "Halo, saya AccessPoint. Saya bantu kamu memakai mesin tiket, kios check-in, kasir mandiri dan mesin lain, selangkah demi selangkah.\n\nSaya tidak pernah butuh PIN kamu. Tidak ada yang disimpan.\n\nKamu di kasir mandiri.\n\nMau melakukan apa? Ketik atau kirim pesan suara. Atau langsung kirim foto layarnya.",
+    "choices": [
+      "Bantuan",
+      "Bahasa"
+    ],
+    "link": null,
+    "voice": "siti-voice-1.mp3",
+    "ms": 13952
+  },
+  {
+    "from": "user",
+    "photo": "checkout-scan.jpg"
+  },
+  {
+    "from": "bot",
+    "text": "Kata layar: Layar meminta pindai barang pertama, ada tombol \"Help\" dan \"Pay now\".\n\nPegang barang pertama Anda dan arahkan barcode-nya ke kaca di bawah layar.",
+    "choices": [
+      "Sudah",
+      "Ulangi"
+    ],
+    "link": null,
+    "voice": "siti-voice-2.mp3",
+    "ms": 13154
+  }
+]

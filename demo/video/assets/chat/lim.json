@@ -1,0 +1,63 @@
+[
+  {
+    "from": "user",
+    "text": "Get Started",
+    "tap": true
+  },
+  {
+    "from": "bot",
+    "text": "Choose a language · Pumili ng wika · Pilih bahasa · 选择语言 · Elige un idioma",
+    "choices": [
+      "English",
+      "Filipino",
+      "Bahasa Indonesia",
+      "Bahasa Melayu",
+      "中文",
+      "Español"
+    ],
+    "link": null,
+    "ms": 0
+  },
+  {
+    "from": "user",
+    "text": "English",
+    "tap": true
+  },
+  {
+    "from": "bot",
+    "text": "Hi, I'm AccessPoint. I help you use ticket machines, check-in kiosks, self-checkouts and other machines, one step at a time.\n\nI never need your PIN. Nothing you send is kept.\n\nYou're at a self-checkout.\n\nWhat do you want to do? Type or send a voice note. Or just send a photo of the screen.",
+    "choices": [
+      "Help",
+      "Language"
+    ],
+    "link": null,
+    "voice": "lim-voice-1.mp3",
+    "ms": 5558
+  },
+  {
+    "from": "user",
+    "text": "I'm buying one carton of milk"
+  },
+  {
+    "from": "bot",
+    "text": "Got it: I'm buying one carton of milk.\n\nNow send a photo of the screen. Hold the phone steady, close enough to read it.",
+    "choices": [],
+    "link": null,
+    "voice": "lim-voice-2.mp3",
+    "ms": 756
+  },
+  {
+    "from": "user",
+    "photo": "checkout-overcharge.jpg"
+  },
+  {
+    "from": "bot",
+    "text": "Stop. Something on this screen looks unusual. Don't press anything. Press Cancel and ask a staff member for help.\n\nThe screen says: It shows Total to pay S$42.00 for milk costing S$4.20 with \"Cancel\" and \"Pay now\".",
+    "choices": [
+      "Start over"
+    ],
+    "link": null,
+    "voice": "lim-voice-3.mp3",
+    "ms": 19416
+  }
+]

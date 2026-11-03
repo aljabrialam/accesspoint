@@ -3,16 +3,19 @@
 // Secrets (wrangler secret put …):
 //   VERIFY_TOKEN   any string; paste the same in Meta's webhook setup
 //   APP_SECRET     Meta app secret (verifies webhook signatures for Messenger and WhatsApp)
+//   WA_APP_SECRET  only if WhatsApp lives in a second Meta app: that app's secret
 //   PAGE_TOKEN     Page access token for the AccessPoint Facebook Page (Messenger)
 //   WA_TOKEN       WhatsApp Cloud API access token
 //   WA_PHONE_ID    WhatsApp business phone number ID
 //   MODEL_API_KEY  Meta Model API key (Muse Spark, SAM 3.1, Muse Voice Transcribe, Muse Image)
 //   AUDIO_URL, AUDIO_TOKEN   Modal voice-note converter (modal/audio.py)
+//   TG_TOKEN       optional: Telegram test bot token from @BotFather; then open /tgsetup?token=<VERIFY_TOKEN>
 // KV binding AP_KV: chat state (1 h) and photos (10 min).
 import { converse } from "./converse.js";
-import { messengerIO, messengerInput, whatsappIO, whatsappInput } from "./channels.js";
+import { messengerIO, messengerInput, telegramInput, telegramIO, telegramSetup, tgSecret, whatsappIO, whatsappInput } from "./channels.js";
 import { DELETION, HOME, PRIVACY, TERMS, seePage } from "./pages.js";
 import { S } from "./strings.js";
+import { tryApi, tryPage } from "./try.js";
 
 export default {
   async fetch(req, env, ctx) {
@@ -24,6 +27,7 @@ export default {
       if (pathname === "/privacy") return PRIVACY();
       if (pathname === "/terms") return TERMS();
       if (pathname === "/data-deletion") return DELETION();
+      if (pathname === "/try") return tryPage(url);
       if (pathname.startsWith("/see/")) {
         const id = pathname.slice(5).replace(/[^a-z0-9]/gi, "");
         const [mark, exists] = await Promise.all([env.AP_KV.get(`b:${id}`, "json"), env.AP_KV.get(`p:${id}`, "arrayBuffer")]);
@@ -39,15 +43,31 @@ export default {
         const ok = url.searchParams.get("hub.mode") === "subscribe" && url.searchParams.get("hub.verify_token") === env.VERIFY_TOKEN;
         return ok ? new Response(url.searchParams.get("hub.challenge")) : new Response("Forbidden", { status: 403 });
       }
+      if (pathname === "/tgsetup") {
+        if (url.searchParams.get("token") !== env.VERIFY_TOKEN || !env.TG_TOKEN) return new Response("Forbidden", { status: 403 });
+        return telegramSetup(env, url.origin);
+      }
       if (pathname === "/setup") {
         if (url.searchParams.get("token") !== env.VERIFY_TOKEN) return new Response("Forbidden", { status: 403 });
         return setupMessenger(env);
       }
     }
 
+    if (req.method === "POST" && pathname === "/try/api") return tryApi(req, env, url.origin);
+
+    if (req.method === "POST" && pathname === "/telegram") {
+      if (!env.TG_TOKEN || req.headers.get("x-telegram-bot-api-secret-token") !== (await tgSecret(env))) return new Response("Forbidden", { status: 403 });
+      const update = await req.json();
+      const parsed = telegramInput(update);
+      if (parsed) ctx.waitUntil(once(env, `tg:${update.update_id}`).then((fresh) => fresh && converse(telegramIO(env, parsed.chat, parsed.cq), parsed.input, env, url.origin)).catch((e) => console.log("bot error", e?.stack ?? e)));
+      return new Response("ok");
+    }
+
     if (req.method === "POST" && pathname === "/webhook") {
       const raw = await req.text();
-      if (!(await validSignature(raw, req.headers.get("x-hub-signature-256"), env.APP_SECRET))) return new Response("Bad signature", { status: 401 });
+      const sig = req.headers.get("x-hub-signature-256");
+      const signed = (await validSignature(raw, sig, env.APP_SECRET)) || (env.WA_APP_SECRET && (await validSignature(raw, sig, env.WA_APP_SECRET)));
+      if (!signed) return new Response("Bad signature", { status: 401 });
       const body = JSON.parse(raw);
       const run = (io, input, mid) => ctx.waitUntil(once(env, mid).then((fresh) => fresh && converse(io, input, env, url.origin)).catch((e) => console.log("bot error", e?.stack ?? e)));
       if (body.object === "page") {

@@ -1,0 +1,113 @@
+{
+  "model": "muse-spark-1.3",
+  "written": "2026-11-03T12:40:23.594Z",
+  "prompt": "You are writing the voice-over for a 3-minute hackathon demo video of AccessPoint, an assistant for people who struggle with self-service machines (older people, blind and low-vision people, migrants). The video is judged by busy hackathon judges.\n\nRules for every line:\n- Plain, warm, confident English. Short sentences. No jargon, no hype words (\"revolutionary\", \"seamless\", \"cutting-edge\"), no em dashes.\n- At most 12 words per line, so each fits one caption.\n- About 2.6 words per second of speaking time: never write more lines than fit the scene's seconds.\n- Only state facts given in the scene description. Never invent numbers or features.\n- Name Meta's models exactly: Muse Spark, SAM 3.1, Muse Voice.\n\nScenes (id, seconds, what's on screen):\n- hero (5 s): A woman's voice says 'I can't read this screen. Help me.' Narrator follows with one line about how common this is.\n- brand (3 s): Logo and tagline 'Stuck at a machine? Send a photo. Get the next step.'\n- problem (8 s): Machines replaced counters just as the world ages (1.4B people 60+ by 2030, 2.2B with vision impairment, 281M migrants). Then: a general chatbot at a machine can do harm (wrong button, guesses, rushes).\n- arch (12 s): How it works, four nodes lit in turn: Muse Spark reads the photo and plans one step; SAM 3.1 outlines every button precisely; code points only where the two agree and stops anything you didn't ask for; Muse Voice hears answers in 25 languages.\n- guard (7 s): Guardrails: never needs your PIN, asks instead of guessing, stops wrong totals and transfers, you press every button yourself.\n- demo-airport (24 s): App demo 1: Amara, first flight, scans the 'Need help? Scan me' sticker on the check-in kiosk, one Start button, puts passport on the reader, answers 'yes' and 'window' by voice, boarding pass prints. Narrator has 2 short lines; the app speaks the rest.\n- demo-checkout (14 s): App demo 2: Siti, a helper in Singapore, at an English self-checkout, hears every step in Bahasa Indonesia, including 'unexpected item in the bagging area'. 1 narrator line.\n- demo-ticket (12 s): App demo 3: Daniel is blind; AccessPoint guides his hand to the card slot of a train ticket machine. 1 narrator line.\n- demo-mismatch (12 s): Safety 1: Mr Lim buys one carton of milk, the self-checkout total says S$42.00 instead of S$4.20; AccessPoint says stop, press Cancel. 1 narrator line.\n- demo-glare (8 s): Safety 2: glare hides the screen; it asks for a better angle instead of guessing. 1 narrator line.\n- chat-telegram (15 s): No app needed: the same assistant in a chat. Telegram, live: Amara sends a photo of the seat screen; real Muse Spark answer asks window or aisle; she taps Window 14A; it says where it is and sends a voice note. 2 narrator lines.\n- chat-whatsapp (14 s): WhatsApp: Siti sends a photo, gets the step in Bahasa Indonesia, as text and a voice note. 1-2 narrator lines.\n- chat-messenger (14 s): Messenger: Mr Lim sends a photo of the S$42 total; it says stop. Scan the sticker, chat opens, nothing to install. 1-2 narrator lines.\n- results (6 s): We measured it on the real models: Muse Spark 7 of 7 screens right, Spark plus SAM 3.1 pointed at the right button 5 of 5, Muse Voice understood 3 of 3 languages, 20 of 20 bot tests, 11 of 11 app flows.\n- close (6 s): Close: 'Independence by design.' Try it in your browser, link and QR on screen. Built on Meta's models.",
+  "scenes": [
+    {
+      "id": "hero",
+      "lines": [
+        "I can't read this screen. Help me.",
+        "Many people feel this each day."
+      ]
+    },
+    {
+      "id": "brand",
+      "lines": [
+        "Stuck at a machine? Send a photo."
+      ]
+    },
+    {
+      "id": "problem",
+      "lines": [
+        "Machines replaced counters.",
+        "1.4B are 60 plus by 2030.",
+        "2.2B have poor vision. 281M migrate.",
+        "Guessing, rushing, wrong buttons harm."
+      ]
+    },
+    {
+      "id": "arch",
+      "lines": [
+        "Muse Spark reads photo, plans one step.",
+        "SAM 3.1 outlines each button.",
+        "Code acts only where both agree.",
+        "It blocks what you did not ask.",
+        "Muse Voice hears 25 languages."
+      ]
+    },
+    {
+      "id": "guard",
+      "lines": [
+        "It never needs your PIN.",
+        "It asks, never guesses.",
+        "Blocks wrong totals and transfers.",
+        "You press each button."
+      ]
+    },
+    {
+      "id": "demo-airport",
+      "lines": [
+        "Meet Amara. It is her first flight.",
+        "She scans the sticker and follows each step."
+      ]
+    },
+    {
+      "id": "demo-checkout",
+      "lines": [
+        "Siti in Singapore hears English steps in Bahasa Indonesia."
+      ]
+    },
+    {
+      "id": "demo-ticket",
+      "lines": [
+        "Daniel is blind. AccessPoint guides his hand to the card slot."
+      ]
+    },
+    {
+      "id": "demo-mismatch",
+      "lines": [
+        "Mr Lim buys milk. S$42.00, not S$4.20. Stop, press Cancel."
+      ]
+    },
+    {
+      "id": "demo-glare",
+      "lines": [
+        "Glare hides the screen. It asks for better angle, never guesses."
+      ]
+    },
+    {
+      "id": "chat-telegram",
+      "lines": [
+        "No app needed. Amara sends a seat photo on Telegram.",
+        "Muse Spark asks window or aisle. She taps Window 14A."
+      ]
+    },
+    {
+      "id": "chat-whatsapp",
+      "lines": [
+        "Siti sends a photo on WhatsApp, gets Bahasa Indonesia voice and text."
+      ]
+    },
+    {
+      "id": "chat-messenger",
+      "lines": [
+        "Mr Lim sends a photo of S$42.00 on Messenger.",
+        "It says stop. Scan the sticker. Chat opens. Nothing to install."
+      ]
+    },
+    {
+      "id": "results",
+      "lines": [
+        "Muse Spark 7/7 screens. SAM 3.1 5/5 buttons.",
+        "Muse Voice 3/3. 20/20 tests. 11/11 flows."
+      ]
+    },
+    {
+      "id": "close",
+      "lines": [
+        "Independence by design.",
+        "Try it in your browser. Built on Meta's models."
+      ]
+    }
+  ]
+}

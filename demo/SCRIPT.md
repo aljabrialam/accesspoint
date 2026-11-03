@@ -13,7 +13,7 @@ Target length **2:58** (hackathon limit 3:00). Follows the `hackathon-demo-video
 | Numbers (measured, our own tests, Oct 2026) | 9/9 scenario flows pass end to end (Maestro); 24/24 spoken phrases in 10 languages mapped correctly; ambiguous answers guessed 0 (down from 1 after a fix); 25 languages |
 
 **One rule:** "The model suggests. The camera confirms."
-**Brand line:** "Point your phone. Hear the next step."
+**Brand line:** "Stuck at a machine? Send a photo. Get the next step."
 **Progress track:** See, Read, Plan, Guide, Confirm, Done
 
 ## Scene table
@@ -23,7 +23,7 @@ Target length **2:58** (hackathon limit 3:00). Follows the `hackathon-demo-video
 | 1 | Title | 0:00 | (none) | Meta Global AI Developer Hackathon, Indie Developer, Build for Your World |
 | 2 | Hero | 0:03 | "I can't read this screen. Help me." | Phone types the line; same line large on the right |
 | | | 0:08 | "Millions of us say this to machines every day." | |
-| 3 | Brand | 0:12 | "AccessPoint. Point your phone. Hear the next step." | Icon, name, tagline |
+| 3 | Brand | 0:12 | "AccessPoint. Stuck at a machine? Send a photo. Get the next step." | Icon, name, tagline |
 | 4 | Problem | 0:17 | "The world went self-service just as it started to age." | ATM, ticket machine, food kiosk, check-in kiosk |
 | | | 0:22 | "One in six people will be over sixty by 2030." | 1.4B people 60+ by 2030 (WHO); 2.2B with a vision impairment (WHO); 281M migrants (IOM) |
 | | | 0:27 | "But a chatbot pointed at a machine can do real harm." | Three risks: wrong button, PIN on camera, rushing ahead |

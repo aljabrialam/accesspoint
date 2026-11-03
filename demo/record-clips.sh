@@ -7,7 +7,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 DEVICE="${DEVICE:-$(xcrun simctl list devices booted | grep -oE '[0-9A-F-]{36}' | head -1)}"
 MAESTRO="${MAESTRO:-$HOME/.maestro/bin/maestro}"
-CLIPS="${*:-atm checkout airport pin mismatch glare}"
+CLIPS="${*:-airport checkout ticket mismatch glare}"
 mkdir -p clips/raw
 mae() { "$MAESTRO" --device "$DEVICE" test "$1" >/dev/null 2>&1 || { echo "flow failed: $1"; exit 1; }; }
 

@@ -1,0 +1,82 @@
+[
+  {
+    "from": "user",
+    "text": "/start"
+  },
+  {
+    "from": "bot",
+    "text": "Choose a language · Pumili ng wika · Pilih bahasa · 选择语言 · Elige un idioma",
+    "choices": [
+      "English",
+      "Filipino",
+      "Bahasa Indonesia",
+      "Bahasa Melayu",
+      "中文",
+      "Español"
+    ],
+    "link": null,
+    "ms": 0
+  },
+  {
+    "from": "user",
+    "text": "Filipino",
+    "tap": true
+  },
+  {
+    "from": "bot",
+    "text": "Kumusta, ako si AccessPoint. Tutulungan kitang gumamit ng ticket machine, check-in kiosk, self-checkout at iba pang makina, isang hakbang sa bawat pagkakataon.\n\nHindi ko kailangan ang PIN mo. Walang itinatago sa mga ipinapadala mo.\n\nNasa isang check-in kiosk ng klinika ka.\n\nAno ang gusto mong gawin? Mag-type o magpadala ng voice note. O magpadala na lang ng litrato ng screen.",
+    "choices": [
+      "Tulong",
+      "Wika"
+    ],
+    "link": null,
+    "voice": "rosa-voice-1.mp3",
+    "ms": 11095
+  },
+  {
+    "from": "user",
+    "photo": "clinic-jp.jpg"
+  },
+  {
+    "from": "bot",
+    "text": "Sabi ng screen: Nagtatanong kung may dala kang consultation card, pindutin ang \"はい\", \"いいえ\", o \"戻る\".\n\nMay dala ka bang clinic card (診察券)?\n• はい: Oo, mayroon akong card\n• いいえ: Hindi, wala akong card\n• 戻る: Bumalik sa nakaraang screen",
+    "choices": [
+      "はい",
+      "いいえ",
+      "戻る",
+      "Ulitin"
+    ],
+    "link": null,
+    "voice": "rosa-voice-2.mp3",
+    "ms": 25019
+  },
+  {
+    "from": "user",
+    "text": "はい",
+    "tap": true
+  },
+  {
+    "from": "bot",
+    "text": "Pindutin ang \"はい\". Ang \"はい\" ay sa gitna, sa kaliwa.",
+    "choices": [
+      "Tapos",
+      "Ulitin"
+    ],
+    "link": "Tingnan kung saan",
+    "voice": "rosa-voice-3.mp3",
+    "ms": 4998,
+    "mark": {
+      "box": {
+        "x1": 238,
+        "y1": 414,
+        "x2": 585,
+        "y2": 509,
+        "w": 1200,
+        "h": 900,
+        "c": 0.8083832263946533
+      },
+      "label": "はい",
+      "lang": "tl"
+    }
+  }
+]

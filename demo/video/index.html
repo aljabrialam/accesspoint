@@ -127,6 +127,8 @@
   .stk span { display: block; margin-top: 4px; font-size: 26px; font-weight: 600; opacity: .85; }
   .stk .qr { margin-top: auto; align-self: flex-start; width: 132px; height: 132px; padding: 10px; border-radius: 16px; background: #fff; }
   .stk .qr img { width: 100%; height: 100%; }
+  .stk { position: relative; overflow: hidden; }
+  .stk .art { position: absolute; right: -36px; bottom: -20px; width: 190px; height: 190px; border-radius: 26px; background: #fff; transform: rotate(6deg); }
   .stk-copy strong { display: block; font-size: 42px; letter-spacing: -0.025em; }
   .stk-copy p { margin-top: 12px; font-size: 26px; line-height: 1.4; color: var(--ink2); max-width: 470px; }
   .stk-copy small { display: block; margin-top: 18px; font-size: 19px; color: var(--ink3); }
@@ -156,6 +158,70 @@
   .gcard li em.on { background: rgba(18,128,92,.12); color: var(--go); }
   .gfoot { margin-top: 40px; font-size: 26px; font-weight: 600; }
 
+  /* scenario grid */
+  .scen { display: grid; grid-template-columns: repeat(8, 196px); gap: 18px; margin-top: 50px; }
+  .scen figure { margin: 0; text-align: center; }
+  .scen img { width: 196px; border-radius: 26px; display: block; box-shadow: 0 24px 40px -28px rgba(0,0,0,.5); }
+  .scen figcaption { margin-top: 14px; font-size: 19px; font-weight: 700; line-height: 1.2; }
+  .scen figcaption span { display: block; font-weight: 500; color: var(--ink2); font-size: 16px; margin-top: 4px; }
+
+  /* chat channels */
+  .cphone { position: absolute; left: 286px; top: 104px; width: 400px; height: 836px; border-radius: 62px; background: #1A1B1E; box-shadow: 0 50px 80px -50px rgba(0,0,0,0.55); }
+  .cscreen { position: absolute; left: 14px; top: 14px; width: 372px; height: 808px; border-radius: 50px; overflow: hidden; display: flex; flex-direction: column; font-family: -apple-system, "Helvetica Neue", sans-serif; }
+  .chead { flex: none; height: 104px; padding: 50px 16px 0; display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; }
+  .chead .av { width: 36px; height: 36px; border-radius: 18px; background: var(--brand); display: grid; place-items: center; flex: none; }
+  .chead small { display: block; font-size: 12px; font-weight: 500; opacity: .7; }
+  .cbody { flex: 1; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; gap: 7px; padding: 10px 10px 16px; }
+  .cbar { flex: none; height: 64px; display: flex; align-items: center; padding: 0 14px 10px; }
+  .cbar div { flex: 1; height: 36px; border-radius: 18px; font-size: 14px; display: flex; align-items: center; padding: 0 14px; color: rgba(0,0,0,.4); }
+  .m { max-width: 84%; padding: 8px 11px; border-radius: 17px; font-size: 15px; line-height: 1.3; white-space: pre-wrap; word-wrap: break-word; }
+  .m.u { align-self: flex-end; } .m.b { align-self: flex-start; }
+  .m.photo { padding: 3px; } .m.photo img { display: block; width: 190px; border-radius: 14px; }
+  .m.tapline { font-weight: 600; }
+  .btns { align-self: flex-start; display: flex; flex-wrap: wrap; gap: 5px; max-width: 86%; }
+  .btns span { font-size: 14px; font-weight: 600; padding: 7px 11px; border-radius: 15px; }
+  .voicenote { display: flex; align-items: center; gap: 8px; min-width: 190px; }
+  .voicenote i { width: 28px; height: 28px; border-radius: 14px; display: grid; place-items: center; flex: none; }
+  .voicenote .wf { flex: 1; height: 22px; display: flex; align-items: center; gap: 2px; }
+  .voicenote .wf b { width: 3px; border-radius: 2px; display: block; }
+  .voicenote small { font-size: 11px; opacity: .7; }
+  .typing { align-self: flex-start; padding: 10px 14px; border-radius: 17px; display: flex; gap: 4px; }
+  .typing b { width: 7px; height: 7px; border-radius: 4px; background: rgba(0,0,0,.35); display: block; }
+  /* telegram */
+  .p-telegram { background: #C9DCB8 linear-gradient(160deg, #D7E6C6, #B9D0A3); }
+  .p-telegram .chead { background: rgba(247,247,247,.96); color: #000; }
+  .p-telegram .m.b, .p-telegram .typing { background: #fff; color: #000; }
+  .p-telegram .m.u { background: #E1FEC6; color: #000; }
+  .p-telegram .btns span { background: rgba(70,110,60,.35); color: #fff; border-radius: 9px; }
+  .p-telegram .cbar { background: rgba(247,247,247,.96); } .p-telegram .cbar div { background: #fff; }
+  .p-telegram .voicenote i { background: #4FAE4E; } .p-telegram .voicenote .wf b { background: #4FAE4E; }
+  /* whatsapp */
+  .p-whatsapp { background: #EFE7DE; }
+  .p-whatsapp .chead { background: #F6F6F6; color: #000; }
+  .p-whatsapp .m.b, .p-whatsapp .typing { background: #fff; color: #111; border-top-left-radius: 4px; }
+  .p-whatsapp .m.u { background: #D9FDD3; color: #111; border-top-right-radius: 4px; }
+  .p-whatsapp .btns { flex-direction: column; width: 82%; }
+  .p-whatsapp .btns span { background: #fff; color: #0A8CD8; text-align: center; border-radius: 10px; }
+  .p-whatsapp .cbar { background: #F6F6F6; } .p-whatsapp .cbar div { background: #fff; }
+  .p-whatsapp .voicenote i { background: #25A869; } .p-whatsapp .voicenote .wf b { background: #8A9A93; }
+  /* messenger */
+  .p-messenger { background: #fff; }
+  .p-messenger .chead { background: #fff; color: #050505; box-shadow: 0 1px 0 rgba(0,0,0,.06); }
+  .p-messenger .m.b, .p-messenger .typing { background: #F0F0F0; color: #050505; }
+  .p-messenger .m.u { background: linear-gradient(#0A7CFF, #0066E0); color: #fff; }
+  .p-messenger .btns span { background: #fff; color: #0A7CFF; box-shadow: inset 0 0 0 1.5px #0A7CFF; border-radius: 16px; }
+  .p-messenger .cbar div { background: #F0F0F0; }
+  .p-messenger .voicenote i { background: #0A7CFF; } .p-messenger .voicenote .wf b { background: #0A7CFF; }
+  .see { position: absolute; left: 840px; top: 500px; width: 520px; padding: 18px; border-radius: 26px; background: #fff; box-shadow: 0 40px 70px -40px rgba(0,0,0,.45); opacity: 0; }
+  .see-head { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .see-img { position: relative; overflow: hidden; border-radius: 14px; } .see-img img { width: 100%; display: block; border-radius: 14px; }
+  .see-box { position: absolute; border: 4px solid var(--signal); border-radius: 10px; box-shadow: 0 0 0 9999px rgba(16,24,40,.25); }
+  .close-row { display: flex; gap: 70px; align-items: center; margin-top: 56px; }
+  .try { display: flex; gap: 26px; align-items: center; text-align: left; padding: 26px; border-radius: 30px; background: #fff; box-shadow: 0 24px 50px -34px rgba(0,0,0,.35); }
+  .try img { width: 170px; height: 170px; }
+  .try strong { display: block; font-size: 36px; letter-spacing: -0.02em; }
+  .try span { display: block; margin-top: 8px; font-size: 21px; color: var(--ink2); }
+
   /* close */
   .guarantees { display: grid; grid-template-columns: repeat(3, 470px); gap: 22px 30px; margin-top: 64px; text-align: left; }
   .guarantees div { display: flex; gap: 16px; align-items: center; font-size: 30px; font-weight: 600; }
@@ -182,7 +248,7 @@
   <section class="scene" id="s-hero" data-start="3" data-end="12">
     <div class="center">
       <div class="hero-quote" id="hero-quote"></div>
-      <div class="lead" id="hero-lead" data-at="4.2" style="margin-top:48px">Said to an ATM, a ticket machine, a clinic kiosk.</div>
+      <div class="lead" id="hero-lead" data-at="4.2" style="margin-top:48px">Said to a ticket machine, a check-in kiosk, a self-checkout.</div>
     </div>
   </section>
 
@@ -191,7 +257,7 @@
     <div class="center">
       <div class="mark"><img src="../../brand/logo/mark-white.svg" style="width:96px"></div>
       <img src="../../brand/logo/wordmark-ink.svg" style="height:92px;margin-top:56px" alt="AccessPoint">
-      <div class="lead" style="margin-top:20px">Point your phone. Hear the next step.</div>
+      <div class="lead" style="margin-top:20px">Stuck at a machine? Send a photo. Get the next step.</div>
     </div>
   </section>
 
@@ -200,7 +266,7 @@
     <div class="center" id="prob-a" data-at="0" data-until="8">
       <div class="h2">The world went self-service<br>just as it started to age.</div>
       <div class="machines">
-        <div class="machine" data-at="0.3"><img src="assets/atm.jpg"><p>ATMs</p></div>
+        <div class="machine" data-at="0.3"><img src="assets/ticket.jpg"><p>Ticket machines</p></div>
         <div class="machine" data-at="0.5"><img src="assets/order.jpg"><p>Food kiosks</p></div>
         <div class="machine" data-at="0.7"><img src="assets/checkout.jpg"><p>Self-checkout</p></div>
         <div class="machine" data-at="0.9"><img src="assets/airport.jpg"><p>Airport check-in</p></div>
@@ -214,8 +280,8 @@
     <div class="center" id="prob-b" data-at="8">
       <div class="h2">A chatbot pointed at a machine<br>can do real harm.</div>
       <div class="risks">
-        <div class="risk" data-risk="0" data-at="8.5"><div class="ico">ICON_TAP</div><strong>Wrong button</strong><span>“Press OK” when OK confirms a transfer.</span></div>
-        <div class="risk" data-risk="1" data-at="9.1"><div class="ico">ICON_EYE</div><strong>PIN on camera</strong><span>Every frame sent to the cloud, PIN included.</span></div>
+        <div class="risk" data-risk="0" data-at="8.5"><div class="ico">ICON_TAP</div><strong>Wrong button</strong><span>“Press Pay” when the total is wrong.</span></div>
+        <div class="risk" data-risk="1" data-at="9.1"><div class="ico">ICON_EYE</div><strong>Guessing</strong><span>Picks a button it can’t really read.</span></div>
         <div class="risk" data-risk="2" data-at="9.7"><div class="ico">ICON_FAST</div><strong>Rushing ahead</strong><span>Next step before the card is even in.</span></div>
       </div>
     </div>
@@ -239,22 +305,22 @@
   <section class="scene" id="s-arch" data-start="45" data-end="68">
     <div class="arch-head"><div class="h2" style="font-size:60px">How it works</div></div>
     <div class="arch">
-      <div class="zone"><h5>Meta models perceive, read only</h5>
+      <div class="zone"><h5>Meta models, tested live</h5>
         <div class="nodes">
-          <div class="node" data-on="0"><div class="ico">ICON_EYE2</div><strong>SAM 3.1</strong><span>Finds the screen, buttons and slots, zero-shot</span></div>
-          <div class="node" data-on="5"><div class="ico">ICON_SPARK</div><strong>Muse Spark</strong><span>Reads the screen, writes one simple step</span></div>
-          <div class="node" data-on="10"><div class="ico">ICON_WAVE</div><strong>Muse Voice</strong><span>Hears you in 25 languages</span></div>
+          <div class="node"><div class="ico">ICON_SPARK</div><strong>Muse Spark</strong><span>Reads the photo, names the machine, plans one step</span></div>
+          <div class="node"><div class="ico">ICON_EYE2</div><strong>SAM 3.1</strong><span>Outlines every button, slot and reader precisely</span></div>
+          <div class="node"><div class="ico">ICON_WAVE</div><strong>Muse Voice</strong><span>Hears answers in 25 languages</span></div>
         </div>
       </div>
       <div class="zone"><h5>Code decides</h5>
         <div class="nodes">
-          <div class="node" data-on="15"><div class="ico">ICON_CHECK</div><strong>Step check</strong><span>Moves on only when the camera sees it happen</span></div>
-          <div class="node" data-on="17.5"><div class="ico">ICON_LOCK</div><strong>PIN guard</strong><span>Camera off on PIN screens. Always.</span></div>
+          <div class="node"><div class="ico">ICON_CHECK</div><strong>Two models agree</strong><span>Points only where Spark and SAM overlap</span></div>
+          <div class="node"><div class="ico">ICON_LOCK</div><strong>Safety stops</strong><span>PIN, wrong totals, transfers, guesses</span></div>
         </div>
       </div>
-      <div class="zone"><h5>You act</h5>
+      <div class="zone"><h5>Where people use it</h5>
         <div class="nodes">
-          <div class="node" data-on="20"><div class="ico">ICON_HAND</div><strong>You press</strong><span>Every button, yourself</span></div>
+          <div class="node"><div class="ico">ICON_CHAT</div><strong>Any chat</strong><span>Messenger, WhatsApp, Telegram, the app, the web</span></div>
         </div>
       </div>
     </div>
@@ -263,20 +329,11 @@
   <!-- 6b guardrails -->
   <section class="scene" id="s-guard" data-start="68" data-end="78">
     <div class="center">
-      <div class="h2">Guardrails on every model</div>
+      <div class="h2">Guardrails, enforced in code</div>
       <div class="guard">
-        <div class="gcard" id="g0" data-at="1"><h4>SAM 3.1</h4><div class="job">Sees the machine</div><ul>
-          <li>Never sees your PIN<br><em class="on">Working now</em></li>
-          <li>Not sure? Asks, doesn’t guess<br><em class="on">Working now</em></li>
-          <li>Machine parts only, faces blurred<br><em>Live pipeline</em></li></ul></div>
-        <div class="gcard" id="g1" data-at="2"><h4>Muse Spark</h4><div class="job">Reads the screen, plans one step</div><ul>
-          <li>Stops what you didn’t ask for<br><em class="on">Working now</em></li>
-          <li>Suggests, never acts<br><em>Live pipeline</em></li>
-          <li>Screen text can’t give orders<br><em>Live pipeline</em></li></ul></div>
-        <div class="gcard" id="g2" data-at="3"><h4>Muse Voice</h4><div class="job">Hears you, 25 languages</div><ul>
-          <li>Code maps words to buttons<br><em class="on">Working now</em></li>
-          <li>Mic off for PINs<br><em>Live pipeline</em></li>
-          <li>Audio never stored<br><em>Live pipeline</em></li></ul></div>
+        <div class="gcard" id="g0" data-at="1"><h4>Never needs your PIN</h4><div class="job">PIN screens get a fixed message; the photo is deleted at once</div><ul><li><em class="on">Enforced in code · tested</em></li></ul></div>
+        <div class="gcard" id="g1" data-at="2"><h4>Asks, never guesses</h4><div class="job">Choices go back to you; unreadable photos get “try again”</div><ul><li><em class="on">Enforced in code · tested</em></li></ul></div>
+        <div class="gcard" id="g2" data-at="3"><h4>Stops what you didn’t ask for</h4><div class="job">Wrong totals, transfers and scam screens: press Cancel</div><ul><li><em class="on">Enforced in code · tested</em></li></ul></div>
       </div>
       <div class="gfoot" id="gfoot" data-at="4">You press every button. AccessPoint never taps, pays or types.</div>
     </div>
@@ -287,8 +344,8 @@
     <div class="phone"><div class="screen"></div></div>
     <div class="panel" id="panel">
       <div id="sticker">
-        <div class="stk"><div class="top"><img src="../../brand/logo/mark-white.svg" style="width:22px">AccessPoint</div><b>Need help?</b><span>Scan me</span><div class="qr"><img src="assets/qr-atm.svg" alt="QR code"></div></div>
-        <div class="stk-copy"><strong>One sticker per machine</strong><p>Scan it with the phone camera. AccessPoint opens on that machine with one button.</p><small>No-install App Clip: planned for launch</small></div>
+        <div class="stk"><div class="top"><img src="../../brand/logo/mark-white.svg" style="width:22px">AccessPoint</div><b>Need help?</b><span>Scan me</span><div class="qr"><img src="assets/qr-try.svg" alt="QR code"></div><img class="art" src="assets/muse-image-art.png" alt=""></div>
+        <div class="stk-copy"><strong>One sticker per machine</strong><p>Scan it with the phone camera. AccessPoint opens on that machine, in a chat or the app.</p><small>Sticker art made with Muse Image · App Clip planned for launch</small></div>
       </div>
       <div class="count" id="d-count"></div>
       <h3 id="d-title"></h3>
@@ -298,12 +355,24 @@
     </div>
   </section>
 
-  <!-- 9 languages -->
-  <section class="scene" id="s-langs" data-start="153" data-end="160">
+  <!-- 9 every scenario -->
+  <section class="scene" id="s-scen" data-start="0" data-end="1">
     <div class="center">
-      <div class="h2">25 languages, and the mixes<br>people really speak.</div>
-      <div class="langs" id="langs"></div>
+      <div class="h2" style="font-size:60px">Eight scenarios, six machines</div>
+      <div class="scen" id="scen"></div>
     </div>
+  </section>
+
+  <!-- chat channels -->
+  <section class="scene" id="s-chat" data-start="0" data-end="1">
+    <div class="cphone" id="cphone"><div class="cscreen" id="cscreen"></div></div>
+    <div class="panel" id="c-panel" style="top:230px">
+      <div class="count" id="c-count"></div>
+      <h3 id="c-title"></h3>
+      <blockquote id="c-quote"></blockquote>
+      <div class="status" id="c-status"><div class="ico" id="c-icon"></div><div><strong id="c-stitle"></strong><span id="c-ssub"></span></div></div>
+    </div>
+    <div class="see" id="see"><div class="see-head">See where</div><div class="see-img"><img id="see-img"><div class="see-box" id="see-box"></div></div></div>
   </section>
 
   <!-- 10 results -->
@@ -311,12 +380,12 @@
     <div class="center">
       <div class="h2">We measured it.</div>
       <div class="results">
-        <div class="result" data-at="0.4"><strong><span data-count-to="11">11</span> / 11</strong><span>app flows pass end to end</span></div>
-        <div class="result" data-at="0.7"><strong><span data-count-to="24">24</span> / 24</strong><span>spoken phrases mapped to the right button, 10 languages</span></div>
-        <div class="result" data-at="1.0"><strong>0</strong><span>ambiguous answers guessed</span><em>down from 1</em></div>
-        <div class="result" data-at="1.3"><strong><span data-count-to="25">25</span></strong><span>languages, from Tagalog to Arabic</span></div>
+        <div class="result" data-at="0.4"><strong><span data-count-to="7">7</span> / 7</strong><span>machine screens read right by Muse Spark</span></div>
+        <div class="result" data-at="0.7"><strong><span data-count-to="5">5</span> / 5</strong><span>right button when Muse Spark and SAM 3.1 agree</span><em>SAM 3.1 alone: wrong 1 of 2</em></div>
+        <div class="result" data-at="1.0"><strong><span data-count-to="3">3</span> / 3</strong><span>voice answers understood by Muse Voice, 3 languages</span></div>
+        <div class="result" data-at="1.3"><strong><span data-count-to="31">31</span> / 31</strong><span>automated tests: 20 bot, 11 app flows</span></div>
       </div>
-      <div class="footnote" data-at="1.8">Automated tests on our own scenario and phrase sets during development, Oct 2026. Live camera accuracy is measured next.</div>
+      <div class="footnote" data-at="1.8">Live calls to Meta’s models on our own test screens, 3 Nov 2026. Real-world photo accuracy is measured next.</div>
     </div>
   </section>
 
@@ -325,15 +394,18 @@
     <div class="center">
       <img src="../../brand/logo/lockup-light.svg" style="height:60px;margin-bottom:48px" alt="AccessPoint">
       <div class="h1">Independence by design.</div>
-      <div class="guarantees">
-        <div data-at="0.5"><i>ICON_OK</i>Never sees your PIN</div>
-        <div data-at="0.8"><i>ICON_OK</i>Never guesses a button</div>
-        <div data-at="1.1"><i>ICON_OK</i>Confirms every step</div>
-        <div data-at="1.4"><i>ICON_OK</i>Speaks your language</div>
-        <div data-at="1.7"><i>ICON_OK</i>Works on any machine</div>
-        <div data-at="2.0"><i>ICON_OK</i>No account needed</div>
+      <div class="close-row">
+        <div class="guarantees" style="grid-template-columns: repeat(2, 470px); margin-top:0">
+          <div data-at="0.5"><i>ICON_OK</i>Never needs your PIN</div>
+          <div data-at="0.7"><i>ICON_OK</i>Never guesses a button</div>
+          <div data-at="0.9"><i>ICON_OK</i>Stops what you didn’t ask for</div>
+          <div data-at="1.1"><i>ICON_OK</i>Speaks your language</div>
+          <div data-at="1.3"><i>ICON_OK</i>Works on any machine</div>
+          <div data-at="1.5"><i>ICON_OK</i>No app to install</div>
+        </div>
+        <div class="try" data-at="1.9"><img src="assets/qr-try.svg" alt="QR code"><div><strong>Try it now</strong><span>accesspoint-bot.aljabrialam.workers.dev/try</span><span>github.com/aljabrialam/accesspoint</span></div></div>
       </div>
-      <div class="small" data-at="2.6" style="margin-top:56px">AccessPoint, built Oct 27 to Nov 4, 2026, with SAM 3.1, Muse Spark and Muse Voice Transcribe</div>
+      <div class="small" data-at="2.4" style="margin-top:48px">Built Oct 27 to Nov 4, 2026, on Muse Spark, SAM 3.1, Muse Voice, Muse Image, Messenger and WhatsApp</div>
     </div>
   </section>
 
@@ -354,6 +426,7 @@ const ICONS = {
   CHECK: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   LOCK: '<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
   HAND: '<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11V4.5a1.5 1.5 0 0 1 3 0V12M14 11.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 8-7 8-3 0-4.5-1.5-6-4l-1.5-2.5a1.5 1.5 0 0 1 2.5-1.6L8 15"/>',
+  PLAY: '<path d="M8 5v14l11-7z" fill="#fff" stroke="none"/>',
   OK: '<path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff"/>',
   ASK: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/>',
   STOP: '<circle cx="12" cy="12" r="9"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/>',
@@ -361,6 +434,7 @@ const ICONS = {
   GLOBE: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
   SUN: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/>',
   QR: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M17 21h4v-4M14 21v-3"/>',
+  CHAT: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12z"/>',
   PRINT: '<path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7"/>',
 };
 const svg = (name, size = 30, color = 'currentColor') => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
@@ -374,24 +448,98 @@ const TL = window.TIMELINE;
 const PHASES = ['See', 'Read', 'Plan', 'Guide', 'Confirm', 'Done'];
 const DEMOS = TL.demos;
 const SC = TL.scenes;
-const SCENE_MAP = { 's-title': SC.title, 's-hero': SC.hero, 's-brand': SC.brand, 's-problem': SC.problem, 's-approach': SC.approach, 's-arch': SC.arch, 's-guard': SC.guard,
-  's-demo': { start: TL.demoSpan[0], end: TL.demoSpan[1] }, 's-langs': SC.langs, 's-results': SC.results, 's-close': SC.close };
+const CHATS = TL.chats;
+const SCENE_MAP = { 's-title': SC.title, 's-hero': SC.hero, 's-brand': SC.brand, 's-problem': SC.problem, 's-arch': SC.arch, 's-guard': SC.guard,
+  's-demo': { start: TL.demoSpan[0], end: TL.demoSpan[1] }, 's-chat': { start: CHATS[0].start, end: CHATS[CHATS.length - 1].end },
+  's-scen': SC.scen, 's-results': SC.results, 's-close': SC.close };
+document.getElementById('s-approach')?.remove();
 for (const [id, sc] of Object.entries(SCENE_MAP)) { const el = document.getElementById(id); el.dataset.start = sc.start; el.dataset.end = sc.end; }
 document.querySelectorAll('.node').forEach((n, i) => { n.dataset.on = TL.archNodes[i]; });
 {
   const pm = SC.problem.marks, hm = SC.hero.marks, gm = SC.guard.marks;
-  ['g0', 'g1', 'g2'].forEach((id, i) => { document.getElementById(id).dataset.at = gm[i + 1]; });
-  document.getElementById('gfoot').dataset.at = gm[3] + 2.2;
+  ['g0', 'g1', 'g2'].forEach((id, i) => { document.getElementById(id).dataset.at = gm[0] + 0.2 + i * 0.6; });
+  document.getElementById('gfoot').dataset.at = gm[1] + 0.4;
   document.getElementById('hero-lead').dataset.at = hm[1];
-  document.getElementById('prob-a').dataset.until = pm[2];
-  document.getElementById('prob-stats').dataset.at = pm[1];
-  document.getElementById('prob-b').dataset.at = pm[2];
-  document.querySelectorAll('[data-risk]').forEach((el) => { el.dataset.at = pm[2] + 0.35 * (1 + +el.dataset.risk); });
+  document.getElementById('prob-a').dataset.until = pm[1];
+  document.getElementById('prob-stats').dataset.at = pm[0] + 1.6;
+  document.getElementById('prob-b').dataset.at = pm[1];
+  document.querySelectorAll('[data-risk]').forEach((el) => { el.dataset.at = pm[1] + 0.35 * (1 + +el.dataset.risk); });
 }
 const easeBack = (x) => { const c = 1.6; x = clamp01(x) - 1; return 1 + (c + 1) * x * x * x + c * x * x; };
 
-const LANGS = ['English', '中文', 'हिन्दी', 'Español', 'العربية', 'বাংলা', 'Português', 'Français', 'Bahasa Indonesia', 'Bahasa Melayu', 'Tagalog', '日本語', '한국어', 'Tiếng Việt', 'ไทย', 'தமிழ்', 'తెలుగు', 'मराठी', 'ಕನ್ನಡ', 'Türkçe', 'Deutsch', 'Italiano', 'Nederlands', 'Polski', 'עברית'];
-document.getElementById('langs').innerHTML = LANGS.map((l, i) => `<div data-at="${0.4 + i * 0.07}">${l}</div>`).join('');
+const SCEN = [['airport-3-seat', 'Airport check-in', 'English, by voice'], ['ticket-2-far', 'Train ticket', 'Guiding a blind hand'], ['clinic-2-press', 'Clinic, Japan', 'Steps in Tagalog'],
+  ['order-2-menu', 'Food kiosk', 'Reads the menu'], ['checkout-2-bagging', 'Self-checkout', 'Steps in Bahasa'], ['atm-2-ask', 'ATM', 'Asks, never chooses'],
+  ['mismatch-1-stop', 'Wrong total', 'Stops, press Cancel'], ['glare-1-unsure', 'Glare', 'Asks for a better angle']];
+document.getElementById('scen').innerHTML = SCEN.map(([f, a, b], i) => `<figure data-at="${0.3 + i * 0.12}"><img src="assets/scen/${f}.jpg"><figcaption>${a}<span>${b}</span></figcaption></figure>`).join('');
+
+/* chat scenes: real replies captured from the bot, replayed in each app's look */
+const esc = (x) => String(x ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const HEAD = { telegram: ['AccessPoint', 'bot'], whatsapp: ['AccessPoint', 'business account'], messenger: ['AccessPoint', 'Typically replies instantly'] };
+function msgHtml(m, i, voiceIdx) {
+  const parts = [];
+  if (m.from === 'user') parts.push(m.photo ? `<div class="m u photo" data-i="${i}"><img src="assets/chat/${m.photo}"></div>` : `<div class="m u ${m.tap ? 'tapline' : ''}" data-i="${i}">${esc(m.text)}</div>`);
+  else {
+    parts.push(`<div class="m b" data-i="${i}">${esc(m.text)}</div>`);
+    const btns = [...(m.link ? [m.link] : []), ...(m.choices ?? [])];
+    if (btns.length) parts.push(`<div class="btns" data-i="${i}">${btns.map((b) => `<span>${esc(b)}</span>`).join('')}</div>`);
+    if (voiceIdx.has(i)) {
+      const bars = Array.from({ length: 26 }, (_, k) => `<b style="height:${5 + Math.round(14 * Math.abs(Math.sin(k * 1.7 + i)))}px"></b>`).join('');
+      parts.push(`<div class="m b voice" data-i="${i}" data-voice="1"><div class="voicenote"><i>${svg('PLAY', 14, '#fff')}</i><div class="wf">${bars}</div><small>0:${String(Math.round(voiceIdx.get(i))).padStart(2, '0')}</small></div></div>`);
+    }
+  }
+  return parts.join('');
+}
+let builtChat = null;
+function renderChat(t) {
+  const c = CHATS.find((x) => t >= x.start && t < x.end) ?? (t >= CHATS[CHATS.length - 1].end ? CHATS[CHATS.length - 1] : CHATS[0]);
+  const l = t - c.start;
+  const scr = document.getElementById('cscreen');
+  if (builtChat !== c) {
+    builtChat = c;
+    const voiceIdx = new Map(c.voices.map((v) => [v.idx, v.dur]));
+    const [name, sub] = HEAD[c.platform];
+    scr.className = `cscreen p-${c.platform}`;
+    scr.innerHTML = `<div class="chead"><div class="av"><img src="../../brand/logo/mark-white.svg" style="width:18px"></div><div>${name}<small>${sub}</small></div></div>` +
+      `<div class="cbody">${c.msgs.map((m, i) => msgHtml(m, i, voiceIdx)).join('')}<div class="typing" id="ctyping"><b></b><b></b><b></b></div></div><div class="cbar"><div>${c.platform === 'messenger' ? 'Aa' : 'Message'}</div></div>`;
+    document.getElementById('c-count').textContent = c.count;
+    document.getElementById('c-title').textContent = c.title;
+    document.getElementById('c-quote').textContent = c.quote;
+  }
+  const shownAt = new Map(c.show.map((i) => [i, -1]));
+  for (const [at, i] of c.events) if (!shownAt.has(i)) shownAt.set(i, at);
+  const voiceAt = new Map(c.voices.map((v) => [v.idx, v.at]));
+  scr.querySelectorAll('[data-i]').forEach((el) => {
+    const i = +el.dataset.i, at = el.dataset.voice ? voiceAt.get(i) - 0.3 : shownAt.get(i);
+    const on = at !== undefined && l >= at;
+    el.style.display = on ? '' : 'none';
+    const p = at !== undefined ? ease((l - at) / 0.3) : 1;
+    el.style.opacity = on ? p : 0;
+    el.style.transform = `translateY(${(1 - p) * 12}px)`;
+  });
+  const typing = c.typing.some(([a, b]) => l >= a && l < b);
+  const ty = document.getElementById('ctyping');
+  ty.style.display = typing ? 'flex' : 'none';
+  ty.querySelectorAll('b').forEach((b, k) => { b.style.opacity = 0.35 + 0.65 * Math.abs(Math.sin(l * 5 + k)); });
+  // status line
+  const beat = [...c.beats].reverse().find((b) => l >= b[0]);
+  const [icon, st1, st2] = beat ? beat.slice(1) : c.status;
+  const st = document.getElementById('c-status');
+  st.className = `status ${icon === 'STOP' ? 'stop' : ''}`;
+  document.getElementById('c-icon').innerHTML = svg(icon, 34);
+  document.getElementById('c-stitle').textContent = st1;
+  document.getElementById('c-ssub').textContent = st2;
+  document.getElementById('c-panel').style.opacity = ease(l / 0.6) * clamp01((c.end - t) / 0.35);
+  // "See where": the person's photo with the agreed box
+  const see = document.getElementById('see');
+  if (c.see) {
+    const [at, idx] = c.see, m = c.msgs[idx].mark, photo = c.msgs.slice(0, idx).reverse().find((x) => x.photo)?.photo;
+    document.getElementById('see-img').src = `assets/chat/${photo}`;
+    Object.assign(document.getElementById('see-box').style, { left: `${(m.box.x1 / m.box.w) * 100}%`, top: `${(m.box.y1 / m.box.h) * 100}%`, width: `${((m.box.x2 - m.box.x1) / m.box.w) * 100}%`, height: `${((m.box.y2 - m.box.y1) / m.box.h) * 100}%` });
+    const p = ease((l - at) / 0.4) * clamp01((c.end - t - 0.2) / 0.3);
+    see.style.opacity = l >= at ? p : 0;
+    see.style.transform = `translateY(${(1 - p) * 30}px)`;
+  } else see.style.opacity = 0;
+}
 
 const HERO = ['I', 'can’t', 'read', 'this', 'screen.', 'Help', 'me.'];
 document.getElementById('hero-quote').innerHTML = HERO.map((w, i) => `<span class="${i >= 5 ? 'hl' : ''}">${w}</span>`).join(' ');
@@ -437,14 +585,7 @@ function render(t) {
   const heroLocal = t - SC.hero.start;
   document.querySelectorAll('#hero-quote span').forEach((sp, i) => sp.classList.toggle('on', heroLocal > 0.25 + i * 0.22));
 
-  // approach card
-  const ap = t - SC.approach.start, go = SC.approach.marks[1];
-  const card = document.getElementById('lane-card');
-  let x = 0;
-  if (ap < go) x = easeBack(ap / 1.4) * 420;
-  else x = 420 + ease((ap - go) / 1.1) * 520;
-  card.style.left = `${Math.min(x, 940)}px`;
-  document.getElementById('lane-seen').style.opacity = clamp01((ap - (go - 0.7)) / 0.3);
+  if (t >= CHATS[0].start - 0.5 && t <= CHATS[CHATS.length - 1].end + 0.5) renderChat(t);
 
   // architecture nodes
   const ar = t - SC.arch.start;

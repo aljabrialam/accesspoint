@@ -9,8 +9,13 @@
 - Cloudflare Worker `accesspoint-bot`, live at https://accesspoint-bot.aljabrialam.workers.dev (webhook `/webhook`, setup `/setup?token=VERIFY_TOKEN`, marked photo `/see/<id>`). KV `AP_KV` id `e40298d1713b4d44b41007ed063bdec7`.
 - Models (all on https://api.meta.ai/v1 with `MODEL_API_KEY`): Muse Spark `muse-spark-1.3` via Chat Completions with `response_format` json_schema (plan); SAM 3.1 `sam-3.1` via Responses API, concept prompt, `metadata.include_confidence` (verify + box); Muse Voice `muse-voice-transcribe-1.0` at `/asr/transcribe`, WAV only (Modal `bot/modal/audio.py` converts AAC/OGG); Muse Image only for sticker art.
 - Safety texts are fixed strings in `bot/src/strings.js` (en, tl, id, ms, zh, es); `decide()` in `bot/src/guard.js` gates every model output. Never let a model write the PIN, stop or unreadable messages.
-- Commands: `cd bot && npm test` (15 tests), `npm run live-check` (real API on `test/fixtures/*.jpg`, clean screens rendered from `screens.html`), `wrangler deploy`. Setup steps: `bot/README.md`.
-- Secrets already set on the Worker: VERIFY_TOKEN, AUDIO_TOKEN (copies in root `.env.local`). Still needed: APP_SECRET, PAGE_TOKEN, WA_TOKEN, WA_PHONE_ID, MODEL_API_KEY, AUDIO_URL.
+- `/try` (`bot/src/try.js`): public web test console running the same `converse()` (channel `web`); sample screens load from the repo's `bot/test/fixtures` on GitHub; rate limit binding `TRY_LIMIT` (10/min per IP). Judges' fallback while Messenger needs app review.
+- Telegram (`/telegram`, `/tgsetup?token=VERIFY_TOKEN`, secret `TG_TOKEN`): test channel only, added 3 Nov while the owner's Meta developer account was under an identity check. Webhook secret header is derived from the token. Not part of the submission story.
+- Spoken replies: every reply is also sent as a voice note (Telegram/WhatsApp OGG, Messenger and /try MP3) from Modal `/speak` (edge-tts 7.3.1, same voices as the app, 3 retries because Microsoft sometimes returns no audio). Best effort: text always first. "voice off"/"voice on" per chat. Privacy page says reply text goes to Microsoft TTS.
+- Live model check (3 Nov): Muse Spark 7/7 expected verdicts on the non-bank fixtures. SAM 3.1 segments by appearance and can't read labels ("Savings button" returned both buttons, Current more confident), so Spark returns a rough box per option/target (thousandths) and `agree()` keeps the SAM box that overlaps it: 5/5 correct live. Ask SAM for visual concepts only ("button", "card reader"), never label text. `MODEL_API_KEY` is on the Worker.
+- Owner decision (3 Nov): banking is sensitive, so lead with non-bank machines everywhere (hero: Amara's airport check-in). PIN and money guardrails stay, shown on payment kiosks.
+- Commands: `cd bot && npm test` (20 tests), `npm run live-check` (real API on `test/fixtures/*.jpg`, clean screens rendered from `screens.html`), `wrangler deploy`. Setup steps: `bot/README.md`.
+- Secrets already set on the Worker: VERIFY_TOKEN, AUDIO_TOKEN (copies in root `.env.local`). Also set: MODEL_API_KEY, AUDIO_URL, TG_TOKEN. Still needed: APP_SECRET, PAGE_TOKEN, WA_TOKEN, WA_PHONE_ID (Meta account under identity check on 3 Nov).
 
 ## Entry point: the machine sticker
 
@@ -33,6 +38,15 @@
 - `python3 brand/build_brand.py` rebuilds every logo SVG (outlined wordmark via fontTools 4.67.0, no live text) and the 1024 app icons in `brand/logo/`. `brand/logo/export/` has favicons and web icons. Below 32 px use `mark-small-*` (solid dots).
 - `brand/board.html?s=1..6` is the six-slide brand basics board; PNGs in `brand/kit/` (render with Chrome headless, `--virtual-time-budget=8000 --window-size=1920,1080`).
 - App: tokens in `mobile/src/theme.ts` (`colors.brand` for actions, `colors.signal` only for camera targets); `BrandMark` is generated from the same geometry. Visible copy avoids em and en dashes.
+
+## Demo video (3 Nov rebuild)
+
+- Structure: title, hero, brand, problem, how it works (all four Meta models), guardrails, app demos (airport from the sticker, ticket for a blind user), safety (self-checkout overcharge, glare), chat scenes (Telegram live, WhatsApp and Messenger labelled previews), scenario grid, live results, close with a QR to /try. 2:57, 3840x2160.
+- Narration drafted by Muse Spark: `node demo/video/spark-script.mjs` → `spark-script.json`; the edited lines live in `build.py`.
+- Chat scenes replay real bot replies: `node demo/video/capture-chats.mjs` runs `bot/src/converse.js` against the real models and voice service and writes `demo/video/assets/chat/*.json` + voice mp3s. `CHATS` in `build.py` sets which messages show when. Re-capture after changing bot strings.
+- Sticker art in the video and `brand/sticker/` comes from Muse Image.
+- Subtle screen changes (ticket hand guidance) need a per-demo `scene=0.01` threshold.
+- Maestro `visible:` is a full-text regex: escape `$` or use `.*partial.*`.
 
 ## Demo video pipeline (`demo/`)
 

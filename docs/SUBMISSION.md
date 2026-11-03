@@ -73,18 +73,24 @@ Meta's chat platforms matter just as much: the people who most need help are the
 
 ## Provide feedback from your experience using partner technologies
 
-**Meta Model API**
-- Structured output with `json_schema` on Muse Spark was reliable: every live response parsed and matched the schema, including nested objects. That made it practical to gate every model output with deterministic code.
-- Muse Spark took 6 to 11 seconds for a photo with a large schema. That's acceptable in a chat, but a lower-latency mode for short structured answers would help real-time guidance.
-- SAM 3.1 works best with visual concepts. Prompts that include label text ("Savings button", "Window 14A button") returned nothing, or every button. Documenting this, with an example of combining SAM with a reading model, would save developers time.
-- Muse Voice Transcribe accepts WAV only, while every messaging platform sends AAC, OGG/Opus or WebM. Accepting those formats directly would remove the need for a conversion service.
-- Muse Image returned base64 WebP, which worked well. Stating the output format in the docs would help.
-- We couldn't find a text-to-speech model in the lineup. For accessibility apps, a Meta TTS model would complete the loop; we used Microsoft Edge neural voices for spoken replies.
-- The developer account identity check triggered while we were creating the Page and app, which blocked the Messenger and WhatsApp setup for part of the event. A clearer path for hackathon participants would help.
+**Modal (used in production)**
 
-**Modal**
-- Deploying a small ffmpeg and edge-tts service from one Python file was quick, and the free credits covered all our usage.
-- Two things cost us time. A `@modal.fastapi_endpoint` function taking a `fastapi.Request` was treated as a query parameter, so we switched to `@modal.asgi_app()`. And after a redeploy, a warm container kept serving the old code until we stopped it with `modal container stop`.
+Modal runs AccessPoint's audio service: one Python file (`bot/modal/audio.py`) that converts Messenger, WhatsApp, Telegram and browser voice notes into the 16 kHz WAV that Muse Voice Transcribe needs, and turns every reply into a spoken voice note. A Cloudflare Worker can't run ffmpeg or Python, so Modal was the missing piece.
+
+What worked well:
+- **From zero to a deployed endpoint in minutes.** `modal setup` signed us in through the browser, `modal secret create` stored the token, and one file declared everything: a Debian image with `apt_install("ffmpeg")` and `pip_install("edge-tts")`, the function, and the web endpoint. First deploy about 45 seconds; later deploys about 3 seconds.
+- **Scale to zero.** The service costs nothing when nobody is talking to the bot, and the hackathon credits covered all our testing.
+- **Secrets as environment variables** kept the token out of the code, and constant-time token checks were easy to add.
+
+What cost us time, with suggestions:
+- **`@modal.fastapi_endpoint` with a `fastapi.Request` argument** returned 422 "field required" on every call: the request was treated as a query parameter because FastAPI isn't importable on the deploying machine. Switching to `@modal.asgi_app()` with the import inside the function fixed it. A docs example for "endpoint that reads the raw request body" would prevent this.
+- **After a redeploy, a warm container kept serving the old code** until we stopped it with `modal container stop`. Draining old containers on deploy, or showing which deployment each container runs, would make this obvious.
+- **`modal container stop` needs `-y`** when run from a script; a clearer non-interactive error would help.
+- **Cold starts of a few seconds** are noticeable in a chat. A documented pattern for keeping one warm container during waking hours (we plan to use `min_containers` per schedule) would help latency-sensitive bots.
+
+**Baseten and Fireworks (not used in this build)**
+
+We didn't use Baseten or Fireworks. The Meta Model API gave us all four models we needed (Muse Spark, SAM 3.1, Muse Voice Transcribe, Muse Image) behind one key, so there was no need for a second inference provider during the event. Our production plan keeps them in mind: for operators who need photos processed in their own region, AccessPoint could run Meta's open-weight models (such as Muse Spark Open on Baseten) behind the same interface, since all model calls are isolated in `bot/src/meta.js`. We didn't test that path, so we can't give hands-on feedback on either platform.
 
 ---
 

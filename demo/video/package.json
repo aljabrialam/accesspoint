@@ -1,19 +1,20 @@
 {
-  "name": "video",
+  "name": "accesspoint-video",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Builds the AccessPoint demo video from code: paced Maestro flows, timeline, 4K render, compose, X cut",
   "scripts": {
-    "generate:sample": "node index.ts"
+    "flows": "python3 build.py flows",
+    "timeline": "python3 build.py timeline",
+    "render": "node render.mjs",
+    "compose": "python3 build.py compose",
+    "x-cut": "./x-cut.sh",
+    "chats": "node capture-chats.mjs",
+    "script": "node spark-script.mjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Aljabri Alam",
+  "license": "MIT",
   "type": "module",
   "devDependencies": {
     "playwright": "1.64.0"
-  },
-  "dependencies": {
-    "@higgsfield/client": "0.2.6"
   }
 }

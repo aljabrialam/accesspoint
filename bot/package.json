@@ -1,7 +1,19 @@
 {
   "name": "accesspoint-bot",
+  "version": "1.0.0",
   "private": true,
+  "description": "AccessPoint bot: Messenger, WhatsApp, Telegram and web, on Cloudflare Workers, with Meta's Muse Spark, SAM 3.1 and Muse Voice Transcribe behind deterministic guardrails",
+  "license": "MIT",
+  "author": "Aljabri Alam",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aljabrialam/accesspoint",
+    "directory": "bot"
+  },
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "test": "node --test test/*.test.js",
     "dev": "wrangler dev",

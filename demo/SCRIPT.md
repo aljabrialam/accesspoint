@@ -1,60 +1,35 @@
-# AccessPoint demo video script (v2, first cut)
+# Demo video script
 
-Target length **2:58** (hackathon limit 3:00). Follows the `hackathon-demo-video` pattern. Every app clip is real footage of the app on the iOS Simulator in **scenario mode** and carries that badge; replace clips with live-pipeline footage when it works.
+**Video:** [youtu.be/ae8K5ZCQfSM](https://youtu.be/ae8K5ZCQfSM) · 2:57 · 3840×2160 · captions and chapters on YouTube
 
-## Step 0 inputs
+This table is generated from the published video's timeline (`demo/video/timeline.json`), so it matches the video exactly. The narration was drafted by Muse Spark (`demo/video/spark-script.mjs` → `spark-script.json`) and edited for accuracy; voices are Microsoft Edge neural voices. App lines are the app's own spoken guidance; chat scenes replay real bot replies captured with `demo/video/capture-chats.mjs`.
 
-| Input | Value |
-|---|---|
-| Brief | Build for Your World: solve a problem you know firsthand, free up time and mental space, make something possible that wasn't before. Must meaningfully use Meta models. Judged equally on Impact, Use of Meta AI, Technical depth, Demo |
-| Hero | "I can't read this screen. Help me." |
-| Meta products named | SAM 3.1, Muse Spark, Muse Voice Transcribe (25 languages), Muse Code (built with) |
-| Live vs scenario | App, scenarios, voice matcher and 25-language UI are built and tested. Camera + model pipeline is not live yet: architecture scene is badged "Live pipeline in progress" |
-| Numbers (measured, our own tests, Oct 2026) | 9/9 scenario flows pass end to end (Maestro); 24/24 spoken phrases in 10 languages mapped correctly; ambiguous answers guessed 0 (down from 1 after a fix); 25 languages |
+| Time | Scene | Spoken (narrator, app, person) | On-screen honesty label |
+|---|---|---|---|
+| 0:00 | Title | (no voice) |  |
+| 0:02 | Hook | I can’t read this screen. Help me. Many people feel this, every day. |  |
+| 0:08 | Brand | AccessPoint. Stuck at a machine? Send a photo. |  |
+| 0:12 | Problem | Machines replaced the counters, just as the world grew older. And a chatbot that guesses can press the wrong button. |  |
+| 0:20 | How it works | Muse Spark reads the photo and plans one step. SAM 3.1 outlines every button precisely. Muse Voice hears you in twenty-five languages. And code points only where both models agree. | All four Meta models tested live |
+| 0:34 | Guardrails | It never needs your PIN, and never guesses. It stops wrong totals. You press every button. | Enforced in code, tested |
+| 0:42 | App demo 1: first flight, from a sticker | Amara scans the sticker on the kiosk. One button. **AccessPoint:** “Put your passport on the glass below the screen, photo page down.” **AccessPoint:** “It found Amara Okafor, flying to Singapore. Is that you?” **Amara:** “Yes, that’s me.” **AccessPoint:** “Would you like a window seat, or an aisle seat?” **Amara:** “Window.” **AccessPoint:** “Your boarding pass is printing on the right. Gate C twenty two.” | Scenario mode, demo kiosk we built |
+| 1:18 | App demo 2: finding the slot, without sight | Daniel is blind. AccessPoint guides his hand to the slot. **AccessPoint:** “Move down, and a little to the left.” **AccessPoint:** “Stop. The slot is right under your fingers. Push the card in.” | Scenario mode, demo kiosk we built |
+| 1:32 | Safety 1: that total looks wrong | **AccessPoint:** “Stop. This screen wants forty-two dollars for one milk. The milk is four dollars twenty. Don’t pay. Press Cancel, on the left.” **AccessPoint:** “Cancelled. Nothing was paid. A staff member is coming to fix the total.” | Scenario mode, demo kiosk we built |
+| 1:52 | Safety 2: not sure, so not guessing | **AccessPoint:** “I can’t see the buttons clearly. Tilt the phone up a little.” **AccessPoint:** “Now I can see. Window seat, or aisle seat?” | Scenario mode, demo kiosk we built |
+| 2:03 | Chat 1: Telegram, live | No app needed. The same assistant works in chat. Muse Spark asks: window or aisle? She taps Window. | Live on Telegram · real Muse Spark and SAM 3.1 replies · waiting time shortened |
+| 2:18 | Chat 2: WhatsApp (preview) | On WhatsApp, Siti gets the step in Bahasa, as text and voice. | Preview · real replies from the same code · WhatsApp connects after Meta app review |
+| 2:28 | Chat 3: Messenger (preview) | On Messenger, Mr Lim’s photo gets a clear stop. Scan the sticker, the chat opens. Nothing to install. | Preview · real replies from the same code · Messenger connects after Meta app review |
+| 2:41 | Every scenario | Eight scenarios, six machines, any of twenty-five languages. | Scenario mode, demo kiosks we built |
+| 2:46 | Results | We tested it on the real models. | Real Meta models, 3 Nov 2026 |
+| 2:51 | Close | Independence by design. Try it in your browser. |  |
 
-**One rule:** "The model suggests. The camera confirms."
-**Brand line:** "Stuck at a machine? Send a photo. Get the next step."
-**Progress track:** See, Read, Plan, Guide, Confirm, Done
+## Honesty labels used in the video
 
-## Scene table
+- App scenes: "Scenario mode, demo kiosk we built".
+- Telegram scene: "Live on Telegram · real Muse Spark and SAM 3.1 replies · waiting time shortened".
+- WhatsApp and Messenger scenes: "Preview · real replies from the same code · connects after Meta app review".
+- Results: "Real Meta models, 3 Nov 2026".
 
-| # | Scene | Start | Narration (12 words or fewer per line) | On screen |
-|---|---|---|---|---|
-| 1 | Title | 0:00 | (none) | Meta Global AI Developer Hackathon, Indie Developer, Build for Your World |
-| 2 | Hero | 0:03 | "I can't read this screen. Help me." | Phone types the line; same line large on the right |
-| | | 0:08 | "Millions of us say this to machines every day." | |
-| 3 | Brand | 0:12 | "AccessPoint. Stuck at a machine? Send a photo. Get the next step." | Icon, name, tagline |
-| 4 | Problem | 0:17 | "The world went self-service just as it started to age." | ATM, ticket machine, food kiosk, check-in kiosk |
-| | | 0:22 | "One in six people will be over sixty by 2030." | 1.4B people 60+ by 2030 (WHO); 2.2B with a vision impairment (WHO); 281M migrants (IOM) |
-| | | 0:27 | "But a chatbot pointed at a machine can do real harm." | Three risks: wrong button, PIN on camera, rushing ahead |
-| | | 0:31 | "Wrong buttons. PINs on camera. Steps skipped." | |
-| 5 | Approach | 0:35 | "So the model suggests, and the camera confirms." | Step card waits at a checkpoint, crosses when confirmed |
-| | | 0:40 | "Every step is checked. Your PIN is never seen." | |
-| 6 | Architecture | 0:45 | "SAM 3.1 finds the screen, buttons and slots." | Node strip: Models perceive / Code decides / You act |
-| | | 0:50 | "Muse Spark reads the screen and plans one step." | |
-| | | 0:55 | "Muse Voice hears you, in twenty-five languages." | |
-| | | 1:00 | "Code checks each step, and pauses the camera for PINs." | |
-| 7a | Demo 1 of 3: Cash, without asking a stranger | 1:08 | "Mrs Tan is seventy-eight. Her bank branch closed." | ATM clip. Status: Asking, not guessing |
-| | | 1:13 | "The screen asks which account. AccessPoint asks her." | |
-| | | 1:19 | "Savings. Then her PIN, with the camera paused." | |
-| 7b | Demo 2 of 3: In her own language | 1:25 | "Siti works in Singapore. She hears steps in Bahasa." | Self-checkout clip |
-| | | 1:31 | "Unexpected item in the bagging area? Explained, and fixed." | |
-| 7c | Demo 3 of 3: First flight, by voice | 1:42 | "Amara is flying alone for the first time." | Airport clip, mic open, phrase chips |
-| | | 1:48 | "She just says window. Code maps her words to the button." | |
-| | | 1:54 | "Boarding pass printed. Confirmed, not assumed." | |
-| 8a | Safety 1 of 3: Your PIN stays yours | 2:00 | "PIN screen detected. Camera paused. Nothing sent." | PIN mode clip |
-| 8b | Safety 2 of 3: That's not what you asked | 2:11 | "She asked for cash. The screen wants a transfer." | Scam clip |
-| | | 2:16 | "Stopped. It points her to Cancel." | |
-| 8c | Safety 3 of 3: Not sure, so not guessing | 2:22 | "Glare hides the buttons. It asks for a better angle." | Glare clip |
-| 9 | Languages | 2:33 | "Twenty-five languages, and the mixes people really speak." | Native names of all 25 |
-| 10 | Results | 2:40 | "We measured it." | 9/9 flows; 24/24 phrases; ambiguous answers guessed 0 (down from 1); 25 languages. Footnote |
-| | | 2:45 | "Zero guesses on ambiguous answers. Every flow passes." | |
-| 11 | Close | 2:51 | "Independence by design. Built on Meta's models." | Six guarantees + repo URL |
+## Rebuild
 
-About 33 s of safety scenes plus the "asking, not guessing" beats show the system stopping or asking.
-
-## Honesty badges
-- "Scenario mode, demo kiosk we built" on every app clip
-- "Live pipeline in progress" on the architecture scene until it's real
-- "2×" on any sped-up footage
-- Narration is macOS text-to-speech in the first cut (Meta has no text-to-speech model); replace with a human voice-over if possible
+See the pipeline notes in [AGENTS.md](../AGENTS.md#demo-video-pipeline-demo): `python3 build.py flows` → `../record-clips.sh` → `python3 build.py timeline` → `node render.mjs` → `python3 build.py compose` → `./x-cut.sh`.

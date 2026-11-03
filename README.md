@@ -11,6 +11,7 @@
 <a href="https://t.me/accesspointhelpbot"><img src="https://img.shields.io/badge/Telegram-%40accesspointhelpbot-26A5E4?style=flat-square&logo=telegram&logoColor=white" alt="Telegram bot"></a>
 <a href="https://x.com/aljabrialam/status/2117610935275975156"><img src="https://img.shields.io/badge/X-post-000000?style=flat-square&logo=x&logoColor=white" alt="X post"></a>
 <a href="https://github.com/aljabrialam/accesspoint/actions/workflows/bot-tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/aljabrialam/accesspoint/bot-tests.yml?branch=main&style=flat-square&label=bot%20tests&logo=githubactions&logoColor=white" alt="Bot tests"></a>
+<a href="https://github.com/aljabrialam/accesspoint-mobile/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/aljabrialam/accesspoint-mobile/ci.yml?branch=main&style=flat-square&label=app%20typecheck%20%2B%20lint&logo=githubactions&logoColor=white" alt="App typecheck and lint"></a>
 <a href="https://github.com/aljabrialam/accesspoint/blob/main/LICENSE"><img src="https://img.shields.io/github/license/aljabrialam/accesspoint?style=flat-square&color=2B47C9" alt="License"></a>
 <a href="https://github.com/aljabrialam/accesspoint/commits/main"><img src="https://img.shields.io/github/last-commit/aljabrialam/accesspoint?style=flat-square&color=2B47C9" alt="Last commit"></a>
 <br>
@@ -53,7 +54,7 @@ It is built for **older people** whose ticket counter or service desk was replac
   </tr>
 </table>
 
-**In a hurry? Start here:** [30-second version](#the-30-second-version) → [see it](#see-it) → [all Meta tools, tested live](#all-meta-tools-tested-live) → [how it works](#how-it-works) → [guardrails](#guardrails) → [try it in two minutes](#for-judges-try-it-in-two-minutes) → [results](#results) → [name and logo](#the-name-and-the-logo) → [production plan](#from-hackathon-to-production) → [all documents](#documentation)
+**In a hurry? Start here:** [30-second version](#the-30-second-version) → [hackathon checklist](#hackathon-checklist) → [see it](#see-it) → [all Meta tools, tested live](#all-meta-tools-tested-live) → [how it works](#how-it-works) → [guardrails](#guardrails) → [try it in two minutes](#for-judges-try-it-in-two-minutes) → [results](#results) → [name and logo](#the-name-and-the-logo) → [production plan](#from-hackathon-to-production) → [all documents](#documentation)
 
 ---
 
@@ -78,6 +79,29 @@ It is built for **older people** whose ticket counter or service desk was replac
 **And when something is wrong.** Mr Lim buys one carton of milk and the self-checkout says S$42.00: "Stop. Something on this screen looks unusual. Don't press anything. Press Cancel and ask a staff member for help."
 
 *The model suggests. The photo and the code confirm. You press.*
+
+## Hackathon checklist
+
+**Requirements**
+
+| Requirement | Where |
+|---|---|
+| Public, open-source repository | This repo and [accesspoint-mobile](https://github.com/aljabrialam/accesspoint-mobile), [MIT](LICENSE) |
+| Demo video, 3 minutes or less | [youtu.be/ae8K5ZCQfSM](https://youtu.be/ae8K5ZCQfSM): 2:57, 4K, chapters, captions |
+| New work, built during the event | Built 27 Oct to 4 Nov 2026; only open-source tooling (Expo template, OFL fonts) pre-existed |
+| Meaningful use of Meta's models | Muse Spark, SAM 3.1, Muse Voice Transcribe and Muse Image, each with its own job, all [tested live](#all-meta-tools-tested-live) |
+| Fits a theme | *Build for Your World*: older people, blind and low-vision people, migrants and tourists at self-service machines |
+| A working product | [/try](https://accesspoint-bot.aljabrialam.workers.dev/try) and [Telegram](https://t.me/accesspointhelpbot) are live; Messenger and WhatsApp code complete |
+| More than an image analyser | One guided step at a time, two models that must agree, deterministic guardrails, conversation state, voice in and out, four channels |
+
+**Judging criteria (equal weight)**
+
+| Criterion | Evidence |
+|---|---|
+| **Impact** | 1.4B people 60+ by 2030, 2.2B with vision impairment, 281M migrants ([the problem](#the-problem)); no install, 6 languages of fixed text, 25 for voice; a [pilot plan](docs/PRODUCTION.md#10-pilot-plan) with operators |
+| **Use of Meta AI tooling** | Muse Spark (strict JSON plan), SAM 3.1 (outlines, agreement with Spark), Muse Voice (keyword-biased transcription), Muse Image (sticker art), Muse Spark again for the video script, Messenger and WhatsApp ([details](docs/API.md)) |
+| **Technical depth and execution** | Spark and SAM agreement ([`agree()`](bot/src/guard.js)), deterministic [`decide()`](bot/src/guard.js), red team 5/5, 22 bot tests and 11 app flows in CI and Maestro, [architecture](docs/ARCHITECTURE.md), [production plan](docs/PRODUCTION.md), [safety case](docs/GUARDRAILS.md) |
+| **Demo quality** | [4K video](https://youtu.be/ae8K5ZCQfSM) with real model replies and honest labels, a [live web demo](https://accesspoint-bot.aljabrialam.workers.dev/try) with sample screens, [every screen](docs/SCREENS.md) |
 
 ## See it
 
@@ -312,7 +336,8 @@ Visual-assistance apps (Be My AI, Seeing AI, Lookout) describe what the camera s
 | [`mobile/`](https://github.com/aljabrialam/accesspoint-mobile) | iPhone app (Expo, React Native), submodule |
 | [`docs/`](docs) | Technical documentation, screens, sticker |
 | [`brand/`](brand) | Logo system, palette, type, brand board, Muse Image sticker art |
-| [`demo/`](demo) | The demo video, built from code (recordings, Muse Spark script, captions, original music), the X cut and the YouTube upload pack |
+| [`demo/`](demo) | The demo video, built from code (recordings, Muse Spark script, captions, original music), the X cut and the YouTube upload pack · [script](demo/SCRIPT.md) |
+| [`SECURITY.md`](SECURITY.md) · [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to report a vulnerability; how to run and change the project safely |
 
 ## Credits
 

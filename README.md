@@ -57,7 +57,7 @@ It is built for **older people** whose bank branch or ticket counter was replace
 |---|---|
 | **In one line** | Stuck at a machine? Send a photo on Messenger or WhatsApp and get the next step, in your own language |
 | **Demo video** | [youtu.be/ae8K5ZCQfSM](https://youtu.be/ae8K5ZCQfSM) (3 min, narrated, 4K, chapters and captions) · [X post](https://x.com/aljabrialam/status/2117610935275975156) |
-| **Live** | Try it in any browser: [accesspoint-bot.aljabrialam.workers.dev/try](https://accesspoint-bot.aljabrialam.workers.dev/try) (same conversation code as the Messenger and WhatsApp bot) · Messenger and WhatsApp for app testers |
+| **Live** | Try it in any browser: [accesspoint-bot.aljabrialam.workers.dev/try](https://accesspoint-bot.aljabrialam.workers.dev/try) (same conversation code as the Messenger and WhatsApp bot) · Telegram: [t.me/accesspointhelpbot](https://t.me/accesspointhelpbot) · Messenger and WhatsApp: code complete, live after Meta app review |
 | **Built for** | Meta Global AI Developer Hackathon 2026 · *Build for Your World* |
 | **Who it's for** | Older people living alone, blind and low-vision people, and migrants facing a machine in a language they don't read |
 | **Problem solved** | Self-service machines assume you can see, read and react fast. Strangers and chatbots are risky helpers at a machine that handles money and identity |

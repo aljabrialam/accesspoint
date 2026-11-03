@@ -313,7 +313,6 @@ Visual-assistance apps (Be My AI, Seeing AI, Lookout) describe what the camera s
 | [`docs/`](docs) | Technical documentation, screens, sticker |
 | [`brand/`](brand) | Logo system, palette, type, brand board, Muse Image sticker art |
 | [`demo/`](demo) | The demo video, built from code (recordings, Muse Spark script, captions, original music), the X cut and the YouTube upload pack |
-| [`BRAINSTORM.md`](BRAINSTORM.md) | How we chose this idea |
 
 ## Credits
 

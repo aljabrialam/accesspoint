@@ -1,6 +1,6 @@
 # AccessPoint (Meta Global AI Developer Hackathon entry)
 
-- `BRAINSTORM.md`: idea history and the chosen direction. `demo/SCRIPT.md`: timed video script.
+- `BRAINSTORM.md` (local only, git-ignored): idea history and the chosen direction. `demo/SCRIPT.md`: timed video script.
 - `mobile/`: the Expo app. See `mobile/AGENTS.md` for running, scenarios and Maestro tests.
 
 ## Documentation

@@ -73,6 +73,24 @@ export function planPrompt({ langName, machine, goal, prev }) {
   ].join("\n");
 }
 
+// Every model-written text passes through here before anyone sees it: card-like digit runs are hidden,
+// PIN-like codes after "PIN"/"password" are hidden, and length is capped so a manipulated reply can't ramble.
+export const TEXT_LIMIT = 280;
+export function scrub(text, limit = TEXT_LIMIT) {
+  let t = String(text ?? "").replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim();
+  t = t.replace(/\b\d(?:[ -]?\d){11,18}\b/g, "[number hidden]");
+  t = t.replace(/(PIN|password|passcode|OTP)(\D{0,12})\d{4,8}/gi, "$1$2[hidden]");
+  return t.length > limit ? t.slice(0, limit - 1).replace(/\s+\S*$/, "") + "…" : t;
+}
+export function sanitizePlan(plan) {
+  if (!plan || typeof plan !== "object") return plan;
+  const p = { ...plan };
+  for (const k of ["machine_name", "screen_says", "instruction", "question"]) p[k] = scrub(p[k], k === "machine_name" ? 60 : TEXT_LIMIT);
+  p.options = (Array.isArray(p.options) ? p.options : []).slice(0, 6).map((o) => ({ ...o, label: scrub(o.label, 40), meaning: scrub(o.meaning, 80) }));
+  if (p.action) p.action = { ...p.action, target_label: scrub(p.action.target_label, 40), target_concept: scrub(p.action.target_concept, 40), location_hint: scrub(p.action.location_hint, 80) };
+  return p;
+}
+
 // Amounts like "S$100", "100 dollars", "₱500", "Rp 50.000" → number.
 export function amountOf(text) {
   if (!text) return null;

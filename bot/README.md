@@ -15,8 +15,8 @@ Guardrails live in `src/guard.js` and `src/converse.js` and are tested in `test/
 ## Run the tests
 
 ```
-cd bot && npm test          # 20 tests: guardrails, Spark/SAM agreement, end-to-end webhooks (Messenger, WhatsApp, Telegram, /try) with Meta APIs mocked
-npm run live-check          # real Muse Spark + SAM 3.1 on 7 clean machine screens (needs MODEL_API_KEY in ../.env)
+cd bot && npm test          # 22 tests: guardrails, Spark/SAM agreement, text scrubbing, re-asking unclear answers, end-to-end webhooks (Messenger, WhatsApp, Telegram, /try) with Meta APIs mocked
+npm run live-check          # real Muse Spark + SAM 3.1 on 7 clean machine screens and 5 red-team screens (needs MODEL_API_KEY in ../.env)
 ```
 
 ## Set it up

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { agree, amountOf, bestBox, decide, matchOption, parseSamBoxes } from "../src/guard.js";
+import { agree, amountOf, bestBox, decide, matchOption, parseSamBoxes, sanitizePlan, scrub } from "../src/guard.js";
 import { machineFrom } from "../src/converse.js";
 import { S, position } from "../src/strings.js";
 
@@ -88,4 +88,15 @@ test("SAM 3.1 boxes are used only where Muse Spark's box agrees (real Savings vs
   assert.equal(agree({ x1: 50, y1: 50, x2: 120, y2: 100 }, sam), null, "no overlap → no pointer");
   assert.equal(agree({ x1: 0, y1: 0, x2: 0, y2: 0 }, sam), null, "Spark gave no box → no pointer");
   assert.equal(agree(savings, [{ ...sam[0], c: 0.3 }]), null, "low-confidence SAM box ignored");
+});
+
+test("Model text is scrubbed before anyone sees it: card numbers, PIN codes, length", () => {
+  assert.equal(scrub("Card 4111 1111 1111 1111 was read"), "Card [number hidden] was read");
+  assert.equal(scrub("Type PIN 4821 now"), "Type PIN [hidden] now");
+  assert.equal(scrub("your OTP is 993311"), "your OTP is [hidden]");
+  assert.equal(scrub("Ticket S$4.20 to Changi"), "Ticket S$4.20 to Changi", "prices and normal numbers stay");
+  assert.ok(scrub("word ".repeat(200)).length <= 280, "length capped");
+  const p = sanitizePlan({ screen_says: "x".repeat(900), options: Array.from({ length: 9 }, (_, i) => ({ label: `O${i}`, meaning: "m" })), action: { target_label: "Pay", target_concept: "button", location_hint: "" } });
+  assert.ok(p.screen_says.length <= 280);
+  assert.equal(p.options.length, 6, "at most 6 options shown");
 });

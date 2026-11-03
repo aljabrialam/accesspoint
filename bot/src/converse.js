@@ -2,7 +2,7 @@
 // io: { channel, user, say(reply), typing(), fetchMedia(media) }   reply: { text, choices?: [{ title, id }], link?: { title, url }, next? }
 // input: { kind: "text" | "choice" | "image" | "audio" | "start", text?, id?, media?, ref? }
 import { COMMANDS, LANGS, LANG_MODEL, LANG_NAME, S, position } from "./strings.js";
-import { agree, decide, matchOption } from "./guard.js";
+import { agree, decide, matchOption, sanitizePlan } from "./guard.js";
 import { dataUrl, locate, planStep, speak, toWav, transcribe } from "./meta.js";
 
 export const MACHINES = ["atm", "ticket", "clinic", "order", "checkout", "airport"];
@@ -12,7 +12,7 @@ const SESSION_TTL = 3600;
 export const machineFrom = (ref) => MACHINES.find((m) => new RegExp(`(^|[^a-z])${m}([^a-z]|$)`, "i").test(String(ref ?? "")));
 const PICKER = LANGS.map((l) => S[l].picker).filter((v, i, a) => a.indexOf(v) === i).join(" · ");
 const rid = () => [...crypto.getRandomValues(new Uint8Array(12))].map((b) => b.toString(36).padStart(2, "0")).join("").slice(0, 16);
-const slim = (plan) => plan && { screen_type: plan.screen_type, screen_says: plan.screen_says, options: plan.options, action: plan.action, instruction: plan.instruction };
+const slim = (plan) => plan && { screen_type: plan.screen_type, screen_says: plan.screen_says, options: plan.options, question: plan.question, action: plan.action, instruction: plan.instruction };
 
 export async function converse(io, input, env, origin) {
   const kv = env.AP_KV;
@@ -92,6 +92,11 @@ export async function converse(io, input, env, origin) {
     if (s.plan?.options?.length) {
       const i = matchOption(text, s.plan.options);
       if (i >= 0) return await onOption(io, i, env, origin, s, say, L(), stepButtons);
+      // A short answer that matches no option, or two equally, is asked again; never guessed.
+      if (text.split(/\s+/).length <= 5) {
+        return say({ text: `${s.plan.question || L().which}\n${s.plan.options.map((o) => `• ${o.label}`).join("\n")}`,
+          choices: [...s.plan.options.map((o, k) => ({ title: o.label, id: `OPT:${k}` })), stepButtons()[1]], list: L().choose }, false);
+      }
     }
     if (text) { s.goal = text.slice(0, 200); s.plan = null; return say({ text: L().goalSet(s.goal) }); }
     return say({ text: L().photoAsk }, false);
@@ -111,7 +116,7 @@ async function onPhoto(io, { bytes, mime }, env, origin, s, say, L, stepButtons)
   const photo = rid();
   await env.AP_KV.put(`p:${photo}`, bytes, { expirationTtl: PHOTO_TTL, metadata: { mime: mime || "image/jpeg" } });
 
-  const plan = await planStep(env, { image, langName: LANG_MODEL[s.lang], machine: s.machine && S.en.machines[s.machine], goal: s.goal, prev: s.plan?.instruction });
+  const plan = sanitizePlan(await planStep(env, { image, langName: LANG_MODEL[s.lang], machine: s.machine && S.en.machines[s.machine], goal: s.goal, prev: s.plan?.instruction }));
   const verdict = decide(plan, s);
   // No sticker? The first readable photo tells us what machine this is.
   let intro = null;

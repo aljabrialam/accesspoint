@@ -128,6 +128,19 @@ test("Messenger: no sticker, photo first → language → it names the machine a
   assert.doesNotMatch(lastText(), /This looks like/, "says it once, not on every photo");
 });
 
+test("A pending choice is asked again when the answer is unclear or tied, never guessed", async () => {
+  await fb({ message: { mid: "q1", quick_reply: { payload: "L:en" }, text: "English" } });
+  nextPlan = PLAN;
+  await fbPhoto();
+  await fb({ message: { mid: "q2", text: "savings or current" } });
+  assert.match(lastText(), /^Which account do you want to use\?/, "tie: question again");
+  assert.deepEqual(sent.filter((m) => m.message).at(-1).message.quick_replies.map((q) => q.title), ["Savings", "Current", "Repeat"]);
+  await fb({ message: { mid: "q3", text: "banana" } });
+  assert.match(lastText(), /^Which account do you want to use\?/, "no match: question again");
+  await fb({ message: { mid: "q4", text: "current" } });
+  assert.match(lastText(), /Press "Current"/, "a clear answer still works");
+});
+
 test("Messenger: an unexpected transfer is stopped, and PIN photos are deleted at once", async () => {
   await fb({ message: { mid: "a", quick_reply: { payload: "L:en" }, text: "English" } });
   await fb({ message: { mid: "b", text: "withdraw S$100" } });

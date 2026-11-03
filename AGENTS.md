@@ -15,7 +15,7 @@
 ## Entry point: the machine sticker
 
 - A stranger starts from a "Need help? Scan me" sticker on the machine. Its QR encodes the deep link `accesspoint://start/<scenario id>` (route `mobile/src/app/start/[machine].tsx`): one screen, one big Start button, language and speed pickers, PIN promise. Start replaces itself with the guide.
-- Regenerate a sticker QR: `npx -y qrcode@1.5.4 -t svg -m 1 -c "#101828" -o demo/video/assets/qr-atm.svg "accesspoint://start/atm"`; verify it with the Core Image script in the conversation history (`swift qrdecode.swift file.png`).
+- Regenerate a sticker QR: `npx -y qrcode@1.5.4 -t svg -m 1 -c "#101828" -o demo/video/assets/qr-atm.svg "accesspoint://start/atm"`; verify it with `swift docs/qr/decode.swift file.png` (Core Image).
 - "No install" needs an App Clip (or web build), which is not built yet. Always label it "planned for launch"; the video sticker card does.
 - Maestro flow `11-sticker-start.yaml`; the video's Demo 1 now opens on this screen.
 

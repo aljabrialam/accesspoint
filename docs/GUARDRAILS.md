@@ -6,6 +6,22 @@ AccessPoint guides people through machines that handle money, identity and healt
 - **Built**: working in the app today (scenario mode) and covered by automated tests.
 - **Live pipeline**: designed and specified; enforced when the camera and Meta model pipeline is connected.
 
+## Update, 3 November: enforced in the Messenger and WhatsApp bot
+
+The bot (`bot/`) now enforces these in code. They are tested end to end with mocked model responses (`bot/test/`); they run on real model output once the Meta Model API key is active.
+
+| Guardrail | Where |
+|---|---|
+| PIN screen: fixed message, photo deleted at once | `decide()` in `bot/src/guard.js`, `onPhoto()` in `bot/src/converse.js` |
+| Unreadable photo: no step, photo deleted | `decide()`, `onPhoto()` |
+| Transfer not asked for, different amount, suspicious screen: stop | `decide()` |
+| Muse Spark only suggests; SAM 3.1 must find the named control, or "check the label" | `onPhoto()`, `onOption()` |
+| Screen text is data, not instructions | `planPrompt()` in `bot/src/guard.js` |
+| No PIN digits asked for; no financial, medical or legal advice | `planPrompt()` |
+| Answers mapped to options in code; ties are asked again | `matchOption()` |
+| Voice notes not stored; recognition biased to on-screen labels | `bot/src/meta.js`, `bot/modal/audio.py` |
+| Photos kept 10 minutes, chat state 1 hour, "delete" erases now | `bot/src/converse.js` |
+
 ## The rule that covers everything
 
 The person presses every button themselves. AccessPoint never taps, pays, types or submits anything. The worst a wrong model output can do is say the wrong words, and the checks below exist so that it says nothing at all rather than something wrong.

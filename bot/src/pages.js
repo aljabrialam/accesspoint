@@ -28,7 +28,7 @@ export function seePage(id, l, mark) {
 
 export const HOME = () => html(`<h1>Stuck at a machine? Send a photo. Get the next step.</h1>
 <p>AccessPoint helps people who struggle with self-service machines (ATMs, ticket machines, check-in kiosks, self-checkouts) get through them safely: send a photo of the screen on Messenger or WhatsApp, and get the next step in your own language.</p>
-<p>For older people, blind and low-vision people, and migrants and travellers. It never presses, pays or types for you, and never needs your PIN.</p>
+<p>For older people, blind and low-vision people, and migrants and tourists. It never presses, pays or types for you, and never needs your PIN.</p>
 <p><a href="/try"><b>Try it in your browser</b></a> (same code as the Messenger and WhatsApp bot).</p>
 <p>Built for the Meta Global AI Developer Hackathon with Muse Spark, SAM 3.1 and Muse Voice Transcribe.</p>
 <p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/data-deletion">Data deletion</a></p>`, { cache: "public, max-age=3600" });

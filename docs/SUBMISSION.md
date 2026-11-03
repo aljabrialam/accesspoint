@@ -21,9 +21,9 @@ https://x.com/aljabrialam/status/2117610935275975156
 
 ## Project Description
 
-AccessPoint helps people who struggle with self-service machines (ticket machines, airport and clinic check-in kiosks, self-checkouts, food kiosks) get through them safely. You send a photo of the screen on a chat app and get the next step, in your own language, as text and a spoken voice note. Nothing to install.
+AccessPoint helps people who struggle with self-service machines (ticket machines, airport and clinic check-in kiosks, self-checkouts, food kiosks) get through them safely: older people, blind and low-vision people, and migrants and tourists who can't read the screen's language. You send a photo of the screen on a chat app and get the next step, in your own language, as text and a spoken voice note. Nothing to install.
 
-**The problem.** Counters were replaced by touchscreens just as the world got older: 1.4 billion people will be over 60 by 2030, 2.2 billion live with a vision impairment, and 281 million live outside the country they were born in (WHO, IOM). Machines that handle money and identity assume you can see, read the language and react quickly. Today the only help is a stranger, who might watch your PIN, or a general chatbot, which might say "press Pay" on a wrong total or guess at a button it can't read.
+**The problem.** Counters were replaced by touchscreens just as the world got older: 1.4 billion people will be over 60 by 2030, 2.2 billion live with a vision impairment, and 281 million live outside the country they were born in, and millions more travel every year (WHO, IOM). Machines that handle money and identity assume you can see, read the language and react quickly. Today the only help is a stranger, who might watch your PIN, or a general chatbot, which might say "press Pay" on a wrong total or guess at a button it can't read.
 
 **What it does.**
 - Recognises the machine and reads what the screen is asking ("This looks like an airport check-in kiosk").
@@ -65,7 +65,7 @@ The problem needs three abilities at once, and Meta's models provide all three t
 
 1. **Reading any screen, in any language, and turning it into one safe step.** Every machine is different, and there is no per-machine setup. Muse Spark reads an unfamiliar screen from a phone photo, understands what it's asking, and replies in the person's own language, even when the screen's language is different. Its strict JSON output is what lets our code check every answer before anyone sees it.
 2. **Knowing exactly where to press.** A language model on its own can describe a button, but it can't outline it precisely. SAM 3.1 can, but it can't read the label. Together, with code requiring them to agree, they point at the right button: 5 out of 5 in our live test, where SAM alone was wrong on look-alike buttons. That agreement is our main defence against guessing, and it only works because the two models are good at different things.
-3. **Hearing people the way they really talk.** Our users are older people, blind people and migrants. Many would rather speak than type, often mixing languages ("yung window po"). Muse Voice Transcribe's keyword biasing toward on-screen labels and its 25 languages make voice answers usable.
+3. **Hearing people the way they really talk.** Our users are older people, blind people, migrants and tourists. Many would rather speak than type, often mixing languages ("yung window po"). Muse Voice Transcribe's keyword biasing toward on-screen labels and its 25 languages make voice answers usable.
 
 Meta's chat platforms matter just as much: the people who most need help are the least likely to install a new app, but most already have Messenger or WhatsApp.
 

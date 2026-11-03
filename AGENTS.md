@@ -3,6 +3,12 @@
 - `BRAINSTORM.md`: idea history and the chosen direction. `demo/SCRIPT.md`: timed video script.
 - `mobile/`: the Expo app. See `mobile/AGENTS.md` for running, scenarios and Maestro tests.
 
+## Documentation
+
+- `docs/README.md` indexes ARCHITECTURE, API, PRODUCTION, GUARDRAILS, PRIVACY-SECURITY, TESTING, SCREENS, BRAND, SUBMISSION. Keep numbers in README, TESTING and SUBMISSION in sync when results change.
+- Audience wording (owner, 3 Nov): "older people, blind and low-vision people, and migrants and tourists".
+- Screens: `docs/screens/` (README picks), `docs/screens/app/` (all 43 Maestro screenshots), chat crops from the 4K video, `/try` shots from a live Playwright run. Sticker: `docs/sticker/sticker.html` → `sticker.png`.
+
 ## Live product: the Messenger + WhatsApp bot (`bot/`)
 
 - Owner decision (3 Nov): the bot is the main live product; the iPhone app is the polished concept/demo. Channels: Messenger and WhatsApp (not Telegram).

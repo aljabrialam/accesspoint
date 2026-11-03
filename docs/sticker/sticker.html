@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- Printable machine sticker, 70 x 100 mm. Render: Chrome headless --window-size=700,1000 → sticker.png -->
+<html><head><meta charset="utf-8"><style>
+  @font-face { font-family: AHN; font-weight: 200 800; src: url(../../brand/fonts/AtkinsonHyperlegibleNext-Variable.ttf) format("truetype"); }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 700px; height: 1000px; display: grid; place-items: center; background: #E9ECF3; font-family: AHN, sans-serif; }
+  .s { width: 640px; height: 940px; border-radius: 56px; background: #2B47C9; color: #fff; padding: 52px 52px 44px; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(16,24,40,.5); }
+  .top { display: flex; align-items: center; gap: 14px; font-size: 30px; font-weight: 700; }
+  h1 { margin-top: 44px; font-size: 104px; line-height: .95; letter-spacing: -0.035em; font-weight: 800; }
+  .scan { margin-top: 10px; font-size: 54px; font-weight: 700; color: #FFB224; }
+  .row { margin-top: auto; display: flex; gap: 28px; align-items: flex-end; }
+  .qr { width: 270px; height: 270px; padding: 18px; border-radius: 28px; background: #fff; flex: none; }
+  .qr img { width: 100%; height: 100%; display: block; }
+  .art { width: 250px; height: 250px; border-radius: 34px; background: #fff; object-fit: cover; }
+  .langs { margin-top: 26px; font-size: 25px; line-height: 1.35; opacity: .9; }
+  .foot { margin-top: 14px; font-size: 20px; opacity: .7; }
+  .dot { position: absolute; right: -120px; top: -120px; width: 380px; height: 380px; border-radius: 50%; background: rgba(255,255,255,.07); }
+</style></head><body>
+<div class="s">
+  <div class="dot"></div>
+  <div class="top"><img src="../../brand/logo/mark-white.svg" style="width:34px">AccessPoint</div>
+  <h1>Need help?</h1>
+  <div class="scan">Scan me</div>
+  <div class="langs">Steps in your language · Hakbang sa iyong wika · Langkah dalam bahasamu · 用你的语言</div>
+  <div class="row">
+    <div class="qr"><img src="../qr/qr-try.png" alt="QR code"></div>
+    <img class="art" src="../../brand/sticker/muse-image-art.png" alt="">
+  </div>
+  <div class="foot">Never type your PIN for anyone. AccessPoint never asks for it. · Art: Muse Image</div>
+</div>
+</body></html>

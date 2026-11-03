@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AccessPoint brand basics</title>
+<style>
+  @font-face { font-family: AHN; font-weight: 200 800; src: url(fonts/AtkinsonHyperlegibleNext-Variable.ttf) format("truetype"); }
+  :root { --cobalt: #2B47C9; --amber: #FFB224; --ink: #101828; --mist: #F4F6FB; --line: #E4E8F2; --night: #7B8FF5; --go: #12805C; --stop: #D92D20; --ink2: #475467; }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1920px; height: 1080px; overflow: hidden; font-family: AHN, sans-serif; color: var(--ink); background: #fff; -webkit-font-smoothing: antialiased; }
+  .slide { position: absolute; inset: 0; display: none; padding: 110px 120px; }
+  .slide.on { display: block; }
+  .foot { position: absolute; left: 120px; right: 120px; bottom: 64px; display: flex; justify-content: space-between; font-size: 20px; color: var(--ink2); }
+  h1 { font-size: 84px; line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; }
+  h2 { font-size: 64px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 700; }
+  .lead { margin-top: 22px; font-size: 28px; line-height: 1.45; color: var(--ink2); max-width: 900px; }
+  .tile { border-radius: 28px; background: var(--mist); display: grid; place-items: center; }
+  .cap { margin-top: 14px; font-size: 19px; color: var(--ink2); }
+  img { display: block; }
+
+  /* cover */
+  #s1 { padding: 0; }
+  #s1 .left { position: absolute; left: 120px; top: 0; bottom: 0; width: 980px; display: flex; flex-direction: column; justify-content: center; }
+  #s1 .panel { position: absolute; right: 0; top: 0; bottom: 0; width: 720px; background: var(--cobalt); display: grid; place-items: center; }
+
+  /* mark */
+  .why { display: grid; grid-template-columns: 1fr 820px; gap: 100px; margin-top: 60px; align-items: center; }
+  .why dl { display: grid; gap: 30px; }
+  .why dt { font-size: 28px; font-weight: 700; }
+  .why dd { margin-top: 6px; font-size: 22px; line-height: 1.45; color: var(--ink2); }
+  .clear { position: relative; height: 760px; border-radius: 28px; background: var(--mist); display: grid; place-items: center; }
+  .clear .box { position: absolute; inset: 120px 160px; border: 2px dashed rgba(18,20,23,.25); border-radius: 8px; }
+  .clear .note { position: absolute; bottom: 36px; font-size: 19px; color: var(--ink2); }
+
+  /* colour */
+  .swatches { display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr; gap: 24px; margin-top: 70px; height: 560px; }
+  .sw { border-radius: 28px; padding: 30px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .sw b { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
+  .sw span { display: block; margin-top: 8px; font-size: 19px; line-height: 1.5; opacity: .8; }
+
+  /* type */
+  .types { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 70px; }
+  .types .tile { place-items: start; padding: 56px; height: 600px; display: block; }
+  .specimen { font-size: 210px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+  .ramp div { display: flex; align-items: baseline; gap: 26px; margin-top: 22px; }
+  .ramp em { font-style: normal; width: 130px; font-size: 18px; color: var(--ink2); }
+
+  /* logo use */
+  .uses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+  .uses .tile { height: 300px; }
+  .donts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 46px; }
+  .donts .tile { height: 200px; position: relative; }
+  .donts .tile::after { content: ""; position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 15px; background: var(--stop); }
+
+  /* voice */
+  #s6 { background: var(--ink); color: #fff; }
+  .donts .tile::after { background: var(--stop); }
+  #s6 .lead, #s6 .foot { color: rgba(255,255,255,.6); }
+  .rules { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 80px; margin-top: 70px; max-width: 1500px; }
+  .rules b { display: block; font-size: 34px; color: var(--night); letter-spacing: -0.01em; }
+  .rules span { display: block; margin-top: 10px; font-size: 24px; line-height: 1.45; color: rgba(255,255,255,.78); }
+</style>
+</head>
+<body>
+<section class="slide" id="s1">
+  <div class="left">
+    <img src="logo/lockup-light.svg" style="height:92px;width:auto">
+    <h1 style="margin-top:80px">A patient guide<br>for any machine.</h1>
+    <p class="lead">Point your phone at an ATM, a ticket machine or a kiosk. AccessPoint tells you the next step, in your language, and checks it happened.</p>
+  </div>
+  <div class="panel"><img src="logo/mark-white.svg" style="width:440px"></div>
+  <div class="foot"><span>AccessPoint brand basics</span><span>1 of 6</span></div>
+</section>
+
+<section class="slide" id="s2">
+  <h2>The mark</h2>
+  <div class="why">
+    <dl>
+      <div><dt>The letter A, in braille</dt><dd>A braille cell has six dot positions. The letter A is a single raised dot in the top left. That is our mark.</dd></div>
+      <div><dt>One sure point</dt><dd>The solid dot is the one thing to do now. The rings are everything else, waiting their turn.</dd></div>
+      <div><dt>Built for touch and small screens</dt><dd>Round, even shapes that stay clear on a 16 px tab. At small sizes the rings become small dots.</dd></div>
+    </dl>
+    <div class="clear"><div class="box"></div><img src="logo/mark-cobalt.svg" style="width:420px"><div class="note">Clear space: one dot on every side</div></div>
+  </div>
+  <div class="foot"><span>AccessPoint brand basics</span><span>2 of 6</span></div>
+</section>
+
+<section class="slide" id="s3">
+  <h2>Colour</h2>
+  <p class="lead">Cobalt is calm and trusted, the colour of public services that work. Amber appears only on the one thing to press.</p>
+  <div class="swatches">
+    <div class="sw" style="background:var(--cobalt);color:#fff"><b>Cobalt</b><span>#2B47C9<br>RGB 43 71 201<br>Brand, buttons, the mark</span></div>
+    <div class="sw" style="background:var(--amber)"><b>Amber</b><span>#FFB224<br>RGB 255 178 36<br>The target in the camera view</span></div>
+    <div class="sw" style="background:var(--ink);color:#fff"><b>Ink</b><span>#101828<br>Text</span></div>
+    <div class="sw" style="background:var(--mist)"><b>Mist</b><span>#F4F6FB<br>Backgrounds</span></div>
+    <div class="sw" style="background:var(--go);color:#fff"><b>Go</b><span>#12805C<br>Confirmed only</span></div>
+    <div class="sw" style="background:var(--stop);color:#fff"><b>Stop</b><span>#D92D20<br>Stopped only</span></div>
+  </div>
+  <div class="foot"><span>AccessPoint brand basics</span><span>3 of 6</span></div>
+</section>
+
+<section class="slide" id="s4">
+  <h2>Type</h2>
+  <p class="lead">Atkinson Hyperlegible Next for the brand, drawn by the Braille Institute so every letter stays distinct for low-vision readers. SF Pro inside the iOS app, so text follows the user’s size settings.</p>
+  <div class="types">
+    <div class="tile"><div class="specimen">Aa</div><div style="font-size:34px;font-weight:700;margin-top:24px">Atkinson Hyperlegible Next</div><div class="cap" style="font-size:22px">Bold for headlines, Regular for reading. Open licence (OFL).</div></div>
+    <div class="tile ramp">
+      <div><em>Headline</em><span style="font-size:64px;font-weight:700;letter-spacing:-0.03em">Press Confirm.</span></div>
+      <div><em>Step</em><span style="font-size:40px;font-weight:700;letter-spacing:-0.02em">The card slot is bottom left.</span></div>
+      <div><em>Body</em><span style="font-size:26px">Take your time. I’ll wait.</span></div>
+      <div><em>Caption</em><span style="font-size:19px;color:var(--ink2)">Camera paused. Nothing is being sent.</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>AccessPoint brand basics</span><span>4 of 6</span></div>
+</section>
+
+<section class="slide" id="s5">
+  <h2>Using the logo</h2>
+  <div class="uses">
+    <div><div class="tile" style="background:#fff;box-shadow:inset 0 0 0 2px var(--mist)"><img src="logo/lockup-light.svg" style="width:420px"></div><div class="cap">On light: cobalt mark, ink name</div></div>
+    <div><div class="tile" style="background:var(--ink)"><img src="logo/lockup-dark.svg" style="width:420px"></div><div class="cap">On dark: soft cobalt mark, white name</div></div>
+    <div><div class="tile" style="background:var(--cobalt)"><img src="logo/lockup-on-cobalt.svg" style="width:420px"></div><div class="cap">On cobalt: white</div></div>
+  </div>
+  <div class="donts">
+    <div><div class="tile"><img src="logo/lockup-light.svg" style="width:380px;transform:scaleX(1.35)"></div><div class="cap">Don’t stretch it</div></div>
+    <div><div class="tile"><img src="logo/lockup-light.svg" style="width:380px;filter:hue-rotate(140deg)"></div><div class="cap">Don’t recolour it</div></div>
+    <div><div class="tile" style="background:linear-gradient(120deg,#7b5cff,#ff5ca8)"><img src="logo/lockup-light.svg" style="width:380px"></div><div class="cap">Don’t place it on busy colour</div></div>
+  </div>
+  <div class="foot"><span>AccessPoint brand basics</span><span>5 of 6</span></div>
+</section>
+
+<section class="slide" id="s6">
+  <img src="logo/lockup-dark.svg" style="height:56px;width:auto">
+  <h2 style="margin-top:70px">How AccessPoint speaks</h2>
+  <p class="lead">Like a patient friend standing next to you. Never a robot, never in a hurry.</p>
+  <div class="rules">
+    <div><b>One step at a time</b><span>“The card slot is bottom left. Put your card in.”</span></div>
+    <div><b>Ask, don’t guess</b><span>“The screen asks: savings, or current account?”</span></div>
+    <div><b>Say what it can’t see</b><span>“I can’t see the buttons clearly. Tilt the phone up a little.”</span></div>
+    <div><b>Protect, then explain</b><span>“Stop. You asked for cash. This screen wants a transfer.”</span></div>
+  </div>
+  <div class="foot"><span>AccessPoint brand basics</span><span>6 of 6</span></div>
+</section>
+<script>
+  const n = new URLSearchParams(location.search).get('s') || '1';
+  document.getElementById('s' + n).classList.add('on');
+</script>
+</body>
+</html>

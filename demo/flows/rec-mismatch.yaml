@@ -1,0 +1,19 @@
+appId: host.exp.Exponent
+---
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 10155
+    optional: true
+- tapOn: { id: "action-I pressed Cancel" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 400
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 8117
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 1200
+    optional: true

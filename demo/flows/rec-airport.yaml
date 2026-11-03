@@ -1,0 +1,55 @@
+appId: host.exp.Exponent
+---
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 3709
+    optional: true
+- tapOn: { id: "action-It’s on the glass" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 400
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 5641
+    optional: true
+- tapOn: { id: "voice-mic" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 600
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 1956
+    optional: true
+- tapOn: { id: "say-0" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 400
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 3893
+    optional: true
+- tapOn: { id: "voice-mic" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 600
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 1101
+    optional: true
+- tapOn: { id: "say-0" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 400
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 5591
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 1200
+    optional: true

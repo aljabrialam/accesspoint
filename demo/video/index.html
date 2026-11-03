@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AccessPoint demo video</title>
+<style>
+  @font-face { font-family: AHN; font-weight: 200 800; src: url(../../brand/fonts/AtkinsonHyperlegibleNext-Variable.ttf) format("truetype"); }
+  :root {
+    --paper: #F4F6FB;
+    --ink: #101828;
+    --ink2: #475467;
+    --ink3: rgba(16, 24, 40, 0.45);
+    --line: rgba(16, 24, 40, 0.08);
+    --brand: #2B47C9;
+    --brand-soft: rgba(43, 71, 201, 0.1);
+    --signal: #FFB224;
+    --go: #12805C;
+    --stop: #D92D20;
+    --font: AHN, -apple-system, "Helvetica Neue", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--paper); }
+  body { font-family: var(--font); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  #stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .scene { position: absolute; inset: 0; opacity: 0; }
+  [data-at] { opacity: 0; }
+
+  /* chrome */
+  #chips { position: absolute; top: 48px; left: 64px; display: flex; gap: 22px; align-items: center; font-size: 21px; font-weight: 600; z-index: 10; }
+  #chips .section { display: flex; align-items: center; gap: 11px; }
+  #chips .section i { width: 18px; height: 18px; border-radius: 9px; background: var(--brand); display: block; box-shadow: 0 0 0 4px var(--brand-soft); }
+  #chips .badge { display: flex; align-items: center; gap: 9px; color: var(--ink2); font-weight: 500; }
+  #chips .badge b { width: 9px; height: 9px; border-radius: 50%; background: var(--go); display: block; }
+  #caption { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); max-width: 1560px; width: max-content; background: rgba(16,24,40,0.92); color: #fff; padding: 12px 24px; border-radius: 16px; z-index: 10; opacity: 0; text-align: center; }
+  #caption .cap-line { font-size: 30px; font-weight: 500; line-height: 1.3; }
+  #caption .cap-label { display: inline-block; margin-right: 12px; padding: 2px 11px; border-radius: 8px; font-size: 21px; font-weight: 700; vertical-align: 3px; background: var(--brand); color: #fff; }
+  #caption .cap-label.user { background: #fff; }
+  #caption .cap-sub { margin-top: 4px; font-size: 22px; color: rgba(255,255,255,0.72); }
+
+  /* type */
+  .center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .h1 { font-size: 104px; line-height: 1.02; letter-spacing: -0.04em; font-weight: 700; }
+  .h2 { font-size: 72px; line-height: 1.04; letter-spacing: -0.035em; font-weight: 700; }
+  .lead { font-size: 34px; line-height: 1.35; color: var(--ink2); }
+  .small { font-size: 24px; color: var(--ink2); }
+
+  /* title */
+  .eyebrow-line { font-size: 30px; color: var(--ink2); margin-top: 26px; }
+
+  /* hero */
+  .hero-quote { font-size: 112px; line-height: 1.05; letter-spacing: -0.04em; font-weight: 700; max-width: 1500px; }
+  .hero-quote span { opacity: 0.08; }
+  .hero-quote span.on { opacity: 1; }
+  .hero-quote .hl { background: linear-gradient(transparent 62%, rgba(43,71,201,.22) 62%, rgba(43,71,201,.22) 92%, transparent 92%); }
+
+  /* brand */
+  .mark { width: 184px; height: 184px; border-radius: 42px; background: var(--brand); display: grid; place-items: center; box-shadow: 0 30px 60px -30px rgba(43,71,201,0.6); }
+
+  /* problem */
+  .machines { display: flex; gap: 36px; margin-top: 56px; }
+  .machine { width: 300px; text-align: left; }
+  .machine img { width: 300px; height: 300px; object-fit: cover; border-radius: 26px; display: block; }
+  .machine p { margin-top: 14px; font-size: 26px; font-weight: 600; }
+  .stats { display: flex; gap: 90px; margin-top: 44px; }
+  .stat { text-align: left; }
+  .stat strong { display: block; font-size: 96px; letter-spacing: -0.04em; line-height: 1; }
+  .stat span { display: block; margin-top: 10px; font-size: 25px; color: var(--ink2); max-width: 360px; }
+  .risks { display: flex; gap: 40px; margin-top: 64px; }
+  .risk { width: 420px; padding: 34px; border-radius: 30px; background: #fff; text-align: left; box-shadow: 0 20px 50px -30px rgba(0,0,0,0.25); }
+  .risk .ico { width: 64px; height: 64px; border-radius: 32px; background: rgba(196,50,31,0.1); display: grid; place-items: center; color: var(--stop); }
+  .risk strong { display: block; margin-top: 22px; font-size: 36px; letter-spacing: -0.02em; }
+  .risk span { display: block; margin-top: 10px; font-size: 25px; line-height: 1.35; color: var(--ink2); }
+
+  /* approach */
+  .lane { position: relative; width: 1300px; height: 220px; margin-top: 90px; }
+  .lane .track { position: absolute; top: 108px; left: 0; right: 0; height: 4px; border-radius: 2px; background: var(--line); }
+  .lane .gate { position: absolute; left: 780px; top: 20px; width: 0; height: 180px; border-left: 4px dashed var(--ink3); }
+  .lane .gate-label { position: absolute; left: 800px; top: 0; font-size: 22px; color: var(--ink2); font-weight: 600; text-align: left; }
+  .lane .card { position: absolute; top: 56px; width: 330px; height: 108px; border-radius: 26px; background: #fff; box-shadow: 0 20px 40px -24px rgba(0,0,0,0.35); display: flex; align-items: center; gap: 18px; padding: 0 26px; font-size: 28px; font-weight: 600; }
+  .lane .card .dot { width: 52px; height: 52px; border-radius: 26px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; flex: none; }
+  .lane .seen { position: absolute; left: 700px; top: 186px; font-size: 22px; font-weight: 600; color: var(--go); }
+
+  /* architecture */
+  .arch { position: absolute; left: 90px; right: 90px; top: 250px; display: grid; grid-template-columns: 4fr 3fr 2fr; gap: 26px; }
+  .zone { border-radius: 30px; padding: 28px 24px 30px; background: rgba(255,255,255,0.55); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .zone h5 { font-size: 22px; font-weight: 600; color: var(--ink2); margin-bottom: 22px; }
+  .nodes { display: flex; gap: 16px; }
+  .node { flex: 1; padding: 22px 18px; border-radius: 22px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--line); transition: none; min-height: 250px; }
+  .node .ico { width: 54px; height: 54px; border-radius: 27px; background: #EFEFEC; display: grid; place-items: center; }
+  .node strong { display: block; margin-top: 18px; font-size: 27px; letter-spacing: -0.015em; }
+  .node span { display: block; margin-top: 8px; font-size: 20px; line-height: 1.35; color: var(--ink2); }
+  .node.on { box-shadow: inset 0 0 0 3px var(--ink), 0 24px 40px -26px rgba(0,0,0,0.4); }
+  .node.on .ico { background: var(--brand); color: #fff; }
+  .node.done .ico { background: var(--brand-soft); color: var(--brand); }
+  .arch-head { position: absolute; left: 90px; top: 130px; }
+
+  /* demo */
+  .phone { position: absolute; left: 286px; top: 104px; width: 400px; height: 836px; border-radius: 62px; background: #1A1B1E; box-shadow: 0 50px 80px -50px rgba(0,0,0,0.55); }
+  .phone .screen { position: absolute; left: 14px; top: 14px; width: 372px; height: 808px; border-radius: 50px; background: #000; }
+  .panel { position: absolute; left: 840px; top: 196px; width: 900px; }
+  .panel .count { font-size: 26px; font-weight: 600; color: var(--ink2); }
+  .panel h3 { margin-top: 14px; font-size: 76px; line-height: 1.02; letter-spacing: -0.038em; font-weight: 700; }
+  .panel blockquote { margin-top: 24px; font-size: 30px; line-height: 1.4; color: var(--ink2); }
+  .status { margin-top: 70px; display: flex; gap: 22px; align-items: center; min-height: 84px; }
+  .status .ico { width: 66px; height: 66px; border-radius: 19px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; flex: none; }
+  .status.stop .ico { background: rgba(196,50,31,0.12); color: var(--stop); }
+  .status.paused .ico { background: #E6E6E3; }
+  .status strong { display: block; font-size: 42px; letter-spacing: -0.025em; }
+  .status.stop strong { color: var(--stop); }
+  .status span { display: block; margin-top: 4px; font-size: 25px; color: var(--ink2); }
+  .ptrack { margin-top: 74px; position: relative; display: grid; grid-template-columns: repeat(6, 1fr); }
+  .ptrack::before { content: ""; position: absolute; top: 8px; left: 9px; right: 9px; height: 3px; background: var(--line); }
+  .ptrack .fill { position: absolute; top: 8px; left: 9px; height: 3px; background: var(--ink); }
+  .ptrack .n { position: relative; display: flex; flex-direction: column; gap: 16px; font-size: 22px; color: var(--ink3); }
+  .ptrack .n b { width: 19px; height: 19px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 2.5px var(--line); display: block; }
+  .ptrack .n.done { color: var(--ink); }
+  .ptrack .n.done b { background: var(--ink); box-shadow: none; }
+  .ptrack .n.now { color: var(--ink); font-weight: 600; }
+  .ptrack .n.now b { background: var(--brand); box-shadow: 0 0 0 7px var(--brand-soft); }
+
+  /* sticker (demo 1 start) */
+  #sticker { position: absolute; left: 0; top: 330px; display: flex; gap: 36px; align-items: center; opacity: 0; transition: none; }
+  .stk { width: 300px; height: 360px; border-radius: 34px; background: var(--brand); color: #fff; padding: 28px; box-shadow: 0 30px 60px -30px rgba(43,71,201,.7); transform: rotate(-3deg); display: flex; flex-direction: column; }
+  .stk .top { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; opacity: .9; }
+  .stk b { display: block; margin-top: 16px; font-size: 44px; line-height: 1; letter-spacing: -0.02em; }
+  .stk span { display: block; margin-top: 4px; font-size: 26px; font-weight: 600; opacity: .85; }
+  .stk .qr { margin-top: auto; align-self: flex-start; width: 132px; height: 132px; padding: 10px; border-radius: 16px; background: #fff; }
+  .stk .qr img { width: 100%; height: 100%; }
+  .stk-copy strong { display: block; font-size: 42px; letter-spacing: -0.025em; }
+  .stk-copy p { margin-top: 12px; font-size: 26px; line-height: 1.4; color: var(--ink2); max-width: 470px; }
+  .stk-copy small { display: block; margin-top: 18px; font-size: 19px; color: var(--ink3); }
+  .panel.sticker-on .status, .panel.sticker-on .ptrack { opacity: 0 !important; }
+
+  /* languages */
+  .langs { display: grid; grid-template-columns: repeat(5, 290px); gap: 18px 22px; margin-top: 60px; }
+  .langs div { height: 76px; border-radius: 20px; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 600; box-shadow: inset 0 0 0 1.5px var(--line); }
+
+  /* results */
+  .results { display: grid; grid-template-columns: repeat(4, 380px); gap: 30px; margin-top: 70px; }
+  .result { text-align: left; padding: 34px 32px; border-radius: 30px; background: #fff; box-shadow: 0 20px 50px -34px rgba(0,0,0,0.3); }
+  .result strong { display: block; font-size: 92px; letter-spacing: -0.045em; line-height: 1; }
+  .result span { display: block; margin-top: 16px; font-size: 25px; line-height: 1.35; color: var(--ink2); }
+  .result em { display: block; margin-top: 10px; font-style: normal; font-size: 22px; font-weight: 600; color: var(--go); }
+  .footnote { margin-top: 44px; font-size: 21px; color: var(--ink3); }
+  .result strong span, .stat strong span { display: inline; margin: 0; font-size: inherit; color: inherit; max-width: none; font-variant-numeric: tabular-nums; }
+
+  /* guardrails */
+  .guard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; width: 1600px; text-align: left; }
+  .gcard { border-radius: 30px; background: #fff; padding: 36px 34px; box-shadow: 0 24px 60px -36px rgba(43,71,201,.35); }
+  .gcard h4 { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; }
+  .gcard .job { font-size: 21px; color: var(--ink2); margin-top: 6px; }
+  .gcard ul { list-style: none; padding: 0; margin-top: 26px; display: grid; gap: 18px; }
+  .gcard li { font-size: 23px; font-weight: 600; line-height: 1.25; }
+  .gcard li em { display: inline-block; margin-top: 6px; font-style: normal; font-size: 15px; font-weight: 700; padding: 4px 11px; border-radius: 999px; background: rgba(16,24,40,.06); color: var(--ink2); }
+  .gcard li em.on { background: rgba(18,128,92,.12); color: var(--go); }
+  .gfoot { margin-top: 40px; font-size: 26px; font-weight: 600; }
+
+  /* close */
+  .guarantees { display: grid; grid-template-columns: repeat(3, 470px); gap: 22px 30px; margin-top: 64px; text-align: left; }
+  .guarantees div { display: flex; gap: 16px; align-items: center; font-size: 30px; font-weight: 600; }
+  .guarantees i { width: 44px; height: 44px; border-radius: 22px; background: var(--go); display: grid; place-items: center; flex: none; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="blob" id="blob1" style="width:900px;height:900px;background:#C7D1FA;opacity:.55"></div>
+  <div class="blob" id="blob2" style="width:760px;height:760px;background:#E3E9F7;opacity:.8"></div>
+
+  <div id="chips"><span class="section"><i></i><span id="chip-section"></span></span><span class="badge" id="chip-badge-wrap"><b></b><span id="chip-badge"></span></span></div>
+
+  <!-- 1 title -->
+  <section class="scene" id="s-title" data-start="0" data-end="3">
+    <div class="center">
+      <img src="../../brand/logo/lockup-light.svg" style="height:64px;margin-bottom:56px" alt="AccessPoint">
+      <div class="h2">Meta Global AI Developer Hackathon</div>
+      <div class="eyebrow-line">Indie Developer track, Build for Your World</div>
+    </div>
+  </section>
+
+  <!-- 2 hero -->
+  <section class="scene" id="s-hero" data-start="3" data-end="12">
+    <div class="center">
+      <div class="hero-quote" id="hero-quote"></div>
+      <div class="lead" id="hero-lead" data-at="4.2" style="margin-top:48px">Said to an ATM, a ticket machine, a clinic kiosk.</div>
+    </div>
+  </section>
+
+  <!-- 3 brand -->
+  <section class="scene" id="s-brand" data-start="12" data-end="17">
+    <div class="center">
+      <div class="mark"><img src="../../brand/logo/mark-white.svg" style="width:96px"></div>
+      <img src="../../brand/logo/wordmark-ink.svg" style="height:92px;margin-top:56px" alt="AccessPoint">
+      <div class="lead" style="margin-top:20px">Point your phone. Hear the next step.</div>
+    </div>
+  </section>
+
+  <!-- 4 problem -->
+  <section class="scene" id="s-problem" data-start="17" data-end="35">
+    <div class="center" id="prob-a" data-at="0" data-until="8">
+      <div class="h2">The world went self-service<br>just as it started to age.</div>
+      <div class="machines">
+        <div class="machine" data-at="0.3"><img src="assets/atm.jpg"><p>ATMs</p></div>
+        <div class="machine" data-at="0.5"><img src="assets/order.jpg"><p>Food kiosks</p></div>
+        <div class="machine" data-at="0.7"><img src="assets/checkout.jpg"><p>Self-checkout</p></div>
+        <div class="machine" data-at="0.9"><img src="assets/airport.jpg"><p>Airport check-in</p></div>
+      </div>
+      <div class="stats" id="prob-stats" data-at="4.4">
+        <div class="stat"><strong><span data-count-to="1.4" data-decimals="1">1.4</span>B</strong><span>people aged 60+ by 2030 (WHO)</span></div>
+        <div class="stat"><strong><span data-count-to="2.2" data-decimals="1">2.2</span>B</strong><span>people with a vision impairment (WHO)</span></div>
+        <div class="stat"><strong><span data-count-to="281">281</span>M</strong><span>international migrants (IOM)</span></div>
+      </div>
+    </div>
+    <div class="center" id="prob-b" data-at="8">
+      <div class="h2">A chatbot pointed at a machine<br>can do real harm.</div>
+      <div class="risks">
+        <div class="risk" data-risk="0" data-at="8.5"><div class="ico">ICON_TAP</div><strong>Wrong button</strong><span>“Press OK” when OK confirms a transfer.</span></div>
+        <div class="risk" data-risk="1" data-at="9.1"><div class="ico">ICON_EYE</div><strong>PIN on camera</strong><span>Every frame sent to the cloud, PIN included.</span></div>
+        <div class="risk" data-risk="2" data-at="9.7"><div class="ico">ICON_FAST</div><strong>Rushing ahead</strong><span>Next step before the card is even in.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 approach -->
+  <section class="scene" id="s-approach" data-start="35" data-end="45">
+    <div class="center">
+      <div class="h2">The model suggests.<br>The camera confirms.</div>
+      <div class="lane">
+        <div class="track"></div>
+        <div class="gate"></div>
+        <div class="gate-label">Camera check</div>
+        <div class="card" id="lane-card"><div class="dot">ICON_CARD</div>Insert your card</div>
+        <div class="seen" id="lane-seen">Card seen in the slot</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 architecture -->
+  <section class="scene" id="s-arch" data-start="45" data-end="68">
+    <div class="arch-head"><div class="h2" style="font-size:60px">How it works</div></div>
+    <div class="arch">
+      <div class="zone"><h5>Meta models perceive, read only</h5>
+        <div class="nodes">
+          <div class="node" data-on="0"><div class="ico">ICON_EYE2</div><strong>SAM 3.1</strong><span>Finds the screen, buttons and slots, zero-shot</span></div>
+          <div class="node" data-on="5"><div class="ico">ICON_SPARK</div><strong>Muse Spark</strong><span>Reads the screen, writes one simple step</span></div>
+          <div class="node" data-on="10"><div class="ico">ICON_WAVE</div><strong>Muse Voice</strong><span>Hears you in 25 languages</span></div>
+        </div>
+      </div>
+      <div class="zone"><h5>Code decides</h5>
+        <div class="nodes">
+          <div class="node" data-on="15"><div class="ico">ICON_CHECK</div><strong>Step check</strong><span>Moves on only when the camera sees it happen</span></div>
+          <div class="node" data-on="17.5"><div class="ico">ICON_LOCK</div><strong>PIN guard</strong><span>Camera off on PIN screens. Always.</span></div>
+        </div>
+      </div>
+      <div class="zone"><h5>You act</h5>
+        <div class="nodes">
+          <div class="node" data-on="20"><div class="ico">ICON_HAND</div><strong>You press</strong><span>Every button, yourself</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6b guardrails -->
+  <section class="scene" id="s-guard" data-start="68" data-end="78">
+    <div class="center">
+      <div class="h2">Guardrails on every model</div>
+      <div class="guard">
+        <div class="gcard" id="g0" data-at="1"><h4>SAM 3.1</h4><div class="job">Sees the machine</div><ul>
+          <li>Never sees your PIN<br><em class="on">Working now</em></li>
+          <li>Not sure? Asks, doesn’t guess<br><em class="on">Working now</em></li>
+          <li>Machine parts only, faces blurred<br><em>Live pipeline</em></li></ul></div>
+        <div class="gcard" id="g1" data-at="2"><h4>Muse Spark</h4><div class="job">Reads the screen, plans one step</div><ul>
+          <li>Stops what you didn’t ask for<br><em class="on">Working now</em></li>
+          <li>Suggests, never acts<br><em>Live pipeline</em></li>
+          <li>Screen text can’t give orders<br><em>Live pipeline</em></li></ul></div>
+        <div class="gcard" id="g2" data-at="3"><h4>Muse Voice</h4><div class="job">Hears you, 25 languages</div><ul>
+          <li>Code maps words to buttons<br><em class="on">Working now</em></li>
+          <li>Mic off for PINs<br><em>Live pipeline</em></li>
+          <li>Audio never stored<br><em>Live pipeline</em></li></ul></div>
+      </div>
+      <div class="gfoot" id="gfoot" data-at="4">You press every button. AccessPoint never taps, pays or types.</div>
+    </div>
+  </section>
+
+  <!-- 7, 8 demo + safety scenes share the phone -->
+  <section class="scene" id="s-demo" data-start="68" data-end="153">
+    <div class="phone"><div class="screen"></div></div>
+    <div class="panel" id="panel">
+      <div id="sticker">
+        <div class="stk"><div class="top"><img src="../../brand/logo/mark-white.svg" style="width:22px">AccessPoint</div><b>Need help?</b><span>Scan me</span><div class="qr"><img src="assets/qr-atm.svg" alt="QR code"></div></div>
+        <div class="stk-copy"><strong>One sticker per machine</strong><p>Scan it with the phone camera. AccessPoint opens on that machine with one button.</p><small>No-install App Clip: planned for launch</small></div>
+      </div>
+      <div class="count" id="d-count"></div>
+      <h3 id="d-title"></h3>
+      <blockquote id="d-quote"></blockquote>
+      <div class="status" id="d-status"><div class="ico" id="d-icon"></div><div><strong id="d-stitle"></strong><span id="d-ssub"></span></div></div>
+      <div class="ptrack" id="d-track"></div>
+    </div>
+  </section>
+
+  <!-- 9 languages -->
+  <section class="scene" id="s-langs" data-start="153" data-end="160">
+    <div class="center">
+      <div class="h2">25 languages, and the mixes<br>people really speak.</div>
+      <div class="langs" id="langs"></div>
+    </div>
+  </section>
+
+  <!-- 10 results -->
+  <section class="scene" id="s-results" data-start="160" data-end="171">
+    <div class="center">
+      <div class="h2">We measured it.</div>
+      <div class="results">
+        <div class="result" data-at="0.4"><strong><span data-count-to="11">11</span> / 11</strong><span>app flows pass end to end</span></div>
+        <div class="result" data-at="0.7"><strong><span data-count-to="24">24</span> / 24</strong><span>spoken phrases mapped to the right button, 10 languages</span></div>
+        <div class="result" data-at="1.0"><strong>0</strong><span>ambiguous answers guessed</span><em>down from 1</em></div>
+        <div class="result" data-at="1.3"><strong><span data-count-to="25">25</span></strong><span>languages, from Tagalog to Arabic</span></div>
+      </div>
+      <div class="footnote" data-at="1.8">Automated tests on our own scenario and phrase sets during development, Oct 2026. Live camera accuracy is measured next.</div>
+    </div>
+  </section>
+
+  <!-- 11 close -->
+  <section class="scene" id="s-close" data-start="171" data-end="178.5">
+    <div class="center">
+      <img src="../../brand/logo/lockup-light.svg" style="height:60px;margin-bottom:48px" alt="AccessPoint">
+      <div class="h1">Independence by design.</div>
+      <div class="guarantees">
+        <div data-at="0.5"><i>ICON_OK</i>Never sees your PIN</div>
+        <div data-at="0.8"><i>ICON_OK</i>Never guesses a button</div>
+        <div data-at="1.1"><i>ICON_OK</i>Confirms every step</div>
+        <div data-at="1.4"><i>ICON_OK</i>Speaks your language</div>
+        <div data-at="1.7"><i>ICON_OK</i>Works on any machine</div>
+        <div data-at="2.0"><i>ICON_OK</i>No account needed</div>
+      </div>
+      <div class="small" data-at="2.6" style="margin-top:56px">AccessPoint, built Oct 27 to Nov 4, 2026, with SAM 3.1, Muse Spark and Muse Voice Transcribe</div>
+    </div>
+  </section>
+
+  <div id="caption"><div class="cap-line"><span class="cap-label" id="cap-label"></span><span id="cap-text"></span></div><div class="cap-sub" id="cap-sub"></div></div>
+</div>
+
+<script src="timeline.js"></script>
+<script>
+const FPS = 30;
+const ICONS = {
+  TAP: '<path d="M9 11V5a2 2 0 0 1 4 0v6M13 10a2 2 0 0 1 4 0v2M17 11a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6h-2a6 6 0 0 1-5-3l-3-5a2 2 0 0 1 3-2l1 1"/>',
+  EYE: '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  FAST: '<path d="M13 3L4 14h7l-1 7 9-11h-7z"/>',
+  CARD: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>',
+  EYE2: '<path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/>',
+  SPARK: '<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',
+  WAVE: '<path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/>',
+  CHECK: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  LOCK: '<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
+  HAND: '<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11V4.5a1.5 1.5 0 0 1 3 0V12M14 11.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 8-7 8-3 0-4.5-1.5-6-4l-1.5-2.5a1.5 1.5 0 0 1 2.5-1.6L8 15"/>',
+  OK: '<path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff"/>',
+  ASK: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/>',
+  STOP: '<circle cx="12" cy="12" r="9"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/>',
+  MIC: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+  GLOBE: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  SUN: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/>',
+  QR: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M17 21h4v-4M14 21v-3"/>',
+  PRINT: '<path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7"/>',
+};
+const svg = (name, size = 30, color = 'currentColor') => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
+document.body.innerHTML = document.body.innerHTML.replace(/ICON_([A-Z0-9]+)/g, (_, n) => svg(n, n === 'OK' ? 24 : 32));
+
+const ease = (x) => 1 - Math.pow(1 - Math.min(Math.max(x, 0), 1), 3);
+const clamp01 = (x) => Math.min(Math.max(x, 0), 1);
+
+/* ---------- timeline (generated by build.py into timeline.js) ---------- */
+const TL = window.TIMELINE;
+const PHASES = ['See', 'Read', 'Plan', 'Guide', 'Confirm', 'Done'];
+const DEMOS = TL.demos;
+const SC = TL.scenes;
+const SCENE_MAP = { 's-title': SC.title, 's-hero': SC.hero, 's-brand': SC.brand, 's-problem': SC.problem, 's-approach': SC.approach, 's-arch': SC.arch, 's-guard': SC.guard,
+  's-demo': { start: TL.demoSpan[0], end: TL.demoSpan[1] }, 's-langs': SC.langs, 's-results': SC.results, 's-close': SC.close };
+for (const [id, sc] of Object.entries(SCENE_MAP)) { const el = document.getElementById(id); el.dataset.start = sc.start; el.dataset.end = sc.end; }
+document.querySelectorAll('.node').forEach((n, i) => { n.dataset.on = TL.archNodes[i]; });
+{
+  const pm = SC.problem.marks, hm = SC.hero.marks, gm = SC.guard.marks;
+  ['g0', 'g1', 'g2'].forEach((id, i) => { document.getElementById(id).dataset.at = gm[i + 1]; });
+  document.getElementById('gfoot').dataset.at = gm[3] + 2.2;
+  document.getElementById('hero-lead').dataset.at = hm[1];
+  document.getElementById('prob-a').dataset.until = pm[2];
+  document.getElementById('prob-stats').dataset.at = pm[1];
+  document.getElementById('prob-b').dataset.at = pm[2];
+  document.querySelectorAll('[data-risk]').forEach((el) => { el.dataset.at = pm[2] + 0.35 * (1 + +el.dataset.risk); });
+}
+const easeBack = (x) => { const c = 1.6; x = clamp01(x) - 1; return 1 + (c + 1) * x * x * x + c * x * x; };
+
+const LANGS = ['English', '中文', 'हिन्दी', 'Español', 'العربية', 'বাংলা', 'Português', 'Français', 'Bahasa Indonesia', 'Bahasa Melayu', 'Tagalog', '日本語', '한국어', 'Tiếng Việt', 'ไทย', 'தமிழ்', 'తెలుగు', 'मराठी', 'ಕನ್ನಡ', 'Türkçe', 'Deutsch', 'Italiano', 'Nederlands', 'Polski', 'עברית'];
+document.getElementById('langs').innerHTML = LANGS.map((l, i) => `<div data-at="${0.4 + i * 0.07}">${l}</div>`).join('');
+
+const HERO = ['I', 'can’t', 'read', 'this', 'screen.', 'Help', 'me.'];
+document.getElementById('hero-quote').innerHTML = HERO.map((w, i) => `<span class="${i >= 5 ? 'hl' : ''}">${w}</span>`).join(' ');
+
+const scenes = [...document.querySelectorAll('.scene')];
+
+function sectionFor(t) {
+  const sc = Object.values(SC).find((x) => t >= x.start && t < x.end);
+  return sc ? [sc.section, sc.badge] : ['', ''];
+}
+
+function render(t) {
+  document.getElementById('blob1').style.transform = `translate(${1150 + Math.sin(t / 5) * 160}px, ${-260 + Math.cos(t / 6) * 120}px)`;
+  document.getElementById('blob2').style.transform = `translate(${-220 + Math.cos(t / 5.5) * 150}px, ${520 + Math.sin(t / 4.5) * 110}px)`;
+
+  for (const s of scenes) {
+    const a = +s.dataset.start, b = +s.dataset.end;
+    const op = clamp01((t - a) / 0.25) * clamp01((b - t) / 0.25);
+    s.style.opacity = op;
+    s.style.visibility = op > 0 ? 'visible' : 'hidden';
+    const local = t - a;
+    for (const el of s.querySelectorAll('[data-at]')) {
+      const at = +el.dataset.at;
+      const until = el.dataset.until !== undefined ? +el.dataset.until : Infinity;
+      const p = clamp01((local - at) / 0.42);
+      const out = clamp01((until - local) / 0.3);
+      el.style.opacity = ease(p) * out;
+      el.style.transform = `translateY(${(1 - easeBack(p)) * 34}px)`;
+      for (const num of el.querySelectorAll('[data-count-to]')) {
+        const k = ease((local - at) / 0.9), to = +num.dataset.countTo, dec = +(num.dataset.decimals ?? 0);
+        num.textContent = (to * k).toFixed(dec);
+      }
+    }
+  }
+
+  const [section, badge] = sectionFor(t);
+  document.getElementById('chips').style.opacity = section ? 1 : 0;
+  document.getElementById('chip-section').textContent = section;
+  document.getElementById('chip-badge').textContent = badge;
+  document.getElementById('chip-badge-wrap').style.display = badge ? 'flex' : 'none';
+
+  // hero words type in
+  const heroLocal = t - SC.hero.start;
+  document.querySelectorAll('#hero-quote span').forEach((sp, i) => sp.classList.toggle('on', heroLocal > 0.25 + i * 0.22));
+
+  // approach card
+  const ap = t - SC.approach.start, go = SC.approach.marks[1];
+  const card = document.getElementById('lane-card');
+  let x = 0;
+  if (ap < go) x = easeBack(ap / 1.4) * 420;
+  else x = 420 + ease((ap - go) / 1.1) * 520;
+  card.style.left = `${Math.min(x, 940)}px`;
+  document.getElementById('lane-seen').style.opacity = clamp01((ap - (go - 0.7)) / 0.3);
+
+  // architecture nodes
+  const ar = t - SC.arch.start;
+  const nodes = [...document.querySelectorAll('.node')];
+  nodes.forEach((n, i) => {
+    const on = +n.dataset.on;
+    const next = i + 1 < nodes.length ? +nodes[i + 1].dataset.on : 99;
+    n.classList.toggle('on', ar >= on && ar < next);
+    n.classList.toggle('done', ar >= next);
+  });
+
+  // demo panel
+  const d = DEMOS.find((x) => t >= x.start && t < x.end) ?? (t >= TL.demoSpan[1] ? DEMOS[DEMOS.length - 1] : DEMOS[0]);
+  const dl = t - d.start;
+  const beat = [...d.beats].reverse().find((bt) => dl >= bt[0]) ?? d.beats[0];
+  const [, phase, tone, icon, stitle, ssub] = beat;
+  const stickerOn = d === DEMOS[0] && d.beats.length > 1 && dl < d.beats[1][0];
+  document.getElementById('panel').classList.toggle('sticker-on', stickerOn);
+  document.getElementById('sticker').style.opacity = stickerOn ? 1 : 0;
+  document.getElementById('d-count').textContent = d.count;
+  document.getElementById('d-title').textContent = d.title;
+  document.getElementById('d-quote').textContent = d.quote;
+  const st = document.getElementById('d-status');
+  st.className = `status ${tone}`;
+  document.getElementById('d-icon').innerHTML = svg(icon, 34);
+  document.getElementById('d-stitle').textContent = stitle;
+  document.getElementById('d-ssub').textContent = ssub;
+  const sincBeat = dl - beat[0];
+  st.style.opacity = ease(sincBeat / 0.25);
+  st.style.transform = `scale(${0.9 + 0.1 * easeBack(sincBeat / 0.35)})`;
+  st.style.transformOrigin = 'left center';
+  const panelIn = ease(dl / 0.6) * clamp01((d.end - t) / 0.35);
+  document.querySelector('.panel').style.opacity = panelIn;
+  document.getElementById('d-track').innerHTML =
+    `<div class="fill" style="width:calc(${phase} * (100% - 18px) / 5)"></div>` +
+    PHASES.map((p, i) => `<div class="n ${i < phase ? 'done' : i === phase ? 'now' : ''}"><b></b>${p}</div>`).join('');
+
+  // caption
+  const cap = TL.captions.find((c) => t >= c.start && t < c.end);
+  const capEl = document.getElementById('caption');
+  if (cap) {
+    const label = document.getElementById('cap-label');
+    label.textContent = cap.label ?? '';
+    label.style.display = cap.label ? 'inline-block' : 'none';
+    label.className = `cap-label ${cap.kind === 'user' ? 'user' : ''}`;
+    document.getElementById('cap-text').textContent = cap.text;
+    const sub = document.getElementById('cap-sub');
+    sub.textContent = cap.sub ?? '';
+    sub.style.display = cap.sub ? 'block' : 'none';
+    capEl.style.opacity = clamp01((t - cap.start) / 0.2) * clamp01((cap.end - t) / 0.2);
+  } else capEl.style.opacity = 0;
+}
+
+window.render = render;
+window.DURATION = TL.duration;
+const params = new URLSearchParams(location.search);
+if (params.has('t')) render(+params.get('t'));
+else {
+  const t0 = performance.now();
+  const loop = () => { render(((performance.now() - t0) / 1000) % window.DURATION); requestAnimationFrame(loop); };
+  loop();
+}
+</script>
+</body>
+</html>

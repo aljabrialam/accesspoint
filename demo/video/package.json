@@ -1,0 +1,19 @@
+{
+  "name": "video",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate:sample": "node index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "playwright": "1.64.0"
+  },
+  "dependencies": {
+    "@higgsfield/client": "0.2.6"
+  }
+}

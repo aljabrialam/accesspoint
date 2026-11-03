@@ -1,0 +1,37 @@
+appId: host.exp.Exponent
+---
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 5698
+    optional: true
+- tapOn: { id: "start-button" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 400
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 2435
+    optional: true
+- tapOn: { id: "action-Card is in" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 400
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 4810
+    optional: true
+- tapOn: { id: "action-Savings" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 400
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 8378
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 1200
+    optional: true

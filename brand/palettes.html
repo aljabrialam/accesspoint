@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AccessPoint palette directions</title>
+<style>
+  @font-face { font-family: AHN; font-weight: 200 800; src: url(fonts/AtkinsonHyperlegibleNext-Variable.ttf) format("truetype"); }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #FAFAF9; font-family: AHN, sans-serif; color: #111; -webkit-font-smoothing: antialiased; padding: 64px 72px; }
+  h1 { font-size: 46px; font-weight: 700; letter-spacing: -0.02em; }
+  .sub { margin-top: 10px; font-size: 22px; color: #666; }
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin-top: 44px; }
+  .col { border-radius: 30px; padding: 30px; background: var(--bg); }
+  .head { display: flex; align-items: center; gap: 18px; }
+  .icon { width: 84px; height: 84px; border-radius: 20px; background: var(--iconbg); display: grid; place-items: center; }
+  .name { font-size: 32px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+  .why { font-size: 18px; color: var(--ink2); margin-top: 4px; }
+  .sw { display: flex; gap: 10px; margin-top: 22px; }
+  .sw div { flex: 1; height: 58px; border-radius: 14px; display: flex; align-items: flex-end; padding: 8px 10px; font-size: 13px; font-weight: 600; }
+  .phone { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cam { height: 470px; border-radius: 26px; overflow: hidden; position: relative; background: linear-gradient(#80858a, #575b60 62%, #333538); }
+  .kiosk { position: absolute; left: 50%; top: 40px; width: 150px; height: 250px; margin-left: -75px; border-radius: 12px; background: linear-gradient(90deg, #9aa0a6, #d3d7db 15%, #b6bbc0 50%, #cdd1d5 85%, #8f959b); }
+  .kiosk .scr { position: absolute; left: 12px; right: 12px; top: 14px; height: 110px; border-radius: 6px; background: linear-gradient(#21405f, #0e1d2d); }
+  .kiosk .slot { position: absolute; left: 22px; top: 210px; width: 56px; height: 8px; border-radius: 4px; background: #0b0c0d; }
+  .target { position: absolute; left: calc(50% - 60px); top: 238px; width: 64px; height: 26px; border: 3px solid var(--hl); border-radius: 6px; background: color-mix(in srgb, var(--hl) 22%, transparent); }
+  .tlabel { position: absolute; left: calc(50% - 92px); top: 204px; padding: 4px 10px; border-radius: 12px; background: #111; color: #fff; font-size: 12px; font-weight: 700; display: flex; gap: 6px; align-items: center; }
+  .tlabel i { width: 7px; height: 7px; border-radius: 4px; background: var(--hl); }
+  .sheet { position: absolute; left: 6px; right: 6px; bottom: 6px; border-radius: 22px; background: #fff; padding: 14px 14px 12px; }
+  .bars { display: flex; gap: 3px; }
+  .bars span { flex: 1; height: 3px; border-radius: 2px; background: #e4e4e4; }
+  .bars span.d { background: var(--ink); } .bars span.n { background: var(--hl); }
+  .st { margin-top: 10px; font-size: 17px; font-weight: 700; line-height: 1.15; color: #111; }
+  .btns { display: flex; gap: 6px; margin-top: 12px; }
+  .btn { flex: 1; height: 34px; border-radius: 17px; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: #EFEFEC; }
+  .btn.p { flex: 1.5; background: var(--primary); color: var(--onprimary); }
+  .home { height: 470px; border-radius: 26px; background: var(--surface); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .brandrow { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 700; color: var(--ink); }
+  .hero { border-radius: 18px; padding: 14px; background: var(--herobg); color: var(--heroink); }
+  .hero b { display: block; font-size: 17px; line-height: 1.15; }
+  .hero p { font-size: 11.5px; margin-top: 6px; opacity: .8; line-height: 1.35; }
+  .hero .go { margin-top: 10px; height: 32px; border-radius: 16px; background: var(--herobtn); color: var(--herobtnink); display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+  .rows { border-radius: 14px; background: #fff; }
+  .rows div { padding: 10px 12px; font-size: 12px; color: #222; border-top: 1px solid #eee; }
+  .rows div:first-child { border-top: 0; }
+  .rows small { display: block; color: #888; font-size: 10.5px; margin-top: 2px; }
+  .rec { position: absolute; top: 64px; right: 72px; font-size: 20px; font-weight: 700; padding: 10px 18px; border-radius: 999px; background: #111; color: #fff; }
+</style>
+</head>
+<body>
+<h1>Palette directions</h1>
+<div class="sub">Same mark, same type (Atkinson Hyperlegible Next, made by the Braille Institute). Pick the one that feels most like AccessPoint.</div>
+<div class="rec">Recommended: A</div>
+<div class="cols" id="cols"></div>
+<script>
+const MARK = `<svg viewBox="58 22 140 212" width="WIDTH"><path fill="FILL" fill-rule="evenodd" d="M61.5 58a31.5 31.5 0 1 0 63 0a31.5 31.5 0 1 0-63 0ZM133 58a30 30 0 1 0 60 0a30 30 0 1 0-60 0ZM151 58a12 12 0 1 0 24 0a12 12 0 1 0-24 0ZM63 128a30 30 0 1 0 60 0a30 30 0 1 0-60 0ZM81 128a12 12 0 1 0 24 0a12 12 0 1 0-24 0ZM133 128a30 30 0 1 0 60 0a30 30 0 1 0-60 0ZM151 128a12 12 0 1 0 24 0a12 12 0 1 0-24 0ZM63 198a30 30 0 1 0 60 0a30 30 0 1 0-60 0ZM81 198a12 12 0 1 0 24 0a12 12 0 1 0-24 0ZM133 198a30 30 0 1 0 60 0a30 30 0 1 0-60 0ZM151 198a12 12 0 1 0 24 0a12 12 0 1 0-24 0Z"/></svg>`;
+const mark = (fill, w) => MARK.replace('FILL', fill).replace('WIDTH', w);
+const P = [
+  { key: 'A', name: 'A · Cobalt', why: 'Calm, trustworthy, quietly confident. Amber marks the one thing to press.',
+    primary: '#2B47C9', onprimary: '#FFFFFF', hl: '#FFB224', ink: '#101828', ink2: '#475467', bg: '#EEF1FA', surface: '#F4F6FB',
+    iconbg: '#2B47C9', iconmark: '#FFFFFF', herobg: '#2B47C9', heroink: '#FFFFFF', herobtn: '#FFFFFF', herobtnink: '#2B47C9',
+    swatches: [['#2B47C9', 'Cobalt', '#fff'], ['#FFB224', 'Amber', '#101828'], ['#101828', 'Ink', '#fff'], ['#F4F6FB', 'Mist', '#101828']] },
+  { key: 'B', name: 'B · Lagoon', why: 'Warm and caring, like a nurse who explains things twice. Coral marks the target.',
+    primary: '#0E6B60', onprimary: '#FFFFFF', hl: '#FF7E57', ink: '#0F1F1C', ink2: '#4B5E5A', bg: '#ECF4F2', surface: '#F3F7F6',
+    iconbg: '#0E6B60', iconmark: '#FFFFFF', herobg: '#0E6B60', heroink: '#FFFFFF', herobtn: '#FFFFFF', herobtnink: '#0E6B60',
+    swatches: [['#0E6B60', 'Lagoon', '#fff'], ['#FF7E57', 'Coral', '#0F1F1C'], ['#0F1F1C', 'Ink', '#fff'], ['#F3F7F6', 'Foam', '#0F1F1C']] },
+  { key: 'C', name: 'C · Graphite and Sun', why: 'Product-grade and minimal. Yellow appears only where you must act.',
+    primary: '#17191E', onprimary: '#FFFFFF', hl: '#FFC21A', ink: '#17191E', ink2: '#5A5E66', bg: '#EFEFEC', surface: '#F6F6F4',
+    iconbg: '#17191E', iconmark: '#FFC21A', herobg: '#17191E', heroink: '#FFFFFF', herobtn: '#FFC21A', herobtnink: '#17191E',
+    swatches: [['#17191E', 'Graphite', '#fff'], ['#FFC21A', 'Sun', '#17191E'], ['#5A5E66', 'Slate', '#fff'], ['#F6F6F4', 'Paper', '#17191E']] },
+];
+document.getElementById('cols').innerHTML = P.map((p) => `
+  <div class="col" style="--bg:${p.bg};--primary:${p.primary};--onprimary:${p.onprimary};--hl:${p.hl};--ink:${p.ink};--ink2:${p.ink2};--surface:${p.surface};--iconbg:${p.iconbg};--herobg:${p.herobg};--heroink:${p.heroink};--herobtn:${p.herobtn};--herobtnink:${p.herobtnink}">
+    <div class="head"><div class="icon">${mark(p.iconmark, 34)}</div><div><div class="name">${p.name}</div><div class="why">${p.why}</div></div></div>
+    <div class="sw">${p.swatches.map(([c, n, t]) => `<div style="background:${c};color:${t};box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)">${n}</div>`).join('')}</div>
+    <div class="phone">
+      <div class="cam"><div class="kiosk"><div class="scr"></div><div class="slot"></div></div><div class="tlabel"><i></i>Card slot</div><div class="target"></div>
+        <div class="sheet"><div class="bars"><span class="d"></span><span class="n"></span><span></span><span></span><span></span><span></span></div>
+          <div class="st">The card slot is bottom left. Put your card in.</div>
+          <div class="btns"><div class="btn">Repeat</div><div class="btn p">Card is in</div></div></div></div>
+      <div class="home"><div class="brandrow">${mark(p.ink, 18)}AccessPoint</div>
+        <div class="hero"><b>Point your phone at a machine</b><p>One step at a time, in your language.</p><div class="go">Start guiding</div></div>
+        <div class="rows"><div>Language<small>English</small></div><div>Cash, without asking a stranger<small>Mrs Tan, at an ATM</small></div><div>In her own language<small>Siti, at self-checkout</small></div></div></div>
+    </div>
+  </div>`).join('');
+</script>
+</body>
+</html>

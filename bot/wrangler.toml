@@ -1,0 +1,12 @@
+name = "accesspoint-bot"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Create once with: wrangler kv namespace create AP_KV   (then paste the id here)
+[[kv_namespaces]]
+binding = "AP_KV"
+id = "e40298d1713b4d44b41007ed063bdec7"
+
+[observability]
+enabled = true

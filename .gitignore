@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+.DS_Store
+node_modules/
+.wrangler/
+
+# Video build outputs (the final video is published on YouTube; GitHub rejects files over 100 MB)
+demo/clips/
+demo/accesspoint-demo.mp4
+demo/video/base.mp4
+demo/video/music.wav

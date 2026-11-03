@@ -1,0 +1,8 @@
+appId: host.exp.Exponent
+---
+- runFlow: ../../mobile/.maestro/subflows/close-open-guide.yaml
+- openLink: exp://127.0.0.1:8081/--/guide/glare
+- extendedWaitUntil:
+    visible: "I can’t see the buttons clearly."
+    timeout: 20000
+- waitForAnimationToEnd

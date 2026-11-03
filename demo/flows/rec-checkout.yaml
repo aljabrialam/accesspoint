@@ -1,0 +1,23 @@
+appId: host.exp.Exponent
+---
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 4731
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 5803
+    optional: true
+- tapOn: { id: "action-Sudah bip" }
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 400
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 7766
+    optional: true
+- extendedWaitUntil:
+    visible: "__pause__"
+    timeout: 1200
+    optional: true

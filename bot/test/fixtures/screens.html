@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- Clean machine screens for the live check: no app overlays, no hints. Photo-like: tilt, bezel, glare. -->
+<html><head><meta charset="utf-8"><style>
+  body { margin: 0; width: 1200px; height: 900px; background: radial-gradient(circle at 40% 30%, #8b8f93, #4a4d51); display: grid; place-items: center; font-family: Arial, Helvetica, sans-serif; overflow: hidden; }
+  .machine { width: 880px; padding: 46px; border-radius: 28px; background: linear-gradient(90deg, #9aa0a6, #d3d7db 15%, #b6bbc0 50%, #cdd1d5 85%, #8f959b); transform: perspective(1400px) rotateX(9deg) rotateY(-7deg) rotateZ(1.5deg); box-shadow: 0 40px 80px rgba(0,0,0,.45); }
+  .screen { position: relative; height: 560px; border-radius: 14px; border: 18px solid #1b1e22; background: linear-gradient(#21405f, #0e1d2d); color: #f2f6fa; padding: 40px 48px; overflow: hidden; }
+  .screen::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255,255,255,.16), rgba(255,255,255,0) 42%); }
+  .bank { font-size: 22px; letter-spacing: .12em; opacity: .7; }
+  h1 { font-size: 46px; margin: 34px 0 10px; } p { font-size: 28px; margin: 0; color: #c9d6e3; }
+  .row { display: flex; gap: 28px; margin-top: 60px; } .row.wrap { flex-wrap: wrap; }
+  .b { flex: 1; min-width: 300px; height: 96px; border-radius: 14px; background: linear-gradient(#3c86d6, #2665ae); display: grid; place-items: center; font-size: 34px; font-weight: bold; }
+  .b.grey { background: linear-gradient(#7b8694, #5d6876); } .b.green { background: linear-gradient(#33a066, #23804f); } .b.red { background: linear-gradient(#d65454, #b23a3a); }
+  .light { background: linear-gradient(#ffffff, #eaf0f5); color: #15212c; } .light p { color: #4a5866; }
+  .s { display: none; } .s.on { display: block; }
+</style></head><body><div class="machine"><div class="screen" id="screen"></div></div>
+<script>
+const S = {
+  "atm-account": `<div class="bank">UNITED CITY BANK</div><h1>Select account</h1><p>Which account do you want to withdraw from?</p><div class="row"><div class="b">Savings</div><div class="b">Current</div></div><div class="row"><div class="b grey">Cancel</div></div>`,
+  "atm-transfer": `<div class="bank">UNITED CITY BANK</div><h1>Confirm transfer</h1><p>Transfer S$1,000.00 to account 4471-0938-22</p><div class="row"><div class="b red">Cancel</div><div class="b green">Confirm</div></div>`,
+  "atm-pin": `<div class="bank">UNITED CITY BANK</div><h1>Enter your PIN</h1><p>Then press Enter on the keypad.</p><div class="row"><div class="b grey" style="letter-spacing:.4em">● ● ● ○ ○ ○</div></div>`,
+  "checkout-scan": `<div class="screen-light"></div><div class="bank" style="color:#2e7d32">FRESHMART SELF-CHECKOUT</div><h1>Scan your first item</h1><p>Hold the barcode over the glass below the screen.</p><div class="row"><div class="b grey">Help</div><div class="b green">Pay now</div></div>`,
+  "airport-seat": `<div class="bank">SELF CHECK-IN</div><h1>Choose your seat</h1><p>Flight SQ 943 · Lagos to Singapore</p><div class="row wrap"><div class="b">Window 14A</div><div class="b">Aisle 14C</div><div class="b grey">Keep my seat</div></div>`,
+};
+const id = new URLSearchParams(location.search).get("s");
+const el = document.getElementById("screen"); el.innerHTML = S[id];
+if (id === "checkout-scan") el.classList.add("light");
+</script></body></html>

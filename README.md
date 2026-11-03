@@ -11,10 +11,8 @@
 
 It is built for **older people** whose bank branch or ticket counter was replaced by a touchscreen, **blind and low-vision people** who can't read the screen, and **migrants and travellers** who can't read its language. It never presses, pays or types for you, and it never needs your PIN.
 
-<p align="center"><img src="docs/cover/accesspoint-cover.jpg" alt="AccessPoint. Stuck at a machine? Send a photo. Get the next step. Sticker start screen, an airport kiosk asking window or aisle, and a stopped self-checkout total." width="100%"></p>
-
 <p align="center">
-  <a href="https://youtu.be/ae8K5ZCQfSM"><img src="https://img.youtube.com/vi/ae8K5ZCQfSM/maxresdefault.jpg" alt="Watch the AccessPoint demo on YouTube" width="720"></a><br>
+  <a href="https://youtu.be/ae8K5ZCQfSM"><img src="https://img.youtube.com/vi/ae8K5ZCQfSM/maxresdefault.jpg" alt="Watch the AccessPoint demo on YouTube: stuck at a machine? Send a photo, get the next step" width="100%"></a><br>
   <b><a href="https://youtu.be/ae8K5ZCQfSM">▶ Watch the demo (3 min, 4K)</a></b> · <b><a href="https://accesspoint-bot.aljabrialam.workers.dev/try">Try it in your browser</a></b> · <b><a href="https://t.me/accesspointhelpbot">Telegram</a></b> · <b><a href="docs/GUARDRAILS.md">Guardrails</a></b>
 </p>
 

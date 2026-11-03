@@ -190,6 +190,7 @@ test("Webhook security: bad signatures rejected; retries handled once; delete cl
 });
 
 test("Web console /try: page, start, language, sample screen and upload use the same conversation", async () => {
+  assert.equal((await worker.fetch(new Request(`${ORIGIN}/try`, { method: "HEAD" }), env, {})).status, 200, "HEAD works for uptime checks");
   const page = await worker.fetch(new Request(`${ORIGIN}/try?m=atm`), env, {});
   assert.equal(page.status, 200);
   assert.match(await page.text(), /same conversation code and guardrails/);

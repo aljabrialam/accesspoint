@@ -22,7 +22,7 @@ export default {
     const url = new URL(req.url);
     const { pathname } = url;
 
-    if (req.method === "GET") {
+    if (req.method === "GET" || req.method === "HEAD") { // HEAD for uptime checks; the runtime drops the body
       if (pathname === "/") return HOME();
       if (pathname === "/privacy") return PRIVACY();
       if (pathname === "/terms") return TERMS();

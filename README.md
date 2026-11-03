@@ -5,6 +5,35 @@
   </picture>
 </p>
 
+<p align="center">
+<a href="https://youtu.be/ae8K5ZCQfSM"><img src="https://img.shields.io/badge/demo-3%20min%204K-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="Demo video"></a>
+<a href="https://accesspoint-bot.aljabrialam.workers.dev/try"><img src="https://img.shields.io/website?url=https%3A%2F%2Faccesspoint-bot.aljabrialam.workers.dev%2Ftry&style=flat-square&label=live%20demo&up_message=online&down_message=offline&up_color=12805C" alt="Live demo status"></a>
+<a href="https://t.me/accesspointhelpbot"><img src="https://img.shields.io/badge/Telegram-%40accesspointhelpbot-26A5E4?style=flat-square&logo=telegram&logoColor=white" alt="Telegram bot"></a>
+<a href="https://x.com/aljabrialam/status/2117610935275975156"><img src="https://img.shields.io/badge/X-post-000000?style=flat-square&logo=x&logoColor=white" alt="X post"></a>
+<a href="https://github.com/aljabrialam/accesspoint/actions/workflows/bot-tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/aljabrialam/accesspoint/bot-tests.yml?branch=main&style=flat-square&label=bot%20tests&logo=githubactions&logoColor=white" alt="Bot tests"></a>
+<a href="https://github.com/aljabrialam/accesspoint/blob/main/LICENSE"><img src="https://img.shields.io/github/license/aljabrialam/accesspoint?style=flat-square&color=2B47C9" alt="License"></a>
+<a href="https://github.com/aljabrialam/accesspoint/commits/main"><img src="https://img.shields.io/github/last-commit/aljabrialam/accesspoint?style=flat-square&color=2B47C9" alt="Last commit"></a>
+<br>
+<a href="docs/API.md#3-muse-spark-one-step-from-a-photo"><img src="https://img.shields.io/badge/Muse%20Spark-1.3-0866FF?style=flat-square&logo=meta&logoColor=white" alt="Muse Spark 1.3"></a>
+<a href="docs/API.md#4-sam-31-outlines-by-visual-concept"><img src="https://img.shields.io/badge/SAM-3.1-0866FF?style=flat-square&logo=meta&logoColor=white" alt="SAM 3.1"></a>
+<a href="docs/API.md#5-muse-voice-transcribe"><img src="https://img.shields.io/badge/Muse%20Voice%20Transcribe-1.0-0866FF?style=flat-square&logo=meta&logoColor=white" alt="Muse Voice Transcribe 1.0"></a>
+<a href="docs/API.md#6-muse-image"><img src="https://img.shields.io/badge/Muse%20Image-1.0-0866FF?style=flat-square&logo=meta&logoColor=white" alt="Muse Image 1.0"></a>
+<a href="docs/ARCHITECTURE.md#8-channels"><img src="https://img.shields.io/badge/Messenger-code%20complete-0084FF?style=flat-square&logo=messenger&logoColor=white" alt="Messenger"></a>
+<a href="docs/ARCHITECTURE.md#8-channels"><img src="https://img.shields.io/badge/WhatsApp-code%20complete-25D366?style=flat-square&logo=whatsapp&logoColor=white" alt="WhatsApp"></a>
+<br>
+<a href="https://github.com/aljabrialam/accesspoint-mobile"><img src="https://img.shields.io/github/package-json/dependency-version/aljabrialam/accesspoint-mobile/expo?style=flat-square&label=Expo&logo=expo&logoColor=white&color=000020" alt="Expo version"></a>
+<a href="https://github.com/aljabrialam/accesspoint-mobile"><img src="https://img.shields.io/github/package-json/dependency-version/aljabrialam/accesspoint-mobile/react-native?style=flat-square&label=React%20Native&logo=react&logoColor=white&color=20232A" alt="React Native version"></a>
+<a href="https://github.com/aljabrialam/accesspoint-mobile"><img src="https://img.shields.io/github/package-json/dependency-version/aljabrialam/accesspoint-mobile/expo-router?style=flat-square&label=Expo%20Router&logo=expo&logoColor=white&color=000020" alt="Expo Router version"></a>
+<a href="https://github.com/aljabrialam/accesspoint-mobile"><img src="https://img.shields.io/github/package-json/dependency-version/aljabrialam/accesspoint-mobile/dev/typescript?style=flat-square&label=TypeScript&logo=typescript&logoColor=white&color=3178C6" alt="TypeScript version"></a>
+<a href="bot"><img src="https://img.shields.io/badge/Cloudflare%20Workers-KV%20%C2%B7%20rate%20limit-F38020?style=flat-square&logo=cloudflareworkers&logoColor=white" alt="Cloudflare Workers"></a>
+<a href="bot/modal/audio.py"><img src="https://img.shields.io/badge/Modal-1.6.2-7FEE64?style=flat-square&logo=python&logoColor=black" alt="Modal 1.6.2"></a>
+<a href=".github/workflows/bot-tests.yml"><img src="https://img.shields.io/badge/Node.js-22-5FA04E?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js 22"></a>
+<a href="mobile"><img src="https://img.shields.io/badge/Maestro-11%2F11%20flows-5B3DF5?style=flat-square" alt="Maestro app flows"></a>
+<br>
+<a href="https://github.com/aljabrialam/accesspoint"><img src="https://img.shields.io/badge/Meta%20Global%20AI%20Developer%20Hackathon-2026%20%C2%B7%20Indie%20Developer-2B47C9?style=flat-square" alt="Meta Global AI Developer Hackathon 2026"></a>
+<a href="docs/TESTING.md"><img src="https://img.shields.io/badge/live%20Meta%20models-all%204%20tested-12805C?style=flat-square" alt="All four Meta models tested live"></a>
+</p>
+
 <h3 align="center">Stuck at a machine? Send a photo. Get the next step.</h3>
 
 **AccessPoint helps people who struggle with self-service machines (ticket machines, check-in kiosks, self-checkouts, clinic kiosks) get through them safely: send a photo of the screen in a chat app and get the next step, in your own language, as text and a voice note.**

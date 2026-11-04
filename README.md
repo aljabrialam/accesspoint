@@ -94,14 +94,14 @@ It is built for **older people** whose ticket counter or service desk was replac
 | A working product | [/try](https://accesspoint-bot.aljabrialam.workers.dev/try) and [Telegram](https://t.me/accesspointhelpbot) are live; Messenger and WhatsApp code complete |
 | More than an image analyser | One guided step at a time, two models that must agree, deterministic guardrails, conversation state, voice in and out, four channels |
 
-**Judging criteria (equal weight)**
+**Judging rubric (from the official participant guide)**
 
 | Criterion | Evidence |
 |---|---|
-| **Impact** | 1.4B people 60+ by 2030, 2.2B with vision impairment, 281M migrants ([the problem](#the-problem)); no install, 6 languages of fixed text, 25 for voice; a [pilot plan](docs/PRODUCTION.md#10-pilot-plan) with operators |
-| **Use of Meta AI tooling** | Muse Spark (strict JSON plan), SAM 3.1 (outlines, agreement with Spark), Muse Voice (keyword-biased transcription), Muse Image (sticker art), Muse Spark again for the video script, Messenger and WhatsApp ([details](docs/API.md)) |
-| **Technical depth and execution** | Spark and SAM agreement ([`agree()`](bot/src/guard.js)), deterministic [`decide()`](bot/src/guard.js), red team 5/5, 22 bot tests and 11 app flows in CI and Maestro, [architecture](docs/ARCHITECTURE.md), [production plan](docs/PRODUCTION.md), [safety case](docs/GUARDRAILS.md) |
-| **Demo quality** | [4K video](https://youtu.be/ae8K5ZCQfSM) with real model replies and honest labels, a [live web demo](https://accesspoint-bot.aljabrialam.workers.dev/try) with sample screens, [every screen](docs/SCREENS.md) |
+| **Impact** (30%) | 1.4B people 60+ by 2030, 2.2B with vision impairment, 281M migrants ([the problem](#the-problem)); no install, 6 languages of fixed text, 25 for voice; a [pilot plan](docs/PRODUCTION.md#10-pilot-plan) with operators |
+| **Use of Meta AI Tooling** (25%) | Muse Spark (strict JSON plan), SAM 3.1 (outlines, agreement with Spark), Muse Voice (keyword-biased transcription), Muse Image (sticker art), Muse Spark again for the video script, Messenger and WhatsApp ([details](docs/API.md)) |
+| **Technical Depth & Execution** (20%) | Spark and SAM agreement ([`agree()`](bot/src/guard.js)), deterministic [`decide()`](bot/src/guard.js), red team 5/5, 22 bot tests and 11 app flows in CI and Maestro, [architecture](docs/ARCHITECTURE.md), [production plan](docs/PRODUCTION.md), [safety case](docs/GUARDRAILS.md) |
+| **Demo** (25%) | [4K video](https://youtu.be/ae8K5ZCQfSM) with real model replies and honest labels, a [live web demo](https://accesspoint-bot.aljabrialam.workers.dev/try) with sample screens, [every screen](docs/SCREENS.md) |
 
 ## See it
 
